@@ -2,9 +2,17 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\VertexBuffer.cpp" />
+    <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Basic-vs.shader" />
     <None Include="Resources\Basic-fs.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\VertexBuffer.h" />
+    <ClInclude Include="Source\Shader.h" />
+    <ClInclude Include="Source\VertexArray.h" />
   </ItemGroup>
 </Project>

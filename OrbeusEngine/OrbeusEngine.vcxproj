@@ -136,10 +136,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\VertexArray.cpp" />
+    <ClCompile Include="Source\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Basic-fs.shader" />
     <None Include="Resources\Basic-vs.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Shader.h" />
+    <ClInclude Include="Source\VertexArray.h" />
+    <ClInclude Include="Source\VertexBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
