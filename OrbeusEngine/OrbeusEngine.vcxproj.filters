@@ -3,4 +3,8 @@
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Basic-vs.shader" />
+    <None Include="Resources\Basic-fs.shader" />
+  </ItemGroup>
 </Project>
