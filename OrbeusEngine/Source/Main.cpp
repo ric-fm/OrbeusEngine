@@ -9,6 +9,11 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 
+#include "Matrix4.h"
+#include "Vector3.h"
+#include "Vector2.h"
+
+#include "Transform.h"
 
 int main()
 {
@@ -50,12 +55,27 @@ int main()
 
 	vertexArray.bind();
 
+	Vector3 color(0.0f, 1.0f, 0.0f);
+
+	Transform transform;
+	transform.position += Vector3(0.5f, 0.0f, 0.0f);
+	transform.rotation = Vector3(0.0f, 0.0f, 180.0f);
+	transform.scale = Vector3(0.5f, 0.5f, 1.0f);
+
+	Matrix4 view;
+	view.translate(Vector3(0.0f, 0.0f, -3.0f));
+
+	shader.bind();
+
+	shader.SetMatrix("view", view);
+	shader.SetMatrix("model", transform.getMatrix());
+
+	shader.SetFloat3("color", color);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		vertexArray.draw(shader);
 

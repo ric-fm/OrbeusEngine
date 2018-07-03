@@ -136,7 +136,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Math.cpp" />
+    <ClCompile Include="Source\Matrix4.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\Transform.cpp" />
+    <ClCompile Include="Source\Vector2.cpp" />
+    <ClCompile Include="Source\Vector3.cpp" />
     <ClCompile Include="Source\VertexArray.cpp" />
     <ClCompile Include="Source\VertexBuffer.cpp" />
   </ItemGroup>
@@ -145,7 +150,12 @@
     <None Include="Resources\Basic-vs.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Math.h" />
+    <ClInclude Include="Source\Matrix4.h" />
     <ClInclude Include="Source\Shader.h" />
+    <ClInclude Include="Source\Transform.h" />
+    <ClInclude Include="Source\Vector2.h" />
+    <ClInclude Include="Source\Vector3.h" />
     <ClInclude Include="Source\VertexArray.h" />
     <ClInclude Include="Source\VertexBuffer.h" />
   </ItemGroup>

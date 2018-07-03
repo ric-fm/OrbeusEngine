@@ -3,6 +3,10 @@
 #include <iostream>
 #include <fstream>
 
+#include "Vector3.h"
+#include "Vector2.h"
+#include "Matrix4.h"
+
 std::string Shader::readShaderFile(const std::string & filePath)
 {
 	std::string result;
@@ -73,6 +77,24 @@ unsigned int Shader::createShader(const std::string & vertexFilePath, const std:
 	return shaderProgram;
 }
 
+unsigned int Shader::getUniformLocation(const std::string& name)
+{
+	if (uniformLocations.find(name) != uniformLocations.end())
+	{
+		return uniformLocations[name];
+	}
+
+	int location = glGetUniformLocation(id, name.c_str());
+	if (location == -1)
+	{
+		std::cout << "WARNING: SHADER. Uniform " << name << " doesn't exists" << std::endl;
+	}
+	
+	uniformLocations[name] = location;
+
+	return location;
+}
+
 Shader::Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath)
 {
 	id = createShader(vertexFilePath, fragmentFilePath);
@@ -91,4 +113,39 @@ void Shader::bind()
 void Shader::unbind()
 {
 	glUseProgram(0);
+}
+
+void Shader::SetInt(const std::string & name, int value)
+{
+	glUniform1i(getUniformLocation(name), value);
+}
+
+void Shader::SetFloat(const std::string& name, float value)
+{
+	glUniform1f(getUniformLocation(name), value);
+}
+
+void Shader::SetFloat2(const std::string & name, float x, float y)
+{
+	glUniform2f(getUniformLocation(name), x, y);
+}
+
+void Shader::SetFloat2(const std::string & name, const Vector2& vector)
+{
+	glUniform2f(getUniformLocation(name), vector.x, vector.y);
+}
+
+void Shader::SetFloat3(const std::string& name, float x, float y, float z)
+{
+	glUniform3f(getUniformLocation(name), x, y, z);
+}
+
+void Shader::SetFloat3(const std::string& name, const Vector3& vector)
+{
+	glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);
+}
+
+void Shader::SetMatrix(const std::string & name, const Matrix4& matrix)
+{
+	glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix.buffer[0][0]);
 }
