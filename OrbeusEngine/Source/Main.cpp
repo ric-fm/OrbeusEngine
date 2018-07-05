@@ -111,11 +111,11 @@ int main()
 		return -1;
 	}
 
+	glEnable(GL_DEPTH_TEST);
+
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	Shader* shader = new Shader("Resources/Basic-vs.shader", "Resources/Basic-fs.shader");
-
-	Vector3 color(0.0f, 1.0f, 0.0f);
+	Shader* shader = new Shader("Resources/Shaders/Mesh-vs.shader", "Resources/Shaders/Mesh-fs.shader");
 
 
 	cameraGO = World::getInstance().getActiveCamera()->getOwner();
@@ -144,13 +144,9 @@ int main()
 		processInput(window);
 
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		World::getInstance().update(deltaTime);
-
-		shader->bind();
-
-		shader->SetFloat3("color", color);
 
 		World::getInstance().render(deltaTime, shader);
 

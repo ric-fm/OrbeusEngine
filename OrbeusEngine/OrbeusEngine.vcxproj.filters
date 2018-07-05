@@ -15,10 +15,14 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameComponent.cpp" />
     <ClCompile Include="Source\World.cpp" />
+    <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
+    <ClCompile Include="Source\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Basic-vs.shader" />
-    <None Include="Resources\Basic-fs.shader" />
+    <None Include="Resources\Shaders\Basic-fs.shader" />
+    <None Include="Resources\Shaders\Basic-vs.shader" />
+    <None Include="Resources\Shaders\Mesh-vs.shader" />
+    <None Include="Resources\Shaders\Mesh-fs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\VertexBuffer.h" />
@@ -35,5 +39,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameComponent.h" />
+    <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
+    <ClInclude Include="Source\Texture.h" />
   </ItemGroup>
 </Project>

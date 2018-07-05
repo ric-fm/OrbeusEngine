@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 
 class Transform;
 class GameObject;
@@ -8,11 +9,15 @@ class Shader;
 class GameComponent
 {
 private:
+	std::string name;
 	GameObject* owner = nullptr;
 
 public:
 	GameComponent();
 	~GameComponent();
+
+	void setName(const std::string& name) { this->name = name; }
+	const std::string& getName() const { return name; }
 
 	void setOwner(GameObject* owner) { this->owner = owner; }
 	GameObject* getOwner() const { return owner; }

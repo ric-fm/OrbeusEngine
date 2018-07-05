@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameComponent.h"
-#include "Matrix4.h";
+#include "Matrix4.h"
 
 class Camera : public GameComponent
 {

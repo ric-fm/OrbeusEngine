@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "World.h"
+#include "Texture.h"
 
 OBJInfo Mesh::ParseOBJFile(const std::string& filePath) const
 {
@@ -70,6 +71,10 @@ OBJInfo Mesh::ParseOBJFile(const std::string& filePath) const
 					result.indices.push_back(ParseOBJIndex(tokens[3 + i]));
 				}
 			}
+			else if (element == "mtllib")
+			{
+				lineStream >> result.mtl;
+			}
 		}
 	}
 
@@ -78,13 +83,74 @@ OBJInfo Mesh::ParseOBJFile(const std::string& filePath) const
 	return result;
 }
 
-OBJIndex Mesh::ParseOBJIndex(const std::string & index) const
+OBJIndex Mesh::ParseOBJIndex(const std::string& index) const
 {
 	std::vector<unsigned int> tokens;
 	splitString(index, '/', tokens);
 
 	// The indices on the file start in 1, so we have to substract 1
-	return {tokens[0] - 1, tokens[1] - 1, tokens[2] - 1};
+	return { tokens[0] - 1, tokens[1] - 1, tokens[2] - 1 };
+}
+
+MTLInfo Mesh::ParseMTLFile(const std::string& filePath) const
+{
+	MTLInfo result;
+	result.pathInfo = getPathInfo(filePath);
+
+	std::ifstream file(filePath.c_str());
+
+	if (file.is_open())
+	{
+		MaterialInfo* material = nullptr;
+
+		std::string line;
+		while (getline(file, line))
+		{
+			std::istringstream lineStream(line);
+			std::string element;
+
+			lineStream >> element;
+
+			if (element == "newmtl")
+			{
+				material = new MaterialInfo();
+				lineStream >> material->name;
+
+				result.materials.push_back(material);
+
+			}
+			else if (element.substr(0, element.find_last_of('_')) == "map")
+			{
+				if (material != nullptr)
+				{
+					std::string type;
+					bool isTextureSupported = true;
+					if (element == "map_Kd")
+					{
+						type = "texture_diffuse";
+					}
+					//else if (element == "map_Ks")
+					//{
+					//	type = "texture_specular";
+					//}
+					else
+					{
+						isTextureSupported = false;
+					}
+					
+					lineStream >> element;
+					if (isTextureSupported)
+					{
+						material->textures.push_back(new TextureInfo({ element, type }));
+					}
+				}
+			}
+		}
+	}
+
+	file.close();
+
+	return result;
 }
 
 void Mesh::CreateMesh(const OBJInfo& objInfo)
@@ -115,11 +181,34 @@ void Mesh::CreateMesh(const OBJInfo& objInfo)
 	vertexArray->AddBuffer(vertexBuffer, layout);
 }
 
+void Mesh::LoadTextures(MTLInfo& info)
+{
+	for (unsigned int i = 0; i < info.materials.size(); ++i)
+	{
+		std::vector<TextureInfo*> texturesInfo = info.materials[i]->textures;
+
+		for (unsigned int j = 0; j < texturesInfo.size(); ++j)
+		{
+			Texture* texture = new Texture(info.pathInfo.directory + texturesInfo[j]->name, texturesInfo[j]->type);
+			textures.push_back(texture);
+		}
+	}
+}
+
 Mesh::Mesh(const std::string& filePath)
 {
 	OBJInfo info = ParseOBJFile(filePath);
 
+	setName(info.name);
+
 	CreateMesh(info);
+
+	if (!info.mtl.empty())
+	{
+		std::string mtlFilePath = info.pathInfo.directory + info.mtl;
+		MTLInfo mtlInfo = ParseMTLFile(mtlFilePath);
+		LoadTextures(mtlInfo);
+	}
 }
 
 Mesh::~Mesh()
@@ -140,6 +229,13 @@ void Mesh::render(float deltaTime, Shader* shader)
 	shader->SetMatrix("model", getTransform()->getMatrix());
 	shader->SetMatrix("view", World::getInstance().getActiveCamera()->getViewMatrix());
 	shader->SetMatrix("projection", World::getInstance().getActiveCamera()->getProjectionMatrix());
+
+	for (unsigned int i = 0; i < textures.size(); ++i)
+	{
+		shader->SetInt(textures[i]->getType(), i);
+		textures[i]->bind(i);
+	}
+	glActiveTexture(0);
 
 	vertexArray->draw(shader);
 }

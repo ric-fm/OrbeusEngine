@@ -69,14 +69,16 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <SourcePath>$(SourcePath)</SourcePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SourceDir)Libraries/glfw-3.2.1/Include;$(SourceDir)Libraries/glew-2.1.0/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)Libraries/stb_image/Include;$(SourceDir)Libraries/glfw-3.2.1/Include;$(SourceDir)Libraries/glew-2.1.0/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -135,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\GameComponent.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -143,6 +146,7 @@
     <ClCompile Include="Source\Matrix4.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\Vector2.cpp" />
     <ClCompile Include="Source\Vector3.cpp" />
@@ -151,10 +155,13 @@
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Basic-fs.shader" />
-    <None Include="Resources\Basic-vs.shader" />
+    <None Include="Resources\Shaders\Basic-fs.shader" />
+    <None Include="Resources\Shaders\Basic-vs.shader" />
+    <None Include="Resources\Shaders\Mesh-fs.shader" />
+    <None Include="Resources\Shaders\Mesh-vs.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\GameComponent.h" />
     <ClInclude Include="Source\GameObject.h" />
@@ -163,6 +170,7 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\Shader.h" />
     <ClInclude Include="Source\String.h" />
+    <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\Vector2.h" />
     <ClInclude Include="Source\Vector3.h" />
