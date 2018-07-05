@@ -36,7 +36,8 @@ struct Vector2
 
 	Vector2 operator-();
 
-	float operator[](unsigned int index);
+	float operator[](unsigned int index) const;
+	float& operator[](unsigned int index);
 
 	float dot(const Vector2& other) const;
 

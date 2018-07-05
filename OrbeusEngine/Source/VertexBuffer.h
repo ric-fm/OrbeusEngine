@@ -18,5 +18,5 @@ public:
 
 	void unbind();
 
-	void draw(Shader& shader);
+	void draw(Shader* shader);
 };

@@ -23,12 +23,12 @@ Vector3::Vector3(const Vector3& other)
 {
 }
 
-bool Vector3::operator==(const Vector3& other)
+bool Vector3::operator==(const Vector3& other) const
 {
 	return x == other.x && y == other.y && z == other.z;
 }
 
-bool Vector3::operator!=(const Vector3& other)
+bool Vector3::operator!=(const Vector3& other) const
 {
 	return x != other.x || y != other.y || z != other.z;
 }
@@ -59,7 +59,7 @@ Vector3& Vector3::operator+=(const Vector3& other)
 	return *this;
 }
 
-Vector3 Vector3::operator-(const Vector3& other)
+Vector3 Vector3::operator-(const Vector3& other) const
 {
 	return Vector3(x - other.x, y - other.y, z - other.z);
 }
@@ -137,12 +137,12 @@ Vector3& Vector3::operator/=(float v)
 	return *this;
 }
 
-Vector3 Vector3::operator-()
+Vector3 Vector3::operator-() const
 {
 	return Vector3(-x, -y, -z);
 }
 
-float Vector3::operator[](unsigned int index)
+float Vector3::operator[](unsigned int index) const
 {
 	assert(index < 3);
 	if (index == 0)
@@ -159,12 +159,29 @@ float Vector3::operator[](unsigned int index)
 	}
 }
 
-float Vector3::dot(const Vector3& other)
+float& Vector3::operator[](unsigned int index)
+{
+	assert(index < 3);
+	if (index == 0)
+	{
+		return x;
+	}
+	else if (index == 1)
+	{
+		return y;
+	}
+	else
+	{
+		return z;
+	}
+}
+
+float Vector3::dot(const Vector3& other) const
 {
 	return (x * other.x) + (y * other.y) + (z * other.z);
 }
 
-Vector3 Vector3::cross(const Vector3& other)
+Vector3 Vector3::cross(const Vector3& other) const
 {
 	return Vector3
 	(

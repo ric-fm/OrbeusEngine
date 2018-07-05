@@ -10,6 +10,11 @@
     <ClCompile Include="Source\Matrix4.cpp" />
     <ClCompile Include="Source\Math.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\GameComponent.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Basic-vs.shader" />
@@ -24,5 +29,11 @@
     <ClInclude Include="Source\Matrix4.h" />
     <ClInclude Include="Source\Math.h" />
     <ClInclude Include="Source\Transform.h" />
+    <ClInclude Include="Source\Mesh.h" />
+    <ClInclude Include="Source\String.h" />
+    <ClInclude Include="Source\World.h" />
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\GameComponent.h" />
   </ItemGroup>
 </Project>

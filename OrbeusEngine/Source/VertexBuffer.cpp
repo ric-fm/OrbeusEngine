@@ -25,10 +25,10 @@ void VertexBuffer::unbind()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void VertexBuffer::draw(Shader& shader)
+void VertexBuffer::draw(Shader* shader)
 {
 	bind();
-	shader.bind();
+	shader->bind();
 
 	glDrawArrays(GL_TRIANGLES, 0, count);
 }

@@ -52,7 +52,7 @@ void VertexArray::unbind()
 	glBindBuffer(GL_VERTEX_ARRAY, 0);
 }
 
-void VertexArray::draw(Shader& shader)
+void VertexArray::draw(Shader* shader)
 {
 	bind();
 	vertexBuffer->draw(shader);

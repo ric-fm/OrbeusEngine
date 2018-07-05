@@ -135,29 +135,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\GameComponent.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Math.cpp" />
     <ClCompile Include="Source\Matrix4.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\Vector2.cpp" />
     <ClCompile Include="Source\Vector3.cpp" />
     <ClCompile Include="Source\VertexArray.cpp" />
     <ClCompile Include="Source\VertexBuffer.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Basic-fs.shader" />
     <None Include="Resources\Basic-vs.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\GameComponent.h" />
+    <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Math.h" />
     <ClInclude Include="Source\Matrix4.h" />
+    <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\Shader.h" />
+    <ClInclude Include="Source\String.h" />
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\Vector2.h" />
     <ClInclude Include="Source\Vector3.h" />
     <ClInclude Include="Source\VertexArray.h" />
     <ClInclude Include="Source\VertexBuffer.h" />
+    <ClInclude Include="Source\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

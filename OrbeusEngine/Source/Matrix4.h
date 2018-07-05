@@ -47,8 +47,7 @@ struct Matrix4
 	Matrix4 translate(const Vector3& vector) const;
 	Matrix4 rotate(const Vector3& vector, float angle) const;
 	Matrix4 scale(const Vector3& vector) const;
-	Matrix4 lookAt(const Vector3& target) const;
-
+	
 	static Matrix4 Identity();
 
 	static Matrix4 Translation(const Vector3& vector);
@@ -62,6 +61,8 @@ struct Matrix4
 
 	static Matrix4 Orthographic(float left, float right, float bottom, float top, float near, float far);
 	static Matrix4 Perspective(float fov, float aspectRatio, float near, float far);
+
+	static Matrix4 LookAt(const Vector3& eye, const Vector3& target, const Vector3& upDir);
 
 	inline friend std::ostream & operator<<(std::ostream& out, const Matrix4& matrix) {
 		for (unsigned int i = 0; i < 4; ++i)

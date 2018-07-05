@@ -134,7 +134,13 @@ Vector2 Vector2::operator-()
 	return Vector2(-x, -y);
 }
 
-float Vector2::operator[](unsigned int index)
+float Vector2::operator[](unsigned int index) const
+{
+	assert(index < 2);
+	return (index == 0 ? x : y);
+}
+
+float& Vector2::operator[](unsigned int index)
 {
 	assert(index < 2);
 	return (index == 0 ? x : y);

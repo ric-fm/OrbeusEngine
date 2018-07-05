@@ -199,13 +199,6 @@ Matrix4 Matrix4::scale(const Vector3& vector) const
 	return *this * Scaling(vector);
 }
 
-Matrix4 Matrix4::lookAt(const Vector3& target) const
-{
-	// TODO: Implement this
-	// http://www.songho.ca/opengl/gl_camera.html#lookat
-	return Matrix4();
-}
-
 Matrix4 Matrix4::Identity()
 {
 	return Matrix4(
@@ -307,5 +300,24 @@ Matrix4 Matrix4::Perspective(float fov, float aspectRatio, float near, float far
 		0.0f,									f,										0.0f,									0.0f,
 		0.0f,									0.0f,									(far + near) / (near - far),			-1.0f,
 		0.0f,									0.0f,									2.0f * far * near / (near - far),		0.0f
+	);
+}
+
+Matrix4 Matrix4::LookAt(const Vector3& eye, const Vector3& target, const Vector3& upDir)
+{
+	Vector3 forward = (eye - target).normalize();
+	Vector3 left = upDir.cross(forward).normalize();
+	Vector3 up = forward.cross(left);
+
+	float tx = -left.x * eye.x - left.y * eye.y - left.z * eye.z;
+	float ty = -up.x * eye.x - up.y * eye.y - up.z * eye.z;
+	float tz = -forward.x * eye.x - forward.y * eye.y - forward.z * eye.z;
+
+	return Matrix4
+	(
+		left.x, up.x, forward.x, 0.0f,
+		left.y, up.y, forward.y, 0.0f,
+		left.z, up.z, forward.z, 0.0f,
+		tx, ty, tz, 1.0f
 	);
 }
