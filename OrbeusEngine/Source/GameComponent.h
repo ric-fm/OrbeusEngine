@@ -2,6 +2,9 @@
 
 #include <string>
 
+#include "Input.h"
+
+
 class Transform;
 class GameObject;
 class Shader;
@@ -24,7 +27,6 @@ public:
 	Transform* getTransform() const;
 
 	virtual void init() { }
-	virtual void update(float deltaTime) { }
+	virtual void update(float deltaTime, Input* input) { }
 	virtual void render(float deltaTime, Shader* shader) { }
-
 };

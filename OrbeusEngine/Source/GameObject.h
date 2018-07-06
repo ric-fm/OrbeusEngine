@@ -2,6 +2,13 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <typeinfo>
+#include <typeindex>
+
+#include "Input.h"
+
+
 
 class Transform;
 class GameComponent;
@@ -12,7 +19,8 @@ class GameObject
 private:
 	std::string name;
 	Transform* transform = nullptr;
-	std::vector<GameComponent*> components;
+	std::unordered_map<std::type_index, GameComponent*> components;
+
 
 public:
 	GameObject(const std::string& name);
@@ -26,10 +34,27 @@ public:
 	void getChildren(std::vector<GameObject*>& children);
 	void getAllChildren(std::vector<GameObject*>& children);
 
-	void addComponent(GameComponent* component);
-	std::vector<GameComponent*> getComponents() { return components; }
+	template<class ComponentType>
+	inline void addComponent(GameComponent* component)
+	{
+		components[std::type_index(typeid(ComponentType))] = component;
+		component->setOwner(this);
+	}
+
+	template<class ComponentType>
+	ComponentType* getComponent()
+	{
+		std::type_index type(typeid(ComponentType));
+		if (components.count(type) != 0)
+		{
+			return static_cast<ComponentType*>(components[type]);
+		}
+		return nullptr;
+	}
+
+	std::vector<GameComponent*> getComponents();
 
 	virtual void init();
-	virtual void update(float deltaTime);
+	virtual void update(float deltaTime, Input* input);
 	virtual void render(float deltaTime, Shader* shader);
 };

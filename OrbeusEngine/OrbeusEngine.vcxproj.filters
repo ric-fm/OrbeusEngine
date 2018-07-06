@@ -17,6 +17,8 @@
     <ClCompile Include="Source\World.cpp" />
     <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
+    <ClCompile Include="Source\CameraController.cpp" />
+    <ClCompile Include="Source\Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -41,5 +43,7 @@
     <ClInclude Include="Source\GameComponent.h" />
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
     <ClInclude Include="Source\Texture.h" />
+    <ClInclude Include="Source\CameraController.h" />
+    <ClInclude Include="Source\Input.h" />
   </ItemGroup>
 </Project>

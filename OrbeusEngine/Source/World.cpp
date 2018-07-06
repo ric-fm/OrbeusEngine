@@ -3,11 +3,14 @@
 #include "GameObject.h"
 #include "Camera.h"
 
+#include "Input.h"
+
+
 World::World()
 {
 	GameObject* cameraGO = new GameObject("Camera");
 	activeCamera = new Camera();
-	cameraGO->addComponent(activeCamera);
+	cameraGO->addComponent<Camera>(activeCamera);
 
 	addGameObject(cameraGO);
 }
@@ -29,11 +32,11 @@ void World::init()
 	}
 }
 
-void World::update(float deltaTime)
+void World::update(float deltaTime, Input* input)
 {
 	for (unsigned int i = 0; i < gameObjects.size(); ++i)
 	{
-		gameObjects[i]->update(deltaTime);
+		gameObjects[i]->update(deltaTime, input);
 	}
 }
 

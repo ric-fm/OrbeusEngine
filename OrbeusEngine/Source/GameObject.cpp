@@ -41,10 +41,14 @@ void GameObject::getAllChildren(std::vector<GameObject*>& children)
 	}
 }
 
-void GameObject::addComponent(GameComponent* component)
+std::vector<GameComponent*> GameObject::getComponents()
 {
-	components.push_back(component);
-	component->setOwner(this);
+	std::vector<GameComponent*> result;
+	for (auto it = components.begin(); it != components.end(); ++it)
+	{
+		result.push_back(it->second);
+	}
+	return result;
 }
 
 void GameObject::init()
@@ -55,31 +59,31 @@ void GameObject::init()
 		transforms[i]->getOwner()->init();
 	}
 
-	for (unsigned int i = 0; i < components.size(); ++i)
+	for (auto it = components.begin(); it != components.end(); ++it)
 	{
-		components[i]->init();
+		it->second->init();
 	}
 }
 
-void GameObject::update(float deltaTime)
+void GameObject::update(float deltaTime, Input* input)
 {
-	for (unsigned int i = 0; i < components.size(); ++i)
+	for (auto it = components.begin(); it != components.end(); ++it)
 	{
-		components[i]->update(deltaTime);
+		it->second->update(deltaTime, input);
 	}
 
 	std::vector<Transform*> transforms = transform->getChildren();
 	for (unsigned int i = 0; i < transforms.size(); ++i)
 	{
-		transforms[i]->getOwner()->update(deltaTime);
+		transforms[i]->getOwner()->update(deltaTime, input);
 	}
 }
 
 void GameObject::render(float deltaTime, Shader* shader)
 {
-	for (unsigned int i = 0; i < components.size(); ++i)
+	for (auto it = components.begin(); it != components.end(); ++it)
 	{
-		components[i]->render(deltaTime, shader);
+		it->second->render(deltaTime, shader);
 	}
 
 	std::vector<Transform*> transforms = transform->getChildren();

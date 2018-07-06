@@ -7,6 +7,8 @@
 class Camera;
 class GameObject;
 class Shader;
+class Input;
+
 
 class World
 {
@@ -38,7 +40,7 @@ public:
 	void addGameObject(GameObject* gameObject);
 
 	void init();
-	void update(float deltaTime);
+	void update(float deltaTime, Input* input);
 	void render(float deltaTime, Shader* shader);
 
 

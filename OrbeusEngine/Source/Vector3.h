@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 
 struct Vector3
 {
@@ -47,4 +48,10 @@ struct Vector3
 	float length() const;
 	float lengthSquared() const;
 	Vector3 normalize() const;
+
+	inline friend std::ostream & operator<<(std::ostream& out, const Vector3& vector) {
+		out << "( " << vector.x << ", " << vector.y << ", " << vector.z << ")";
+
+		return out;
+	}
 };
