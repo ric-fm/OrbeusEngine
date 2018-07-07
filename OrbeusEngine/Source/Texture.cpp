@@ -1,10 +1,10 @@
 #include "Texture.h"
 
-#include <iostream>
 
 #include "GL/glew.h"
 #include "stb_image/stb_image.h"
 
+#include "Log.h"
 
 Texture::Texture(const std::string& filePath, const std::string& type)
 	: id(0), filePath(filePath), type(type), width(0), height(0), channels(0)
@@ -49,7 +49,7 @@ Texture::Texture(const std::string& filePath, const std::string& type)
 	}
 	else
 	{
-		std::cout << "Failed to load texture " << filePath << std::endl;
+		Log::error("TEXTURE. Failed to lad texture %s", filePath.c_str());
 	}
 
 	stbi_image_free(data);

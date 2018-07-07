@@ -143,6 +143,7 @@
     <ClCompile Include="Source\GameComponent.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Math.cpp" />
     <ClCompile Include="Source\Matrix4.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Source\GameComponent.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Input.h" />
+    <ClInclude Include="Source\Log.h" />
     <ClInclude Include="Source\Math.h" />
     <ClInclude Include="Source\Matrix4.h" />
     <ClInclude Include="Source\Mesh.h" />

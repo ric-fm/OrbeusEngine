@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 #include <fstream>
 
@@ -23,6 +22,8 @@
 #include "GameComponent.h"
 #include "CameraController.h"
 #include "Input.h"
+
+#include "Log.h"
 
 
 GameObject* cameraGO;
@@ -68,6 +69,7 @@ int main()
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
 	Shader* shader = new Shader("Resources/Shaders/Mesh-vs.shader", "Resources/Shaders/Mesh-fs.shader");
+	shader->SetFloat("abc", 1.0f);
 
 	Camera* aCamera = World::getInstance().getActiveCamera();
 

@@ -1,13 +1,13 @@
 #include "Shader.h"
 
-#include <iostream>
 #include <fstream>
 
 #include "Vector3.h"
 #include "Vector2.h"
 #include "Matrix4.h"
+#include "Log.h"
 
-std::string Shader::readShaderFile(const std::string & filePath)
+std::string Shader::readShaderFile(const std::string& filePath)
 {
 	std::string result;
 
@@ -21,6 +21,11 @@ std::string Shader::readShaderFile(const std::string & filePath)
 		}
 
 		file.close();
+	}
+	else
+	{
+		Log::error("SHADER. File %s doesn't exists", filePath.c_str());
+
 	}
 
 	return result;
@@ -42,7 +47,7 @@ unsigned int Shader::createShader(const std::string & vertexFilePath, const std:
 	if (!success)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR: VERTEX COMPILATION FAILED" << infoLog << std::endl;
+		Log::error("VERTEX COMPILATION FAILED: %s", infoLog);
 	}
 
 	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -54,7 +59,7 @@ unsigned int Shader::createShader(const std::string & vertexFilePath, const std:
 	if (!success)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR: FRAGMENT COMPILATION FAILED" << infoLog << std::endl;
+		Log::error("FRAGMENT COMPILATION FAILED: %s", infoLog);
 	}
 
 	unsigned int shaderProgram = glCreateProgram();
@@ -68,7 +73,8 @@ unsigned int Shader::createShader(const std::string & vertexFilePath, const std:
 	if (!success)
 	{
 		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR: SHADER LINKING FAILED" << infoLog << std::endl;
+		Log::error("SHADER LINKING FAILED: %s", infoLog);
+
 	}
 
 	glDeleteShader(vertexShader);
@@ -87,7 +93,7 @@ unsigned int Shader::getUniformLocation(const std::string& name)
 	int location = glGetUniformLocation(id, name.c_str());
 	if (location == -1)
 	{
-		std::cout << "WARNING: SHADER. Uniform " << name << " doesn't exists" << std::endl;
+		Log::warning("SHADER. Uniform %s doesn't exists", name.c_str());
 	}
 	
 	uniformLocations[name] = location;

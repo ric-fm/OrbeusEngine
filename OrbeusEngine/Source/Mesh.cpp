@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "World.h"
 #include "Texture.h"
+#include "Log.h"
 
 OBJInfo Mesh::ParseOBJFile(const std::string& filePath) const
 {
@@ -77,6 +78,10 @@ OBJInfo Mesh::ParseOBJFile(const std::string& filePath) const
 			}
 		}
 	}
+	else
+	{
+		Log::error("MESH. File %s doesn't exists", filePath.c_str());
+	}
 
 	file.close();
 
@@ -146,6 +151,10 @@ MTLInfo Mesh::ParseMTLFile(const std::string& filePath) const
 				}
 			}
 		}
+	}
+	else
+	{
+		Log::error("MESH. File %s doesn't exists", filePath.c_str());
 	}
 
 	file.close();
