@@ -10,7 +10,8 @@
 
 void TestGame::init()
 {
-	Shader* shader = new Shader("Resources/Shaders/Mesh-vs.shader", "Resources/Shaders/Mesh-fs.shader");
+	//Shader* shader = new Shader("Resources/Shaders/Mesh-vs.shader", "Resources/Shaders/Mesh-fs.shader");
+	Shader* shader = new Shader("Resources/Shaders/Phong-vs.shader", "Resources/Shaders/Phong-fs.shader");
 	Engine::getInstance().getRenderingEngine()->setShader(shader);
 
 	Engine::getInstance().getWindow()->setCursorMode(GLFW_CURSOR_DISABLED);

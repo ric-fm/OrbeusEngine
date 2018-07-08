@@ -167,6 +167,8 @@
     <None Include="Resources\Shaders\Basic-vs.shader" />
     <None Include="Resources\Shaders\Mesh-fs.shader" />
     <None Include="Resources\Shaders\Mesh-vs.shader" />
+    <None Include="Resources\Shaders\Phong-fs.shader" />
+    <None Include="Resources\Shaders\Phong-vs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
@@ -177,6 +179,7 @@
     <ClInclude Include="Source\GameComponent.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Input.h" />
+    <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\Log.h" />
     <ClInclude Include="Source\Math.h" />
     <ClInclude Include="Source\Matrix4.h" />

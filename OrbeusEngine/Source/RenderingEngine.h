@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Vector3.h"
+
+#include "Light.h"
+
 class Shader;
 class Engine;
 
@@ -9,6 +13,10 @@ private:
 	Engine* engine;
 	Shader* shader;
 
+	Vector3 ambientLight;
+
+	DirectionalLight directionalLight;
+
 public:
 	RenderingEngine(Engine* engine);
 
@@ -17,4 +25,10 @@ public:
 
 	void init();
 	void render(float deltaTime);
+
+	Vector3& getAmbientLight() { return ambientLight; }
+	void setAmbienLight(const Vector3& ambientLight) { this->ambientLight = ambientLight; }
+
+	DirectionalLight& getDirectionalLight() { return directionalLight; }
+	void setDirectionalLight(const DirectionalLight& directionalLight) { this->directionalLight = directionalLight; }
 };
