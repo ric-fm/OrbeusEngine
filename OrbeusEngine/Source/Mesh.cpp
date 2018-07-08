@@ -134,10 +134,10 @@ MTLInfo Mesh::ParseMTLFile(const std::string& filePath) const
 					{
 						type = "texture_diffuse";
 					}
-					//else if (element == "map_Ks")
-					//{
-					//	type = "texture_specular";
-					//}
+					else if (element == "map_Ks")
+					{
+						type = "texture_specular";
+					}
 					else
 					{
 						isTextureSupported = false;
@@ -241,7 +241,7 @@ void Mesh::render(float deltaTime, Shader* shader)
 
 	for (unsigned int i = 0; i < textures.size(); ++i)
 	{
-		shader->SetInt(textures[i]->getType(), i);
+		shader->SetInt("material." + textures[i]->getType(), i);
 		textures[i]->bind(i);
 	}
 	glActiveTexture(0);

@@ -2,6 +2,15 @@
 
 out vec4 FragColor;
 
+struct Material
+{
+	sampler2D texture_diffuse;
+	sampler2D texture_specular;
+
+	float specularIntensity;
+	float specularPower;
+};
+
 struct BaseLight
 {
 	vec3 color;
@@ -14,36 +23,62 @@ struct DirectionalLight
 	vec3 direction;
 };
 
-
+struct LightResult
+{
+	vec3 diffuse;
+	vec3 specular;
+};
 
 in vec3 Normal;
 in vec2 TexCoord;
+in vec3 WorldPos;
 
 uniform sampler2D texture_diffuse;
+uniform sampler2D texture_specular;
+
+uniform Material material;
 
 uniform vec3 ambientLight;
 uniform DirectionalLight directionalLight;
 
+uniform float specularIntensity;
+uniform float specularPower;
 
-vec4 calcLight(BaseLight base, vec3 direction, vec3 normal)
+uniform vec3 viewPos;
+
+
+LightResult calcLight(BaseLight base, vec3 direction, vec3 normal, float specularIntensity, float specularPower)
 {
-	float diffuseFactor = max(dot(normal, normalize(-direction)), 0.0);
+	LightResult result;
 
-	vec4 diffuseColor = vec4(base.color, 1.0) * base.intensity * diffuseFactor;
+	vec3 lightDirection = normalize(-direction);
 
-	return diffuseColor;
+	// Diffuse
+	float diffuseFactor = max(dot(normal, lightDirection), 0.0);
+	result.diffuse = base.color * base.intensity * diffuseFactor;
+
+	// Specular
+	vec3 viewDirection = normalize(viewPos - WorldPos);
+	vec3 reflectDirection = reflect(-lightDirection, normal);
+	float specularFactor = pow(max(dot(viewDirection, reflectDirection), 0.0), specularPower);
+	result.specular = base.color * specularIntensity * specularFactor;
+
+
+	return result;
 }
 
-vec4 calcDirectionalLight(DirectionalLight directionalLight, vec3 normal)
+LightResult calcDirectionalLight(DirectionalLight directionalLight, vec3 normal, float specularIntensity, float specularPower)
 {
-	return calcLight(directionalLight.base, directionalLight.direction, normal);
+	return calcLight(directionalLight.base, directionalLight.direction, normal, specularIntensity, specularPower);
 }
 
 void main()
 {
-	vec4 light = vec4(ambientLight, 1.0);
-	
-	light += calcDirectionalLight(directionalLight, Normal);
+	LightResult light = calcDirectionalLight(directionalLight, Normal, material.specularIntensity, material.specularPower);
 
-	FragColor = texture(texture_diffuse, TexCoord) * light;
+	vec3 ambient = ambientLight * vec3(texture(material.texture_diffuse, TexCoord));
+	vec3 diffuse = light.diffuse * vec3(texture(material.texture_diffuse, TexCoord));
+	vec3 specular = light.specular * vec3(texture(material.texture_specular, TexCoord));
+
+	FragColor = vec4(ambient + diffuse + specular, 1.0f);
 }

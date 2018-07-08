@@ -25,6 +25,7 @@
     <ClCompile Include="Source\TestGame.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\Rotate.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />

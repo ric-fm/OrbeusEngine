@@ -7,7 +7,7 @@ class CameraController : public GameComponent
 private:
 
 public:
-	float cameraSpeed = 50.0f;
+	float cameraSpeed = 15.0f;
 	float mouseSensitivity = 0.1f;
 	virtual void update(float deltaTime) override;
 

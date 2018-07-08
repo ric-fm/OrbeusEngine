@@ -151,6 +151,7 @@
     <ClCompile Include="Source\Matrix4.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\RenderingEngine.cpp" />
+    <ClCompile Include="Source\Rotate.h" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\TestGame.cpp" />
     <ClCompile Include="Source\Texture.cpp" />

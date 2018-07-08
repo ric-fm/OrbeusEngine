@@ -2,6 +2,7 @@
 
 
 #include "CameraController.h"
+#include "Rotate.h"
 #include "Shader.h"
 #include "Window.h"
 #include "Log.h"
@@ -25,9 +26,10 @@ void TestGame::init()
 
 	GameObject* cube = new GameObject("Cube");
 	cube->addComponent<Mesh>(new Mesh("Resources/Models/Cube/Cube.obj"));
+	cube->addComponent<Rotate>(new Rotate(Vector3(0.0f, 20.0f, 0.0f)));
 
-	cube->getTransform()->setPosition(Vector3(0.0f, 2.0f, 0.0f));
-	cube->getTransform()->setScale(Vector3(0.8f, 0.8f, 0.8f));
+	//cube->getTransform()->setPosition(Vector3(0.0f, 2.0f, 0.0f));
+	//cube->getTransform()->setScale(Vector3(0.8f, 0.8f, 0.8f));
 	cube->getTransform()->setRotation(Vector3(45.0f, 0.0f, 0.0f));
 
 	World::getInstance().addGameObject(cube);
