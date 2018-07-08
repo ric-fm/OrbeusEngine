@@ -20,11 +20,21 @@ int log(const char* level, const char* format, va_list args)
 }
 
 
-Log::LogLevel Log::level = Log::ERROR;
+static Log::LogLevel level = Log::ERROR;
+
+Log::LogLevel Log::getLevel()
+{
+	return level;
+}
+
+void Log::setLevel(LogLevel logLevel)
+{
+	level = logLevel;
+}
 
 int Log::info(const char * format, ...)
 {
-	if (Log::level < Log::LogLevel::INFO)
+	if (level < Log::LogLevel::INFO)
 	{
 		return -1;
 	}
@@ -39,7 +49,7 @@ int Log::info(const char * format, ...)
 
 int Log::debug(const char * format, ...)
 {
-	if (Log::level < Log::LogLevel::DEBUG)
+	if (level < Log::LogLevel::DEBUG)
 	{
 		return -1;
 	}
@@ -54,7 +64,7 @@ int Log::debug(const char * format, ...)
 
 int Log::warning(const char * format, ...)
 {
-	if (Log::level < Log::LogLevel::WARNING)
+	if (level < Log::LogLevel::WARNING)
 	{
 		return -1;
 	}
@@ -69,7 +79,7 @@ int Log::warning(const char * format, ...)
 
 int Log::error(const char * format, ...)
 {
-	if (Log::level < Log::LogLevel::ERROR)
+	if (level < Log::LogLevel::ERROR)
 	{
 		return -1;
 	}

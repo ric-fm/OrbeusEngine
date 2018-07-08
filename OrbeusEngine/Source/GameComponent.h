@@ -27,6 +27,6 @@ public:
 	Transform* getTransform() const;
 
 	virtual void init() { }
-	virtual void update(float deltaTime, Input* input) { }
+	virtual void update(float deltaTime) { }
 	virtual void render(float deltaTime, Shader* shader) { }
 };

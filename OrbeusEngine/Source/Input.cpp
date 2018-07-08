@@ -3,9 +3,14 @@
 #include "GLFW/glfw3.h"
 
 
-Input::Input(GLFWwindow* window)
-	: window(window)
+static GLFWwindow* windowHandler;
+
+static Input::MouseState currentMouseState;
+static Input::MouseState lastMouseState;
+
+void Input::setWindow(GLFWwindow* window)
 {
+	windowHandler = window;
 	lastMouseState.position = getMousePosition();
 }
 
@@ -17,22 +22,29 @@ void Input::update(float deltaTime)
 
 	lastMouseState.delta = currentMouseState.delta;
 	lastMouseState.position = currentMouseState.position;
+
+	glfwPollEvents();
 }
 
 bool Input::isKeyDown(int key)
 {
-	return glfwGetKey(window, key) == GLFW_PRESS;
+	return glfwGetKey(windowHandler, key) == GLFW_PRESS;
 }
 
 bool Input::isMouseButtonDown(int button)
 {
-	return glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
+	return glfwGetMouseButton(windowHandler, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 }
 
 Vector2 Input::getMousePosition()
 {
 	double x, y;
-	glfwGetCursorPos(window, &x, &y);
+	glfwGetCursorPos(windowHandler, &x, &y);
 
 	return Vector2((float)x, (float)y);
+}
+
+Input::MouseState Input::getMouseState()
+{
+	return currentMouseState;
 }

@@ -32,11 +32,11 @@ void World::init()
 	}
 }
 
-void World::update(float deltaTime, Input* input)
+void World::update(float deltaTime)
 {
 	for (unsigned int i = 0; i < gameObjects.size(); ++i)
 	{
-		gameObjects[i]->update(deltaTime, input);
+		gameObjects[i]->update(deltaTime);
 	}
 }
 

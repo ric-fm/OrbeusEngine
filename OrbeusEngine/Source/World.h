@@ -40,7 +40,7 @@ public:
 	void addGameObject(GameObject* gameObject);
 
 	void init();
-	void update(float deltaTime, Input* input);
+	void update(float deltaTime);
 	void render(float deltaTime, Shader* shader);
 
 

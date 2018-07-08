@@ -9,6 +9,6 @@ private:
 public:
 	float cameraSpeed = 50.0f;
 	float mouseSensitivity = 0.1f;
-	virtual void update(float deltaTime, Input* input) override;
+	virtual void update(float deltaTime) override;
 
 };

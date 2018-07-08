@@ -65,17 +65,17 @@ void GameObject::init()
 	}
 }
 
-void GameObject::update(float deltaTime, Input* input)
+void GameObject::update(float deltaTime)
 {
 	for (auto it = components.begin(); it != components.end(); ++it)
 	{
-		it->second->update(deltaTime, input);
+		it->second->update(deltaTime);
 	}
 
 	std::vector<Transform*> transforms = transform->getChildren();
 	for (unsigned int i = 0; i < transforms.size(); ++i)
 	{
-		transforms[i]->getOwner()->update(deltaTime, input);
+		transforms[i]->getOwner()->update(deltaTime);
 	}
 }
 

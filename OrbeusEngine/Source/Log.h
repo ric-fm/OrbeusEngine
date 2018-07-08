@@ -13,12 +13,8 @@ public:
 		ERROR = 4
 	};
 
-private:
-	static LogLevel level;
-
-public:
-	static LogLevel getLevel() { return level; }
-	static void setLevel(LogLevel logLevel){ level = logLevel; }
+	static LogLevel getLevel();
+	static void setLevel(LogLevel logLevel);
 
 	static int info(const char* format, ...);
 	static int debug(const char* format, ...);

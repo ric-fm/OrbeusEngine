@@ -1,46 +1,43 @@
 #include "CameraController.h"
 
-
 #include "GLFW/glfw3.h"
+
 #include "Transform.h"
 #include "World.h"
 
-#include "Input.h"
 
 
-
-void CameraController::update(float deltaTime, Input* input)
+void CameraController::update(float deltaTime)
 {
 	float speed = cameraSpeed * deltaTime;
 
-	if (input->isKeyDown(GLFW_KEY_W))
+	if (Input::isKeyDown(GLFW_KEY_W))
 	{
 		getTransform()->addPosition(getTransform()->getForwardVector() * speed);
 	}
-	if (input->isKeyDown(GLFW_KEY_S))
+	if (Input::isKeyDown(GLFW_KEY_S))
 	{
 		getTransform()->addPosition(-getTransform()->getForwardVector() * speed);
 	}
-	if (input->isKeyDown(GLFW_KEY_A))
+	if (Input::isKeyDown(GLFW_KEY_A))
 	{
 		getTransform()->addPosition(-getTransform()->getRightVector() * speed);
 	}
-	if (input->isKeyDown(GLFW_KEY_D))
+	if (Input::isKeyDown(GLFW_KEY_D))
 	{
 		getTransform()->addPosition(getTransform()->getRightVector() * speed);
 	}
 
-	if (input->isKeyDown(GLFW_KEY_Q))
+	if (Input::isKeyDown(GLFW_KEY_Q))
 	{
 		getTransform()->addPosition(-World::getUpVector() * speed);
 	}
-	if (input->isKeyDown(GLFW_KEY_E))
+	if (Input::isKeyDown(GLFW_KEY_E))
 	{
 		getTransform()->addPosition(World::getUpVector() * speed);
 	}
 
-
-	Vector2 delta = input->getMouseState().delta;
+	Vector2 delta = Input::getMouseState().delta;
 
 	delta *= mouseSensitivity;
 

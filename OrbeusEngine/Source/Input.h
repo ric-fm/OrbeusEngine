@@ -4,30 +4,33 @@
 
 struct GLFWwindow;
 
-struct MouseState
-{
-	Vector2 position;
-	Vector2 delta;
-};
+
 
 class Input
 {
-private:
-	GLFWwindow * window;
+public:
+	struct MouseState
+	{
+		Vector2 position;
+		Vector2 delta;
+	};
 
-	MouseState currentMouseState;
-	MouseState lastMouseState;
+private:
+	//static GLFWwindow* windowHandler;
+
+	//static MouseState currentMouseState;
+	//static MouseState lastMouseState;
 
 public:
-	Input(GLFWwindow* window);
+	static void setWindow(GLFWwindow* window);
 
-	void update(float deltaTime);
+	static void update(float deltaTime);
 
-	bool isKeyDown(int key);
+	static bool isKeyDown(int key);
 
-	bool isMouseButtonDown(int button);
+	static bool isMouseButtonDown(int button);
 
-	Vector2 getMousePosition();
+	static Vector2 getMousePosition();
 
-	const MouseState& getMouseState() const { return currentMouseState; }
+	static MouseState getMouseState();
 };

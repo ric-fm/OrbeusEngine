@@ -20,6 +20,11 @@
     <ClCompile Include="Source\CameraController.cpp" />
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Log.cpp" />
+    <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\RenderingEngine.cpp" />
+    <ClCompile Include="Source\TestGame.cpp" />
+    <ClCompile Include="Source\Window.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -47,5 +52,10 @@
     <ClInclude Include="Source\CameraController.h" />
     <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\Log.h" />
+    <ClInclude Include="Source\Engine.h" />
+    <ClInclude Include="Source\Game.h" />
+    <ClInclude Include="Source\RenderingEngine.h" />
+    <ClInclude Include="Source\TestGame.h" />
+    <ClInclude Include="Source\Window.h" />
   </ItemGroup>
 </Project>

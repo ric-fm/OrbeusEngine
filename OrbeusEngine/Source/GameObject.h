@@ -6,8 +6,6 @@
 #include <typeinfo>
 #include <typeindex>
 
-#include "Input.h"
-
 
 
 class Transform;
@@ -55,6 +53,6 @@ public:
 	std::vector<GameComponent*> getComponents();
 
 	virtual void init();
-	virtual void update(float deltaTime, Input* input);
+	virtual void update(float deltaTime);
 	virtual void render(float deltaTime, Shader* shader);
 };

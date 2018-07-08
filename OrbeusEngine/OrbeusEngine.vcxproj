@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -140,6 +140,8 @@
     <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraController.cpp" />
+    <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameComponent.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Input.cpp" />
@@ -148,13 +150,16 @@
     <ClCompile Include="Source\Math.cpp" />
     <ClCompile Include="Source\Matrix4.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\RenderingEngine.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\TestGame.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\Vector2.cpp" />
     <ClCompile Include="Source\Vector3.cpp" />
     <ClCompile Include="Source\VertexArray.cpp" />
     <ClCompile Include="Source\VertexBuffer.cpp" />
+    <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +172,8 @@
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraController.h" />
+    <ClInclude Include="Source\Engine.h" />
+    <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameComponent.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Input.h" />
@@ -174,14 +181,17 @@
     <ClInclude Include="Source\Math.h" />
     <ClInclude Include="Source\Matrix4.h" />
     <ClInclude Include="Source\Mesh.h" />
+    <ClInclude Include="Source\RenderingEngine.h" />
     <ClInclude Include="Source\Shader.h" />
     <ClInclude Include="Source\String.h" />
+    <ClInclude Include="Source\TestGame.h" />
     <ClInclude Include="Source\Texture.h" />
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\Vector2.h" />
     <ClInclude Include="Source\Vector3.h" />
     <ClInclude Include="Source\VertexArray.h" />
     <ClInclude Include="Source\VertexBuffer.h" />
+    <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
