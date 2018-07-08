@@ -38,3 +38,45 @@ struct DirectionalLight
 	{
 	}
 };
+
+struct Attenuation
+{
+	float constant;
+	float linear;
+	float exponential;
+
+	Attenuation(const Attenuation& attenuation)
+		: constant(attenuation.constant), linear(attenuation.linear), exponential(attenuation.exponential)
+	{
+	}
+
+	Attenuation(float constant, float linear, float exponential)
+		: constant(constant), linear(linear), exponential(exponential)
+	{
+	}
+};
+
+#define MAX_POINT_LIGHTS 4
+
+struct PointLight
+{
+	BaseLight base;
+	Vector3 position;
+
+	Attenuation attenuation;
+
+	PointLight(const PointLight& pointLight)
+		: base(pointLight.base), position(pointLight.position), attenuation(pointLight.attenuation)
+	{
+	}
+
+	PointLight(const BaseLight& base, Vector3 position, const Attenuation& attenuation)
+		: base(base.color, base.intensity), position(position), attenuation(attenuation)
+	{
+	}
+
+	PointLight(const Vector3 color, float intensity, Vector3 position, float constant, float linear, float exponential)
+		: base(color, intensity), position(position), attenuation(constant, linear, exponential)
+	{
+	}
+};

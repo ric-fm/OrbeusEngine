@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "Vector3.h"
 
 #include "Light.h"
@@ -16,6 +18,7 @@ private:
 	Vector3 ambientLight;
 
 	DirectionalLight directionalLight;
+	std::vector<PointLight> pointLights;
 
 public:
 	RenderingEngine(Engine* engine);

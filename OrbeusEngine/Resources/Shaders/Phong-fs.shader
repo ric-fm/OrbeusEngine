@@ -23,6 +23,21 @@ struct DirectionalLight
 	vec3 direction;
 };
 
+struct Attenuation
+{
+	float constant;
+	float linear;
+	float exponential;
+};
+
+struct PointLight
+{
+	BaseLight base;
+	vec3 position;
+
+	Attenuation attenuation;
+};
+
 struct LightResult
 {
 	vec3 diffuse;
@@ -41,8 +56,8 @@ uniform Material material;
 uniform vec3 ambientLight;
 uniform DirectionalLight directionalLight;
 
-uniform float specularIntensity;
-uniform float specularPower;
+const int MAX_POINT_LIGHTS = 4;
+uniform PointLight pointLights[MAX_POINT_LIGHTS];
 
 uniform vec3 viewPos;
 
@@ -72,9 +87,33 @@ LightResult calcDirectionalLight(DirectionalLight directionalLight, vec3 normal,
 	return calcLight(directionalLight.base, directionalLight.direction, normal, specularIntensity, specularPower);
 }
 
+LightResult calcPointLight(PointLight pointLight, vec3 normal, float specularIntensity, float specularPower)
+{
+	vec3 lightDirection = normalize(WorldPos - pointLight.position);
+	float distanceToPointLight = length(WorldPos - pointLight.position);
+
+	float attenuation = 1.0 / ( 0.00001 +	// Prevent division by 0
+			pointLight.attenuation.constant +
+			pointLight.attenuation.linear * distanceToPointLight +
+			pointLight.attenuation.exponential * distanceToPointLight * distanceToPointLight);
+
+	LightResult result = calcLight(pointLight.base, lightDirection, normal, specularIntensity, specularPower);
+	result.diffuse *= attenuation;
+	result.specular *= attenuation;
+
+	return result;
+}
+
 void main()
 {
 	LightResult light = calcDirectionalLight(directionalLight, Normal, material.specularIntensity, material.specularPower);
+
+	for (int i = 0; i < MAX_POINT_LIGHTS; ++i)
+	{
+		LightResult pointLight = calcPointLight(pointLights[i], Normal, material.specularIntensity, material.specularPower);
+		light.diffuse += pointLight.diffuse;
+		light.specular += pointLight.specular;
+	}
 
 	vec3 ambient = ambientLight * vec3(texture(material.texture_diffuse, TexCoord));
 	vec3 diffuse = light.diffuse * vec3(texture(material.texture_diffuse, TexCoord));

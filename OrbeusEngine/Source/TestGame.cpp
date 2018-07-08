@@ -30,7 +30,7 @@ void TestGame::init()
 
 	//cube->getTransform()->setPosition(Vector3(0.0f, 2.0f, 0.0f));
 	//cube->getTransform()->setScale(Vector3(0.8f, 0.8f, 0.8f));
-	cube->getTransform()->setRotation(Vector3(45.0f, 0.0f, 0.0f));
+	//cube->getTransform()->setRotation(Vector3(45.0f, 0.0f, 0.0f));
 
 	World::getInstance().addGameObject(cube);
 }
