@@ -64,19 +64,20 @@ struct PointLight
 	Vector3 position;
 
 	Attenuation attenuation;
+	float radius;
 
 	PointLight(const PointLight& pointLight)
 		: base(pointLight.base), position(pointLight.position), attenuation(pointLight.attenuation)
 	{
 	}
 
-	PointLight(const BaseLight& base, Vector3 position, const Attenuation& attenuation)
-		: base(base.color, base.intensity), position(position), attenuation(attenuation)
+	PointLight(const BaseLight& base, Vector3 position, const Attenuation& attenuation, float radius)
+		: base(base.color, base.intensity), position(position), attenuation(attenuation), radius(radius)
 	{
 	}
 
-	PointLight(const Vector3 color, float intensity, Vector3 position, float constant, float linear, float exponential)
-		: base(color, intensity), position(position), attenuation(constant, linear, exponential)
+	PointLight(const Vector3 color, float intensity, Vector3 position, float constant, float linear, float exponential, float radius)
+		: base(color, intensity), position(position), attenuation(constant, linear, exponential), radius(radius)
 	{
 	}
 };

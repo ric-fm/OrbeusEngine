@@ -36,6 +36,7 @@ struct PointLight
 	vec3 position;
 
 	Attenuation attenuation;
+	float radius;
 };
 
 struct LightResult
@@ -92,6 +93,14 @@ LightResult calcPointLight(PointLight pointLight, vec3 normal, float specularInt
 	vec3 lightDirection = normalize(WorldPos - pointLight.position);
 	float distanceToPointLight = length(WorldPos - pointLight.position);
 
+	if (distanceToPointLight < pointLight.radius)
+	{
+		LightResult result;
+		result.diffuse = vec3(0.0);
+		result.specular = vec3(0.0);
+		return result;
+	}
+
 	float attenuation = 1.0 / ( 0.00001 +	// Prevent division by 0
 			pointLight.attenuation.constant +
 			pointLight.attenuation.linear * distanceToPointLight +
@@ -110,9 +119,12 @@ void main()
 
 	for (int i = 0; i < MAX_POINT_LIGHTS; ++i)
 	{
-		LightResult pointLight = calcPointLight(pointLights[i], Normal, material.specularIntensity, material.specularPower);
-		light.diffuse += pointLight.diffuse;
-		light.specular += pointLight.specular;
+		if (pointLights[i].base.intensity > 0.0)
+		{
+			LightResult pointLight = calcPointLight(pointLights[i], Normal, material.specularIntensity, material.specularPower);
+			light.diffuse += pointLight.diffuse;
+			light.specular += pointLight.specular;
+		}
 	}
 
 	vec3 ambient = ambientLight * vec3(texture(material.texture_diffuse, TexCoord));

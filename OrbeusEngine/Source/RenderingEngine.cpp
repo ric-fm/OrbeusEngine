@@ -33,8 +33,8 @@ void RenderingEngine::init()
 	setAmbienLight(Vector3(0.1f, 0.1f, 0.1f));
 	setDirectionalLight(DirectionalLight(Vector3(1.0f, 1.0f, 1.0f), 0.8f, Vector3(0.5f, -1.0f, -0.6f)));
 
-	PointLight pl0(Vector3(1.0f, 0.0f, 0.0f), 0.5f, Vector3(0.0f, 0.0f, 2.0f), 1.0f, 0.09f, 0.032f);
-	PointLight pl1(Vector3(0.0f, 0.0f, 1.0f), 0.5f, Vector3(2.0f, 0.0f, 0.0f), 0.0f, 0.0f, 1.0f);
+	PointLight pl0(Vector3(1.0f, 0.0f, 0.0f), 0.5f, Vector3(0.0f, 0.0f, 2.0f), 1.0f, 0.09f, 0.032f, 5.0f);
+	PointLight pl1(Vector3(0.0f, 0.0f, 1.0f), 0.5f, Vector3(2.0f, 0.0f, 0.0f), 0.0f, 0.0f, 1.0f, 5.0f);
 
 	pointLights.push_back(pl0);
 	pointLights.push_back(pl1);
@@ -64,6 +64,7 @@ void RenderingEngine::render(float deltaTime)
 		shader->SetFloat(preffix + ".attenuation.constant", pointLight.attenuation.constant);
 		shader->SetFloat(preffix + ".attenuation.linear", pointLight.attenuation.linear);
 		shader->SetFloat(preffix + ".attenuation.exponential", pointLight.attenuation.exponential);
+		shader->SetFloat(preffix + ".position", pointLight.radius);
 	}
 
 	shader->SetFloat("material.specularIntensity", 1);
