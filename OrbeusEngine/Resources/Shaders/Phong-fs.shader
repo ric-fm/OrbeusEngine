@@ -83,10 +83,16 @@ LightResult calcLight(BaseLight base, vec3 direction, vec3 normal, float specula
 	float diffuseFactor = max(dot(normal, lightDirection), 0.0);
 	result.diffuse = base.color * base.intensity * diffuseFactor;
 
-	// Specular
+	//// Specular
+	//vec3 viewDirection = normalize(viewPos - WorldPos);
+	//vec3 reflectDirection = reflect(-lightDirection, normal);
+	//float specularFactor = pow(max(dot(viewDirection, reflectDirection), 0.0), specularPower);
+	//result.specular = base.color * specularIntensity * specularFactor;
+
+	// Blinn-Phong Specular
 	vec3 viewDirection = normalize(viewPos - WorldPos);
-	vec3 reflectDirection = reflect(-lightDirection, normal);
-	float specularFactor = pow(max(dot(viewDirection, reflectDirection), 0.0), specularPower);
+	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
+	float specularFactor = pow(max(dot(normal, halfwayDirection), 0.0), specularPower);
 	result.specular = base.color * specularIntensity * specularFactor;
 
 
