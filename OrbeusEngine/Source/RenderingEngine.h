@@ -19,6 +19,7 @@ private:
 
 	DirectionalLight directionalLight;
 	std::vector<PointLight> pointLights;
+	std::vector<SpotLight> spotLights;
 
 public:
 	RenderingEngine(Engine* engine);

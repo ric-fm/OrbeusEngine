@@ -28,12 +28,12 @@ struct DirectionalLight
 	{
 	}
 
-	DirectionalLight(const BaseLight& base, Vector3 direction)
+	DirectionalLight(const BaseLight& base, const Vector3& direction)
 		: base(base.color, base.intensity), direction(direction)
 	{
 	}
 
-	DirectionalLight(const Vector3 color, float intensity, Vector3 direction)
+	DirectionalLight(const Vector3& color, float intensity, const Vector3& direction)
 		: base(color, intensity), direction(direction)
 	{
 	}
@@ -67,7 +67,7 @@ struct PointLight
 	float radius;
 
 	PointLight(const PointLight& pointLight)
-		: base(pointLight.base), position(pointLight.position), attenuation(pointLight.attenuation)
+		: base(pointLight.base), position(pointLight.position), attenuation(pointLight.attenuation), radius(pointLight.radius)
 	{
 	}
 
@@ -76,8 +76,32 @@ struct PointLight
 	{
 	}
 
-	PointLight(const Vector3 color, float intensity, Vector3 position, float constant, float linear, float exponential, float radius)
+	PointLight(const Vector3& color, float intensity, const Vector3& position, float constant, float linear, float exponential, float radius)
 		: base(color, intensity), position(position), attenuation(constant, linear, exponential), radius(radius)
+	{
+	}
+};
+
+#define MAX_SPOT_LIGHTS 4
+
+struct SpotLight
+{
+	PointLight pointLight;
+	Vector3 direction;
+	float cutoff;
+
+	SpotLight(const SpotLight& spotLight)
+		: pointLight(spotLight.pointLight), direction(spotLight.direction), cutoff(spotLight.cutoff)
+	{
+	}
+
+	SpotLight(const PointLight& pointLight, Vector3 position, const Vector3& direction, float cutoff)
+		: pointLight(pointLight), direction(direction.normalize()), cutoff(cutoff)
+	{
+	}
+
+	SpotLight(const Vector3& color, float intensity, const Vector3& position, float constant, float linear, float exponential, float radius, const Vector3& direction, float cutoff)
+		: pointLight(color, intensity, position, constant, linear, exponential, radius), direction(direction.normalize()), cutoff(cutoff)
 	{
 	}
 };

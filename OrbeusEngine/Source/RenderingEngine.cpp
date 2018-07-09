@@ -38,10 +38,18 @@ void RenderingEngine::init()
 
 	pointLights.push_back(pl0);
 	pointLights.push_back(pl1);
+
+	SpotLight sl0(Vector3(0.0f, 1.0f, 0.0f), 0.8f, Vector3(-2.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.2f, 20.0f, Vector3(1.0f, 0.0f, -0.5f), 0.8f);
+
+	spotLights.push_back(sl0);
 }
 
 void RenderingEngine::render(float deltaTime)
 {
+	SpotLight& sl = spotLights[0];
+	sl.pointLight.position = World::getInstance().getActiveCamera()->getTransform()->getPosition();
+	sl.direction = World::getInstance().getActiveCamera()->getTransform()->getForwardVector();
+
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -64,7 +72,23 @@ void RenderingEngine::render(float deltaTime)
 		shader->SetFloat(preffix + ".attenuation.constant", pointLight.attenuation.constant);
 		shader->SetFloat(preffix + ".attenuation.linear", pointLight.attenuation.linear);
 		shader->SetFloat(preffix + ".attenuation.exponential", pointLight.attenuation.exponential);
-		shader->SetFloat(preffix + ".position", pointLight.radius);
+		shader->SetFloat(preffix + ".radius", pointLight.radius);
+	}
+
+	for (int i = 0; i < MAX_SPOT_LIGHTS && i < spotLights.size(); ++i)
+	{
+		SpotLight& spotLight = spotLights[i];
+		std::string preffix = "spotLights[" + std::to_string(i) + "]";
+
+		shader->SetFloat3(preffix + ".pointLight.base.color", spotLight.pointLight.base.color);
+		shader->SetFloat(preffix + ".pointLight.base.intensity", spotLight.pointLight.base.intensity);
+		shader->SetFloat3(preffix + ".pointLight.position", spotLight.pointLight.position);
+		shader->SetFloat(preffix + ".pointLight.attenuation.constant", spotLight.pointLight.attenuation.constant);
+		shader->SetFloat(preffix + ".pointLight.attenuation.linear", spotLight.pointLight.attenuation.linear);
+		shader->SetFloat(preffix + ".pointLight.attenuation.exponential", spotLight.pointLight.attenuation.exponential);
+		shader->SetFloat(preffix + ".pointLight.radius", spotLight.pointLight.radius);
+		shader->SetFloat3(preffix + ".direction", spotLight.direction);
+		shader->SetFloat(preffix + ".cutoff", spotLight.cutoff);
 	}
 
 	shader->SetFloat("material.specularIntensity", 1);

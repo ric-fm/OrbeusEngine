@@ -39,6 +39,13 @@ struct PointLight
 	float radius;
 };
 
+struct SpotLight
+{
+	PointLight pointLight;
+	vec3 direction;
+	float cutoff;
+};
+
 struct LightResult
 {
 	vec3 diffuse;
@@ -58,7 +65,10 @@ uniform vec3 ambientLight;
 uniform DirectionalLight directionalLight;
 
 const int MAX_POINT_LIGHTS = 4;
+const int MAX_SPOT_LIGHTS = 4;
+
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
+uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 uniform vec3 viewPos;
 
@@ -93,22 +103,35 @@ LightResult calcPointLight(PointLight pointLight, vec3 normal, float specularInt
 	vec3 lightDirection = normalize(WorldPos - pointLight.position);
 	float distanceToPointLight = length(WorldPos - pointLight.position);
 
-	if (distanceToPointLight < pointLight.radius)
+	LightResult result;
+	if (distanceToPointLight <= pointLight.radius)
 	{
-		LightResult result;
-		result.diffuse = vec3(0.0);
-		result.specular = vec3(0.0);
-		return result;
+		float attenuation = 1.0 / ( 0.00001 +	// Prevent division by 0
+				pointLight.attenuation.constant +
+				pointLight.attenuation.linear * distanceToPointLight +
+				pointLight.attenuation.exponential * distanceToPointLight * distanceToPointLight);
+
+		result = calcLight(pointLight.base, lightDirection, normal, specularIntensity, specularPower);
+		result.diffuse *= attenuation;
+		result.specular *= attenuation;
 	}
+	return result;
+}
 
-	float attenuation = 1.0 / ( 0.00001 +	// Prevent division by 0
-			pointLight.attenuation.constant +
-			pointLight.attenuation.linear * distanceToPointLight +
-			pointLight.attenuation.exponential * distanceToPointLight * distanceToPointLight);
+LightResult calcSpotLight(SpotLight spotLight, vec3 normal, float specularIntensity, float specularPower)
+{
+	vec3 lightDirection = normalize(WorldPos - spotLight.pointLight.position);
+	float spotFactor = dot(lightDirection, spotLight.direction);
 
-	LightResult result = calcLight(pointLight.base, lightDirection, normal, specularIntensity, specularPower);
-	result.diffuse *= attenuation;
-	result.specular *= attenuation;
+	LightResult result;
+
+	if (spotFactor > spotLight.cutoff)
+	{
+		result = calcPointLight(spotLight.pointLight, normal, specularIntensity, specularPower);
+
+		result.diffuse *= (1.0 - (1.0 - spotFactor) / (1.0 - spotLight.cutoff));
+		result.specular *= (1.0 - (1.0 - spotFactor) / (1.0 - spotLight.cutoff));
+	}
 
 	return result;
 }
@@ -124,6 +147,16 @@ void main()
 			LightResult pointLight = calcPointLight(pointLights[i], Normal, material.specularIntensity, material.specularPower);
 			light.diffuse += pointLight.diffuse;
 			light.specular += pointLight.specular;
+		}
+	}
+
+	for (int i = 0; i < MAX_SPOT_LIGHTS; ++i)
+	{
+		if (spotLights[i].pointLight.base.intensity > 0.0)
+		{
+			LightResult spotLight = calcSpotLight(spotLights[i], Normal, material.specularIntensity, material.specularPower);
+			light.diffuse += spotLight.diffuse;
+			light.specular += spotLight.specular;
 		}
 	}
 
