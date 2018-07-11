@@ -26,6 +26,8 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Rotate.h" />
+    <ClCompile Include="Source\Light.cpp" />
+    <ClCompile Include="Source\CopyTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -34,6 +36,14 @@
     <None Include="Resources\Shaders\Mesh-fs.shader" />
     <None Include="Resources\Shaders\Phong-vs.shader" />
     <None Include="Resources\Shaders\Phong-fs.shader" />
+    <None Include="Resources\Shaders\Forward\Ambient-vs.shader" />
+    <None Include="Resources\Shaders\Forward\Ambient-fs.shader" />
+    <None Include="Resources\Shaders\Forward\Directional-vs.shader" />
+    <None Include="Resources\Shaders\Forward\Directional-fs.shader" />
+    <None Include="Resources\Shaders\Forward\Point-vs.shader" />
+    <None Include="Resources\Shaders\Forward\Point-fs.shader" />
+    <None Include="Resources\Shaders\Forward\Spot-vs.shader" />
+    <None Include="Resources\Shaders\Forward\Spot-fs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\VertexBuffer.h" />

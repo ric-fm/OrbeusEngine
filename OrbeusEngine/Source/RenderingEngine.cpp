@@ -12,8 +12,13 @@
 #include "Transform.h"
 
 RenderingEngine::RenderingEngine(Engine* engine)
-	: engine(engine), ambientLight(0.0f, 0.0f, 0.0f), directionalLight(Vector3(1.0f, 1.0f, 1.0f), 1.0f, Vector3())
+	: engine(engine), ambientLight(0.0f, 0.0f, 0.0f)
 {
+}
+
+void RenderingEngine::registerLight(Light* light)
+{
+	lights.push_back(light);
 }
 
 void RenderingEngine::init()
@@ -30,73 +35,42 @@ void RenderingEngine::init()
 		Log::error("Failed to init GLEW");
 	}
 
-	setAmbienLight(Vector3(0.1f, 0.1f, 0.1f));
-	setDirectionalLight(DirectionalLight(Vector3(1.0f, 1.0f, 1.0f), 0.8f, Vector3(0.5f, -1.0f, -0.6f)));
-
-	PointLight pl0(Vector3(1.0f, 0.0f, 0.0f), 0.5f, Vector3(0.0f, 0.0f, 2.0f), 1.0f, 0.09f, 0.032f, 5.0f);
-	PointLight pl1(Vector3(0.0f, 0.0f, 1.0f), 0.5f, Vector3(2.0f, 0.0f, 0.0f), 0.0f, 0.0f, 1.0f, 5.0f);
-
-	pointLights.push_back(pl0);
-	pointLights.push_back(pl1);
-
-	SpotLight sl0(Vector3(0.0f, 1.0f, 0.0f), 0.8f, Vector3(-2.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.2f, 20.0f, Vector3(1.0f, 0.0f, -0.5f), 0.8f);
-
-	spotLights.push_back(sl0);
+	ambientShader = new Shader("Resources/Shaders/Forward/Ambient-vs.shader", "Resources/Shaders/Forward/Ambient-fs.shader");
 }
 
 void RenderingEngine::render(float deltaTime)
 {
-	SpotLight& sl = spotLights[0];
-	sl.pointLight.position = World::getInstance().getActiveCamera()->getTransform()->getPosition();
-	sl.direction = World::getInstance().getActiveCamera()->getTransform()->getForwardVector();
-
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	shader->bind();
+	ambientShader->bind();
+	ambientShader->SetFloat3("ambientLight", ambientLight);
 
-	shader->SetFloat3("ambientLight", ambientLight);
+	World::getInstance().render(deltaTime, ambientShader);
 
-	shader->SetFloat3("directionalLight.base.color", directionalLight.base.color);
-	shader->SetFloat("directionalLight.base.intensity", directionalLight.base.intensity);
-	shader->SetFloat3("directionalLight.direction", directionalLight.direction);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_ONE, GL_ONE);
+	glDepthMask(false);
+	glDepthFunc(GL_EQUAL);
 
-	for (int i = 0; i < MAX_POINT_LIGHTS && i < pointLights.size(); ++i)
+	for (int i = 0; i < lights.size(); ++i)
 	{
-		PointLight& pointLight = pointLights[i];
-		std::string preffix = "pointLights[" + std::to_string(i) + "]";
+		Light* light = lights[i];
+		Shader* shader = light->getShader();
+		shader->bind();
 
-		shader->SetFloat3(preffix + ".base.color", pointLight.base.color);
-		shader->SetFloat(preffix +  ".base.intensity", pointLight.base.intensity);
-		shader->SetFloat3(preffix + ".position", pointLight.position);
-		shader->SetFloat(preffix + ".attenuation.constant", pointLight.attenuation.constant);
-		shader->SetFloat(preffix + ".attenuation.linear", pointLight.attenuation.linear);
-		shader->SetFloat(preffix + ".attenuation.exponential", pointLight.attenuation.exponential);
-		shader->SetFloat(preffix + ".radius", pointLight.radius);
+		// TODO: Move this to mesh material
+		shader->SetFloat("material.specularIntensity", 1);
+		shader->SetFloat("material.specularPower", 32);
+
+		light->updateShader();
+
+		World::getInstance().render(deltaTime, shader);
 	}
 
-	for (int i = 0; i < MAX_SPOT_LIGHTS && i < spotLights.size(); ++i)
-	{
-		SpotLight& spotLight = spotLights[i];
-		std::string preffix = "spotLights[" + std::to_string(i) + "]";
-
-		shader->SetFloat3(preffix + ".pointLight.base.color", spotLight.pointLight.base.color);
-		shader->SetFloat(preffix + ".pointLight.base.intensity", spotLight.pointLight.base.intensity);
-		shader->SetFloat3(preffix + ".pointLight.position", spotLight.pointLight.position);
-		shader->SetFloat(preffix + ".pointLight.attenuation.constant", spotLight.pointLight.attenuation.constant);
-		shader->SetFloat(preffix + ".pointLight.attenuation.linear", spotLight.pointLight.attenuation.linear);
-		shader->SetFloat(preffix + ".pointLight.attenuation.exponential", spotLight.pointLight.attenuation.exponential);
-		shader->SetFloat(preffix + ".pointLight.radius", spotLight.pointLight.radius);
-		shader->SetFloat3(preffix + ".direction", spotLight.direction);
-		shader->SetFloat(preffix + ".cutoff", spotLight.cutoff);
-	}
-
-	shader->SetFloat("material.specularIntensity", 1);
-	shader->SetFloat("material.specularPower", 32);
-	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
-
-
-	World::getInstance().render(deltaTime, shader);
+	glDepthFunc(GL_LESS);
+	glDepthMask(true);
+	glDisable(GL_BLEND);
 
 	glfwSwapBuffers(engine->getWindow()->getHandler());
 }

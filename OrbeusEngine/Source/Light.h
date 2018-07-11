@@ -1,42 +1,66 @@
 #pragma once
 
-#include "Vector3.h"
+#include "GameComponent.h"
 
-struct BaseLight
+#include "Vector3.h"
+#include "Shader.h"
+
+class Light : public GameComponent
 {
+protected:
 	Vector3 color;
 	float intensity;
 
-	BaseLight(const BaseLight& baseLight)
+	Shader* shader;
+
+public:
+	Light(const Light& baseLight)
 		: color(baseLight.color), intensity(baseLight.intensity)
 	{
 	}
 
-	BaseLight(const Vector3& color, float intensity)
+	Light(const Vector3& color, float intensity)
 		: color(color), intensity(intensity)
 	{
 	}
+
+	void setColor(const Vector3& color) { this->color = color; }
+	void setColor(float r, float g, float b)
+	{
+		this->color.x = r;
+		this->color.y = g;
+		this->color.z = b;
+	}
+	const Vector3& getColor() const { return color; }
+
+	void setIntensity(float intensity) { this->intensity = intensity; }
+	float getIntensity() const { return intensity; }
+
+	Shader* getShader() const { return shader; }
+
+	virtual void init() override;
+
+	virtual void updateShader() {}
+
 };
 
-struct DirectionalLight
+struct DirectionalLight : public Light
 {
-	BaseLight base;
-	Vector3 direction;
 
+public:
 	DirectionalLight(const DirectionalLight& directionalLight)
-		: base(directionalLight.base), direction(directionalLight.direction)
+		: Light(directionalLight.color, directionalLight.intensity)
 	{
 	}
 
-	DirectionalLight(const BaseLight& base, const Vector3& direction)
-		: base(base.color, base.intensity), direction(direction)
+	DirectionalLight(const Vector3& color, float intensity)
+		: Light(color, intensity)
 	{
 	}
 
-	DirectionalLight(const Vector3& color, float intensity, const Vector3& direction)
-		: base(color, intensity), direction(direction)
-	{
-	}
+	virtual void init() override;
+
+	virtual void updateShader() override;
 };
 
 struct Attenuation
@@ -56,52 +80,64 @@ struct Attenuation
 	}
 };
 
-#define MAX_POINT_LIGHTS 4
-
-struct PointLight
+class PointLight : public Light
 {
-	BaseLight base;
-	Vector3 position;
-
+protected:
 	Attenuation attenuation;
 	float radius;
 
+public:
 	PointLight(const PointLight& pointLight)
-		: base(pointLight.base), position(pointLight.position), attenuation(pointLight.attenuation), radius(pointLight.radius)
+		: PointLight(pointLight.color, pointLight.intensity,
+			pointLight.attenuation.constant, pointLight.attenuation.linear, pointLight.attenuation.exponential,
+			pointLight.radius)
 	{
 	}
 
-	PointLight(const BaseLight& base, Vector3 position, const Attenuation& attenuation, float radius)
-		: base(base.color, base.intensity), position(position), attenuation(attenuation), radius(radius)
+	PointLight(const Vector3& color, float intensity, float constant, float linear, float exponential, float radius)
+		: Light(color, intensity), attenuation(constant, linear, exponential), radius(radius)
 	{
 	}
 
-	PointLight(const Vector3& color, float intensity, const Vector3& position, float constant, float linear, float exponential, float radius)
-		: base(color, intensity), position(position), attenuation(constant, linear, exponential), radius(radius)
+	void setAttenuation(const Attenuation& attenuation) { this->attenuation = attenuation; }
+	void setAttenuation(float constant, float linear, float exponential)
 	{
+		attenuation.constant = constant;
+		attenuation.linear = linear;
+		attenuation.exponential = exponential;
 	}
+	const Attenuation& getAttenuation() const { return attenuation; }
+
+	void setRadius(float radius) { this->radius = radius; }
+	float getRadius() const { return radius; }
+
+	virtual void init() override;
+
+	virtual void updateShader() override;
 };
 
-#define MAX_SPOT_LIGHTS 4
-
-struct SpotLight
+class SpotLight : public PointLight
 {
-	PointLight pointLight;
-	Vector3 direction;
+protected:
 	float cutoff;
 
+public:
 	SpotLight(const SpotLight& spotLight)
-		: pointLight(spotLight.pointLight), direction(spotLight.direction), cutoff(spotLight.cutoff)
+		: SpotLight(spotLight.color, spotLight.intensity,
+			spotLight.getAttenuation().constant, spotLight.getAttenuation().linear, spotLight.getAttenuation().exponential,
+			spotLight.radius, spotLight.cutoff)
 	{
 	}
 
-	SpotLight(const PointLight& pointLight, Vector3 position, const Vector3& direction, float cutoff)
-		: pointLight(pointLight), direction(direction.normalize()), cutoff(cutoff)
+	SpotLight(const Vector3& color, float intensity, float constant, float linear, float exponential, float radius, float cutoff)
+		: PointLight(color, intensity, constant, linear, exponential, radius), cutoff(cutoff)
 	{
 	}
 
-	SpotLight(const Vector3& color, float intensity, const Vector3& position, float constant, float linear, float exponential, float radius, const Vector3& direction, float cutoff)
-		: pointLight(color, intensity, position, constant, linear, exponential, radius), direction(direction.normalize()), cutoff(cutoff)
-	{
-	}
+	void setCutoff(float cutoff) { this->cutoff = cutoff; }
+	float getCutOff() const { return cutoff; }
+
+	virtual void init() override;
+
+	virtual void updateShader() override;
 };

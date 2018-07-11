@@ -58,9 +58,9 @@ void Engine::init()
 
 	Input::setWindow(window->getHandler());
 
-	World::getInstance().init();
-
 	game->init();
+
+	World::getInstance().init();
 }
 
 void Engine::update(float deltaTime)

@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "String.h"
+
 struct Vector2
 {
 	float x;
@@ -51,5 +53,10 @@ struct Vector2
 		out << "( " << vector.x << ", " << vector.y << ")";
 
 		return out;
+	}
+
+	std::string toString()
+	{
+		return formatString("(%f, %f)", x, y);
 	}
 };

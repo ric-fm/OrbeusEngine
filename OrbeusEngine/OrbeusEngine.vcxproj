@@ -141,10 +141,12 @@
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraController.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\CopyTransform.h" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameComponent.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\Log.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Math.cpp" />
@@ -166,6 +168,14 @@
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
     <None Include="Resources\Shaders\Basic-vs.shader" />
+    <None Include="Resources\Shaders\Forward\Ambient-fs.shader" />
+    <None Include="Resources\Shaders\Forward\Ambient-vs.shader" />
+    <None Include="Resources\Shaders\Forward\Directional-fs.shader" />
+    <None Include="Resources\Shaders\Forward\Directional-vs.shader" />
+    <None Include="Resources\Shaders\Forward\Point-fs.shader" />
+    <None Include="Resources\Shaders\Forward\Point-vs.shader" />
+    <None Include="Resources\Shaders\Forward\Spot-fs.shader" />
+    <None Include="Resources\Shaders\Forward\Spot-vs.shader" />
     <None Include="Resources\Shaders\Mesh-fs.shader" />
     <None Include="Resources\Shaders\Mesh-vs.shader" />
     <None Include="Resources\Shaders\Phong-fs.shader" />

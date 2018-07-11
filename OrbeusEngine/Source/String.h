@@ -4,6 +4,9 @@
 #include <sstream>
 #include <vector>
 
+#include <stdio.h>
+#include <stdarg.h>
+
 struct PathInfo
 {
 	std::string directory;
@@ -48,6 +51,25 @@ static PathInfo getPathInfo(const std::string& path)
 	splitString(tokens[tokens.size() - 1], '.', tokens);
 	result.fileName = tokens[0];
 	result.extension = tokens[1];
+
+	return result;
+}
+
+static std::string formatString(const char* format, ...)
+{
+	std::string result;
+	va_list args;
+	va_start(args, format);
+
+	int length = vsnprintf(NULL, 0, format, args) + 1;
+	char* buffer = new char[length];
+	length = vsnprintf(buffer, length, format, args);
+
+	result = std::string(buffer);
+
+	delete(buffer);
+
+	va_end(args);
 
 	return result;
 }

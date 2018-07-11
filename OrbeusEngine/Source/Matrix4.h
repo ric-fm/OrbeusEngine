@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+#include "String.h"
+
 struct Vector3;
 struct Vector2;
 
@@ -71,5 +73,16 @@ struct Matrix4
 		}
 
 		return out;
+	}
+
+	std::string toString()
+	{
+		return formatString(
+			"%f, %f, %f, %f\n%f, %f, %f, %f\n%f, %f, %f, %f\n%f, %f, %f, %f",
+			buffer[0][0],	buffer[0][1],	buffer[0][2],	buffer[0][3],
+			buffer[0][0],	buffer[1][1],	buffer[1][2],	buffer[1][3],
+			buffer[0][0],	buffer[2][1],	buffer[2][2],	buffer[2][3],
+			buffer[0][0],	buffer[3][1],	buffer[3][3],	buffer[3][3]
+		);
 	}
 };
