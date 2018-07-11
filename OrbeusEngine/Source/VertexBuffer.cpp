@@ -27,8 +27,5 @@ void VertexBuffer::unbind()
 
 void VertexBuffer::draw(Shader* shader)
 {
-	bind();
-	shader->bind();
-
 	glDrawArrays(GL_TRIANGLES, 0, count);
 }

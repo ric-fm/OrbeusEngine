@@ -44,12 +44,12 @@ void VertexArray::AddBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layou
 
 void VertexArray::bind()
 {
-	glBindBuffer(GL_VERTEX_ARRAY, id);
+	glBindVertexArray(id);
 }
 
 void VertexArray::unbind()
 {
-	glBindBuffer(GL_VERTEX_ARRAY, 0);
+	glBindVertexArray(0);
 }
 
 void VertexArray::draw(Shader* shader)
