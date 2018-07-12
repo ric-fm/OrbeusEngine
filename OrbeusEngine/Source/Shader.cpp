@@ -121,7 +121,12 @@ void Shader::unbind()
 	glUseProgram(0);
 }
 
-void Shader::SetInt(const std::string & name, int value)
+void Shader::SetBool(const std::string& name, bool value)
+{
+	glUniform1i(getUniformLocation(name), value);
+}
+
+void Shader::SetInt(const std::string& name, int value)
 {
 	glUniform1i(getUniformLocation(name), value);
 }
@@ -131,12 +136,12 @@ void Shader::SetFloat(const std::string& name, float value)
 	glUniform1f(getUniformLocation(name), value);
 }
 
-void Shader::SetFloat2(const std::string & name, float x, float y)
+void Shader::SetFloat2(const std::string& name, float x, float y)
 {
 	glUniform2f(getUniformLocation(name), x, y);
 }
 
-void Shader::SetFloat2(const std::string & name, const Vector2& vector)
+void Shader::SetFloat2(const std::string& name, const Vector2& vector)
 {
 	glUniform2f(getUniformLocation(name), vector.x, vector.y);
 }
@@ -151,7 +156,7 @@ void Shader::SetFloat3(const std::string& name, const Vector3& vector)
 	glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);
 }
 
-void Shader::SetMatrix(const std::string & name, const Matrix4& matrix)
+void Shader::SetMatrix(const std::string& name, const Matrix4& matrix)
 {
 	glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix.buffer[0][0]);
 }

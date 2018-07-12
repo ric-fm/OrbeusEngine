@@ -44,6 +44,8 @@ struct MaterialInfo
 {
 	std::string name;
 	std::vector<TextureInfo*> textures;
+	Vector3 diffuse;
+	Vector3 specular;
 };
 
 struct MTLInfo
@@ -62,6 +64,7 @@ struct Vertex
 class VertexArray;
 class VertexBuffer;
 class Texture;
+struct Material;
 
 class Mesh : public GameComponent
 {
@@ -77,7 +80,8 @@ private:
 
 	VertexArray* vertexArray = nullptr;
 	VertexBuffer* vertexBuffer = nullptr;
-	std::vector<Texture*> textures;
+
+	std::vector<Material*> materials;
 
 public:
 	Mesh(const std::string& filePath);

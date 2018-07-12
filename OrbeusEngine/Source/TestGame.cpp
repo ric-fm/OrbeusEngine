@@ -30,11 +30,6 @@ void TestGame::init()
 	cube->addComponent<Rotate>(new Rotate(Vector3(0.0f, 20.0f, 0.0f)));
 	World::getInstance().addGameObject(cube);
 
-	//cube->getTransform()->setPosition(Vector3(0.0f, 2.0f, 0.0f));
-	//cube->getTransform()->setScale(Vector3(0.8f, 0.8f, 0.8f));
-	//cube->getTransform()->setRotation(Vector3(45.0f, 0.0f, 0.0f));
-
-
 	GameObject* floor = new GameObject("Floor");
 	floor->getTransform()->setRotation(Vector3(0.0f, 0.0f, 0.0f));
 	floor->getTransform()->setScale(Vector3(10.0f));
@@ -50,11 +45,11 @@ void TestGame::init()
 	directionalGO1->getTransform()->setRotation(Vector3(-110.0f, 0.0f, 0.0f));
 
 	GameObject* pointGO0 = new GameObject("PointLight0");
-	pointGO0->addComponent<PointLight>(new PointLight(Vector3(1.0f, 0.0f, 0.0f), 5.5f, 1.0f, 0.09f, 0.032f, 5.0f));
+	pointGO0->addComponent<PointLight>(new PointLight(Vector3(1.0f, 0.0f, 0.0f), 0.5f, 1.0f, 0.09f, 0.032f, 5.0f));
 	pointGO0->getTransform()->setPosition(Vector3(0.0f, 1.0f, 5.0f));
 
 	GameObject* pointGO1 = new GameObject("PointLight1");
-	pointGO1->addComponent<PointLight>(new PointLight(Vector3(0.0f, 0.0f, 1.0f), 5.5f, 1.0f, 0.09f, 0.032f, 5.0f));
+	pointGO1->addComponent<PointLight>(new PointLight(Vector3(0.0f, 0.0f, 1.0f), 0.5f, 1.0f, 0.09f, 0.032f, 5.0f));
 	pointGO1->getTransform()->setPosition(Vector3(5.0f, 1.0f, 0.0f));
 
 	GameObject* spotGO = new GameObject("SpotLight");

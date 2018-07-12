@@ -7,6 +7,12 @@ struct Material
 	sampler2D texture_diffuse;
 	sampler2D texture_specular;
 
+	vec3 diffuse;
+	vec3 specular;
+
+	bool useDiffuseTexture;
+	bool useSpecularTexture;
+
 	float specularIntensity;
 	float specularPower;
 };
@@ -74,8 +80,20 @@ void main()
 {
 	LightResult light = calcDirectionalLight(directionalLight, Normal, material.specularIntensity, material.specularPower);
 
-	vec4 diffuse = texture(material.texture_diffuse, TexCoord) * vec4(light.diffuse, 1.0f);
-	vec4 specular = texture(material.texture_specular, TexCoord) * vec4(light.specular, 1.0f);
+	vec3 diffuseColor = material.diffuse;
+	if (material.useDiffuseTexture)
+	{
+		diffuseColor = vec3(texture(material.texture_diffuse, TexCoord));
+	}
 
-	FragColor = diffuse + specular;
+	vec3 specularColor = material.specular;
+	if (material.useSpecularTexture)
+	{
+		specularColor = vec3(texture(material.texture_specular, TexCoord));
+	}
+
+	vec3 diffuse = light.diffuse * diffuseColor;
+	vec3 specular = light.specular * specularColor;
+
+	FragColor = vec4(diffuse + specular, 1.0f);
 }

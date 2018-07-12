@@ -192,6 +192,7 @@
     <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\Log.h" />
+    <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Math.h" />
     <ClInclude Include="Source\Matrix4.h" />
     <ClInclude Include="Source\Mesh.h" />

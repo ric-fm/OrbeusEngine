@@ -8,6 +8,7 @@
 #include "World.h"
 #include "Texture.h"
 #include "Log.h"
+#include "Material.h"
 
 OBJInfo Mesh::ParseOBJFile(const std::string& filePath) const
 {
@@ -124,6 +125,20 @@ MTLInfo Mesh::ParseMTLFile(const std::string& filePath) const
 				result.materials.push_back(material);
 
 			}
+			else if (element == "Kd")
+			{
+				for (unsigned int i = 0; i < 3; ++i)
+				{
+					lineStream >> material->diffuse[i];
+				}
+			}
+			else if (element == "Ks")
+			{
+				for (unsigned int i = 0; i < 3; ++i)
+				{
+					lineStream >> material->specular[i];
+				}
+			}
 			else if (element.substr(0, element.find_last_of('_')) == "map")
 			{
 				if (material != nullptr)
@@ -194,12 +209,25 @@ void Mesh::LoadTextures(MTLInfo& info)
 {
 	for (unsigned int i = 0; i < info.materials.size(); ++i)
 	{
+		Material* material = new Material(info.materials[i]->diffuse, info.materials[i]->specular);
+		materials.push_back(material);
+
 		std::vector<TextureInfo*> texturesInfo = info.materials[i]->textures;
 
 		for (unsigned int j = 0; j < texturesInfo.size(); ++j)
 		{
 			Texture* texture = new Texture(info.pathInfo.directory + texturesInfo[j]->name, texturesInfo[j]->type);
-			textures.push_back(texture);
+
+			if (texturesInfo[j]->type == "texture_diffuse")
+			{
+				material->diffuseTexture = texture;
+				material->useDiffuseTexture = true;
+			}
+			else if (texturesInfo[j]->type == "texture_specular")
+			{
+				material->specularTexture = texture;
+				material->useSpecularTexture = true;
+			}
 		}
 	}
 }
@@ -239,10 +267,34 @@ void Mesh::render(float deltaTime, Shader* shader)
 	shader->SetMatrix("view", World::getInstance().getActiveCamera()->getViewMatrix());
 	shader->SetMatrix("projection", World::getInstance().getActiveCamera()->getProjectionMatrix());
 
-	for (unsigned int i = 0; i < textures.size(); ++i)
+	if (materials.size() > 0)
 	{
-		shader->SetInt("material." + textures[i]->getType(), i);
-		textures[i]->bind(i);
+		shader->SetBool("material.useDiffuseTexture", materials[0]->useDiffuseTexture);
+		shader->SetBool("material.useSpecularTexture", materials[0]->useSpecularTexture);
+
+		if (materials[0]->diffuseTexture != nullptr && materials[0]->useDiffuseTexture)
+		{
+			shader->SetInt("material.texture_diffuse", 0);
+			materials[0]->diffuseTexture->bind(0);
+		}
+		else
+		{
+			shader->SetFloat3("material.diffuse", materials[0]->diffuse);
+		}
+
+		if (materials[0]->specularTexture != nullptr && materials[0]->useSpecularTexture)
+		{
+			shader->SetInt("material.texture_specular", 1);
+			materials[0]->specularTexture->bind(1);
+		}
+		else
+		{
+			shader->SetFloat3("material.specular", materials[0]->specular);
+		}
+
+
+		shader->SetFloat("material.specularIntensity", materials[0]->specularIntensity);
+		shader->SetFloat("material.specularPower", materials[0]->specularPower);
 	}
 	glActiveTexture(0);
 

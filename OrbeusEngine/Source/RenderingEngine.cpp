@@ -55,17 +55,9 @@ void RenderingEngine::render(float deltaTime)
 
 	for (int i = 0; i < lights.size(); ++i)
 	{
-		Light* light = lights[i];
-		Shader* shader = light->getShader();
-		shader->bind();
+		lights[i]->updateShader();
 
-		// TODO: Move this to mesh material
-		shader->SetFloat("material.specularIntensity", 1);
-		shader->SetFloat("material.specularPower", 32);
-
-		light->updateShader();
-
-		World::getInstance().render(deltaTime, shader);
+		World::getInstance().render(deltaTime, lights[i]->getShader());
 	}
 
 	glDepthFunc(GL_LESS);

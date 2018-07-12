@@ -7,6 +7,12 @@ struct Material
 	sampler2D texture_diffuse;
 	sampler2D texture_specular;
 
+	vec3 diffuse;
+	vec3 specular;
+
+	bool useDiffuseTexture;
+	bool useSpecularTexture;
+
 	float specularIntensity;
 	float specularPower;
 };
@@ -118,9 +124,6 @@ LightResult calcSpotLight(SpotLight spotLight, vec3 normal, float specularIntens
 		result.specular *= (1.0 - (1.0 - spotFactor) / (1.0 - spotLight.cutoff));
 	}
 
-	//result.diffuse = vec3(1);
-	//result.specular = vec3(1);
-
 	return result;
 }
 
@@ -133,8 +136,20 @@ void main()
 		light = calcSpotLight(spotLight, Normal, material.specularIntensity, material.specularPower);
 	}
 
-	vec3 diffuse = light.diffuse * vec3(texture(material.texture_diffuse, TexCoord));
-	vec3 specular = light.specular * vec3(texture(material.texture_specular, TexCoord));
+	vec3 diffuseColor = material.diffuse;
+	if (material.useDiffuseTexture)
+	{
+		diffuseColor = vec3(texture(material.texture_diffuse, TexCoord));
+	}
+
+	vec3 specularColor = material.specular;
+	if (material.useSpecularTexture)
+	{
+		specularColor = vec3(texture(material.texture_specular, TexCoord));
+	}
+
+	vec3 diffuse = light.diffuse * diffuseColor;
+	vec3 specular = light.specular * specularColor;
 
 	FragColor = vec4(diffuse + specular, 1.0f);
 }

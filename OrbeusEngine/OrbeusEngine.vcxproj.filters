@@ -71,5 +71,6 @@
     <ClInclude Include="Source\TestGame.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Light.h" />
+    <ClInclude Include="Source\Material.h" />
   </ItemGroup>
 </Project>

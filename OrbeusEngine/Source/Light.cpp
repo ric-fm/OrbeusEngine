@@ -19,6 +19,7 @@ void DirectionalLight::init()
 
 void DirectionalLight::updateShader()
 {
+	shader->bind();
 	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
 
 	shader->SetFloat3("directionalLight.base.color", color);
@@ -34,6 +35,7 @@ void PointLight::init()
 
 void PointLight::updateShader()
 {
+	shader->bind();
 	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
 
 	shader->SetFloat3("pointLight.base.color", color);
@@ -53,6 +55,7 @@ void SpotLight::init()
 
 void SpotLight::updateShader()
 {
+	shader->bind();
 	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
 
 	shader->SetFloat3("spotLight.pointLight.base.color", color);
