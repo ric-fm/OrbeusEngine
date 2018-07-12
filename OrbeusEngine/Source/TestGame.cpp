@@ -36,6 +36,9 @@ void TestGame::init()
 	floor->addComponent<Mesh>(new Mesh("Resources/Models/Plane/Plane.obj"));
 	World::getInstance().addGameObject(floor);
 
+	floor->getTransform()->setParent(cube->getTransform());
+	floor->getTransform()->setPosition(Vector3(0.0f, -1.0f, 0.0f));
+
 	GameObject* directionalGO0 = new GameObject("Directional0");
 	directionalGO0->addComponent<DirectionalLight>(new DirectionalLight(Vector3(1.0f, 0.0f, 0.0f), 0.8f));
 	directionalGO0->getTransform()->setRotation(Vector3(-70.0f, 0.0f, 0.0f));

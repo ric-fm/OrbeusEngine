@@ -28,7 +28,12 @@ Transform::Transform(GameObject* owner)
 
 Matrix4 Transform::getMatrix() const
 {
-	return Matrix4::Translation(position) * Matrix4::Rotation(rotation) * Matrix4::Scaling(scale);
+	Matrix4 parentMatrix;
+	if (parent != nullptr)
+	{
+		parentMatrix = parent->getMatrix();
+	}
+	return parentMatrix * Matrix4::Translation(position) * Matrix4::Rotation(rotation) * Matrix4::Scaling(scale);
 }
 
 void Transform::setRotation(const Vector3& rotation) {
