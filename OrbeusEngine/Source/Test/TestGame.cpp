@@ -10,6 +10,8 @@
 
 #include "GLFW/glfw3.h"
 
+#include "Math/Math.h"
+
 void TestGame::init()
 {
 	Engine::getInstance().getWindow()->setCursorMode(GLFW_CURSOR_DISABLED);
@@ -56,13 +58,23 @@ void TestGame::init()
 
 	GameObject* spotGO = new GameObject("SpotLight");
 	spotGO->addComponent<SpotLight>(new SpotLight(Vector3(0.0f, 1.0f, 0.0f), 0.8f, 0.0f, 0.0f, 0.2f, 20.0f, 0.8f));
-	spotGO->addComponent<CopyTransform>(new CopyTransform(cameraGO->getTransform()));
+	spotGO->getTransform()->setParent(cameraGO->getTransform());
+	//spotGO->getTransform()->setPosition(Vector3(0.0f, 0.0f, 0.0f));
+	spotGO->getTransform()->setRotation(Vector3(0.0f, -90.0f, 0.0f));
 
 	World::getInstance().addGameObject(directionalGO0);
 	World::getInstance().addGameObject(directionalGO1);
 	World::getInstance().addGameObject(pointGO0);
 	World::getInstance().addGameObject(pointGO1);
 	World::getInstance().addGameObject(spotGO);
+
+	Matrix4 t;
+
+	Vector3 pos(1.0f, 2.0f, 3.0f);
+
+	Matrix4 tWorld = t.translate(pos);
+
+	Log::info("%s", tWorld.toString().c_str());
 }
 
 void TestGame::update(float deltaTime)

@@ -63,7 +63,20 @@ public:
 
 	void setPosition(const Vector3& position) { this->position = position; }
 	void addPosition(const Vector3& position) { this->position += position; }
+	//Vector3 getRelativePosition() const { return position; }
 	Vector3 getPosition() const { return position; }
+	//Vector3 getPosition() const
+	//{
+	//	Matrix4 parentMatrix;
+	//	if (parent != nullptr)
+	//	{
+	//		parentMatrix = parent->getMatrix();
+	//	}
+	//	Matrix4 translation = parentMatrix * Matrix4::Translation(position);
+	//	parentMatrix = parentMatrix.translate(position);
+
+	//	return Vector(translation.;
+	//}
 
 	void setRotation(const Vector3& rotation);
 	Vector3 getRotation() const { return rotation; }
