@@ -3,6 +3,9 @@
 #include "Vector2.h"
 #include "Vector3.h"
 
+const float Math::PI = 3.14159265f;
+
+
 float Math::degreesToRadians(float angle)
 {
 	return (angle * PI) / 180;

@@ -4,12 +4,10 @@
 #include <algorithm>
 
 
-#define PI 3.14159265f
-
-
 class Math
 {
 public:
+	static const float PI;
 	static float degreesToRadians(float angle);
 	static float radiansToDegrees(float angle);
 
