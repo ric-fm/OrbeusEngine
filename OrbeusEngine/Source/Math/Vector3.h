@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 #include "Utils/String.h"
 
 struct Vector3
@@ -18,24 +16,24 @@ struct Vector3
 	bool operator==(const Vector3& other) const;
 	bool operator!=(const Vector3& other) const;
 
-	Vector3 operator+(const Vector3& other);
+	Vector3 operator+(const Vector3& other) const;
 	Vector3& operator+=(const Vector3& other);
-	Vector3 operator+(float v);
+	Vector3 operator+(float v) const;
 	Vector3& operator+=(float v);
 
 	Vector3 operator-(const Vector3& other) const;
 	Vector3& operator-=(const Vector3& other);
-	Vector3 operator-(float v);
+	Vector3 operator-(float v) const;
 	Vector3& operator-=(float v);
 
-	Vector3 operator*(const Vector3& other);
+	Vector3 operator*(const Vector3& other) const;
 	Vector3& operator*=(const Vector3& other);
-	Vector3 operator*(float v);
+	Vector3 operator*(float v) const;
 	Vector3& operator*=(float v);
 
-	Vector3 operator/(const Vector3& other);
+	Vector3 operator/(const Vector3& other) const;
 	Vector3& operator/=(const Vector3& other);
-	Vector3 operator/(float v);
+	Vector3 operator/(float v) const;
 	Vector3& operator/=(float v);
 
 	Vector3 operator-() const;
@@ -51,13 +49,9 @@ struct Vector3
 	float lengthSquared() const;
 	Vector3 normalize() const;
 
-	inline friend std::ostream & operator<<(std::ostream& out, const Vector3& vector) {
-		out << "( " << vector.x << ", " << vector.y << ", " << vector.z << ")";
+	Vector3 rotate(const Vector3& axis, float angle) const;
 
-		return out;
-	}
-
-	std::string toString()
+	std::string toString() const
 	{
 		return formatString("(%f, %f, %f)", x, y, z);
 	}

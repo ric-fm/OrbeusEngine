@@ -23,22 +23,22 @@ Vector2::Vector2(const Vector2& other)
 {
 }
 
-bool Vector2::operator==(const Vector2& other)
+bool Vector2::operator==(const Vector2& other) const
 {
 	return x == other.x && y == other.y;
 }
 
-bool Vector2::operator!=(const Vector2& other)
+bool Vector2::operator!=(const Vector2& other) const
 {
 	return x != other.x || y != other.y;
 }
 
-Vector2 Vector2::operator+(const Vector2& other)
+Vector2 Vector2::operator+(const Vector2& other) const
 {
 	return Vector2(x + other.x, y + other.y);
 }
 
-Vector2 Vector2::operator+(float v)
+Vector2 Vector2::operator+(float v) const
 {
 	return Vector2(x + v, y + v);
 }
@@ -57,12 +57,12 @@ Vector2& Vector2::operator+=(const Vector2& other)
 	return *this;
 }
 
-Vector2 Vector2::operator-(const Vector2& other)
+Vector2 Vector2::operator-(const Vector2& other) const
 {
 	return Vector2(x - other.x, y - other.y);
 }
 
-Vector2 Vector2::operator-(float v)
+Vector2 Vector2::operator-(float v) const
 {
 	return Vector2(x - v, y - v);
 }
@@ -81,7 +81,7 @@ Vector2& Vector2::operator-=(const Vector2& other)
 	return *this;
 }
 
-Vector2 Vector2::operator*(const Vector2& other)
+Vector2 Vector2::operator*(const Vector2& other) const
 {
 	return Vector2(x * other.x, y * other.y);
 }
@@ -93,7 +93,7 @@ Vector2& Vector2::operator*=(const Vector2& other)
 	return *this;
 }
 
-Vector2 Vector2::operator*(float v)
+Vector2 Vector2::operator*(float v) const
 {
 	return Vector2(x * v, y * v);
 }
@@ -105,7 +105,7 @@ Vector2 & Vector2::operator*=(float v)
 	return *this;
 }
 
-Vector2 Vector2::operator/(const Vector2& other)
+Vector2 Vector2::operator/(const Vector2& other) const
 {
 	return Vector2(x / other.x, y / other.y);
 }
@@ -117,7 +117,7 @@ Vector2& Vector2::operator/=(const Vector2& other)
 	return *this;
 }
 
-Vector2 Vector2::operator/(float v)
+Vector2 Vector2::operator/(float v) const
 {
 	return Vector2(x / v, y / v);
 }
@@ -129,7 +129,7 @@ Vector2& Vector2::operator/=(float v)
 	return *this;
 }
 
-Vector2 Vector2::operator-()
+Vector2 Vector2::operator-() const
 {
 	return Vector2(-x, -y);
 }

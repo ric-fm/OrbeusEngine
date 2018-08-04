@@ -1,7 +1,9 @@
 #include "Vector3.h"
 
 #include <math.h>
-#include <assert.h> 
+#include <assert.h>
+
+#include "Math.h"
 
 Vector3::Vector3()
 	: x(0.0f), y(0.0f), z(0.0f)
@@ -33,12 +35,12 @@ bool Vector3::operator!=(const Vector3& other) const
 	return x != other.x || y != other.y || z != other.z;
 }
 
-Vector3 Vector3::operator+(const Vector3& other)
+Vector3 Vector3::operator+(const Vector3& other) const
 {
 	return Vector3(x + other.x, y + other.y, z + other.z);
 }
 
-Vector3 Vector3::operator+(float v)
+Vector3 Vector3::operator+(float v) const
 {
 	return Vector3(x + v, y + v, z + v);
 }
@@ -64,7 +66,7 @@ Vector3 Vector3::operator-(const Vector3& other) const
 	return Vector3(x - other.x, y - other.y, z - other.z);
 }
 
-Vector3 Vector3::operator-(float v)
+Vector3 Vector3::operator-(float v) const
 {
 	return Vector3(x - v, y - v, z - v);
 }
@@ -85,7 +87,7 @@ Vector3& Vector3::operator-=(const Vector3& other)
 	return *this;
 }
 
-Vector3 Vector3::operator*(const Vector3& other)
+Vector3 Vector3::operator*(const Vector3& other) const
 {
 	return Vector3(x * other.x, y * other.y, z * other.z);
 }
@@ -98,7 +100,7 @@ Vector3& Vector3::operator*=(const Vector3& other)
 	return *this;
 }
 
-Vector3 Vector3::operator*(float v)
+Vector3 Vector3::operator*(float v) const
 {
 	return Vector3(x * v, y * v, z * v);
 }
@@ -111,7 +113,7 @@ Vector3 & Vector3::operator*=(float v)
 	return *this;
 }
 
-Vector3 Vector3::operator/(const Vector3& other)
+Vector3 Vector3::operator/(const Vector3& other) const
 {
 	return Vector3(x / other.x, y / other.y, z / other.z);
 }
@@ -124,7 +126,7 @@ Vector3& Vector3::operator/=(const Vector3& other)
 	return *this;
 }
 
-Vector3 Vector3::operator/(float v)
+Vector3 Vector3::operator/(float v) const
 {
 	return Vector3(x / v, y / v, z / v);
 }
@@ -224,4 +226,18 @@ Vector3 Vector3::normalize() const
 		return Vector3();
 	}
 	return Vector3(x / length, y / length, z / length);
+}
+
+Vector3 Vector3::rotate(const Vector3& axis, float angle) const
+{
+	float radians = Math::degreesToRadians(angle);
+
+	float s = sin(-radians);
+	float c = cos(-radians);
+
+	Vector3 xRot = axis * s;
+	Vector3 yRot = axis * dot(axis * 1 - c);
+	Vector3 zRot = *this * c;
+
+	return cross(xRot + yRot + zRot);
 }
