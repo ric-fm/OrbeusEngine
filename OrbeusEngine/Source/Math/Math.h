@@ -8,6 +8,9 @@ class Math
 {
 public:
 	static const float PI;
+	static const float Epsilon;
+	static const float Tolerance;
+
 	static float degreesToRadians(float angle);
 	static float radiansToDegrees(float angle);
 

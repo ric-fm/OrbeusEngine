@@ -7,6 +7,7 @@
 
 struct Vector3;
 struct Vector2;
+struct Quaternion;
 
 /**
 * 4x4 Matrix for handle transformation
@@ -14,7 +15,11 @@ struct Vector2;
 */
 struct Matrix4
 {
-	// Elements of the matrix. Represented with column - major notation
+	static const Matrix4 identity;
+	static const Matrix4 zero;
+
+
+	// Elements of the matrix. Represented with column - major notation (same as OpenGL)
 	float buffer[4][4];
 
 	Matrix4();
@@ -45,12 +50,26 @@ struct Matrix4
 	Matrix4 operator-(float value) const;
 	void operator-=(float value);
 
-	Matrix4 transpose() const;
-	Matrix4 translate(const Vector3& vector) const;
-	Matrix4 rotate(const Vector3& vector, float angle) const;
-	Matrix4 scale(const Vector3& vector) const;
-	
-	static Matrix4 Identity();
+	void set(
+		float v0, float v1, float v2, float v3,
+		float v4, float v5, float v6, float v7,
+		float v8, float v9, float v10, float v11,
+		float v12, float v13, float v14, float v15
+	);
+
+	Matrix4 getTransposed() const;
+	void transpose();
+
+	Matrix4 getInversed() const;
+	void inverse();
+
+	float determinant() const;
+
+	Vector3 getTranslation() const;
+	Vector3 getScale() const;
+	Quaternion getRotation() const;
+
+	void decompose(Vector3& translation, Vector3& scale, Quaternion& rotation) const;
 
 	static Matrix4 Translation(const Vector3& vector);
 	static Matrix4 Translation(const Vector2& vector);
@@ -60,11 +79,12 @@ struct Matrix4
 
 	static Matrix4 Rotation(const Vector3& axis, float angle);
 	static Matrix4 Rotation(const Vector3& angles);
+	static Matrix4 Rotation(const Quaternion& quaternion);
 
 	static Matrix4 Orthographic(float left, float right, float bottom, float top, float near, float far);
 	static Matrix4 Perspective(float fov, float aspectRatio, float near, float far);
 
-	static Matrix4 LookAt(const Vector3& eye, const Vector3& target, const Vector3& upDir);
+	static Matrix4 LookAt(const Vector3& eye, const Vector3& target, const Vector3& upDir); // TODO: Test this and move to Transform
 
 	inline friend std::ostream & operator<<(std::ostream& out, const Matrix4& matrix) {
 		for (unsigned int i = 0; i < 4; ++i)

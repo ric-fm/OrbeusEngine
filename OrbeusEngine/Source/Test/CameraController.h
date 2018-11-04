@@ -5,6 +5,8 @@
 class CameraController : public GameComponent
 {
 private:
+	float yaw = 0;
+	float pitch = 0;
 
 public:
 	float cameraSpeed = 15.0f;

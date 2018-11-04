@@ -4,6 +4,7 @@
 
 #include "Math/Vector3.h"
 #include "Math/Matrix4.h"
+#include "Math/Quaternion.h"
 
 
 class GameObject;
@@ -12,19 +13,13 @@ class Transform
 {
 private:
 	Vector3 position;
-	Vector3 rotation;
 	Vector3 scale;
-
-	Vector3 forward;
-	Vector3 up;
-	Vector3 right;
+	Quaternion rotation;
 
 	Transform* parent = nullptr;
 	std::vector<Transform*> children;
 
 	GameObject* owner = nullptr;
-
-	void updateVectors();
 
 public:
 	Transform(GameObject* owner = nullptr);
@@ -61,32 +56,24 @@ public:
 
 	Matrix4 getMatrix() const;
 
-	void setPosition(const Vector3& position) { this->position = position; }
+	void setRelativePosition(const Vector3& position) { this->position = position; }
+	Vector3 getRelativePosition() const { return position; }
+	
 	void addPosition(const Vector3& position) { this->position += position; }
-	//Vector3 getRelativePosition() const { return position; }
-	Vector3 getPosition() const { return position; }
-	//Vector3 getPosition() const
-	//{
-	//	Matrix4 parentMatrix;
-	//	if (parent != nullptr)
-	//	{
-	//		parentMatrix = parent->getMatrix();
-	//	}
-	//	Matrix4 translation = parentMatrix * Matrix4::Translation(position);
-	//	parentMatrix = parentMatrix.translate(position);
 
-	//	return Vector(translation.;
-	//}
+	void setRelativeRotation(const Quaternion& rotation);
+	Quaternion getRelativeRotation() const { return rotation; }
 
-	void setRotation(const Vector3& rotation);
-	Vector3 getRotation() const { return rotation; }
+	void setRelativeScale(const Vector3& scale) { this->scale = scale; }
+	Vector3 getRelativeScale() const { return scale; }
 
-	void setScale(const Vector3& scale) { this->scale = scale; }
-	Vector3 getScale() const { return scale; }
+	Vector3 getPosition() const;
+	Vector3 getScale() const;
+	Quaternion getRotation() const;
 
-	void lookAt(const Vector3& target);
+	Vector3 transformVector(const Vector3 & source) const;
 
-	Vector3 getForwardVector() const { return forward; }
-	Vector3 getUpVector() const { return up; }
-	Vector3 getRightVector() const { return right; }
+	Vector3 getForwardVector() const;
+	Vector3 getUpVector() const;
+	Vector3 getRightVector() const;
 };

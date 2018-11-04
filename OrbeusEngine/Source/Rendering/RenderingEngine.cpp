@@ -52,6 +52,7 @@ void RenderingEngine::render(float deltaTime)
 	glBlendFunc(GL_ONE, GL_ONE);
 	glDepthMask(false);
 	glDepthFunc(GL_EQUAL);
+	glFrontFace(GL_CW);
 
 	for (int i = 0; i < lights.size(); ++i)
 	{

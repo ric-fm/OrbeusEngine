@@ -6,10 +6,11 @@
 #include <typeinfo>
 #include <typeindex>
 
+#include "GameComponent.h"
+
 
 
 class Transform;
-class GameComponent;
 class Shader;
 
 class GameObject

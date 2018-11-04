@@ -5,25 +5,9 @@
 #include "Math/Math.h"
 
 
-void Transform::updateVectors()
-{
-	float pitch = Math::degreesToRadians(rotation.x);
-	float yaw = Math::degreesToRadians(rotation.y);
-	float roll = Math::degreesToRadians(rotation.z);
-
-	float x = cos(pitch) * cos(yaw);
-	float y = sin(pitch);
-	float z = cos(pitch) * sin(yaw);
-
-	forward = Vector3(x, y, z).normalize();
-	right = forward.cross(World::getUpVector()).normalize();
-	up = right.cross(forward);
-}
-
 Transform::Transform(GameObject* owner)
-	: owner(owner), position(0.0f, 0.0f, 0.0f), rotation(0.0f, -90.0f, 0.0f), scale(1.0f, 1.0f, 1.0f)
+	: owner(owner), position(), rotation(), scale(1.0f, 1.0f, 1.0f)
 {
-	updateVectors();
 }
 
 Matrix4 Transform::getMatrix() const
@@ -36,12 +20,58 @@ Matrix4 Transform::getMatrix() const
 	return parentMatrix * Matrix4::Translation(position) * Matrix4::Rotation(rotation) * Matrix4::Scaling(scale);
 }
 
-void Transform::setRotation(const Vector3& rotation) {
+void Transform::setRelativeRotation(const Quaternion & rotation)
+{
 	this->rotation = rotation;
-
-	updateVectors();
 }
 
-void Transform::lookAt(const Vector3& target)
+Vector3 Transform::getPosition() const
 {
+	Matrix4 matrix = this->getMatrix();
+
+	return Vector3(matrix.buffer[3][0], matrix.buffer[3][1], matrix.buffer[3][2]);
+}
+
+Vector3 Transform::getScale() const
+{
+	Matrix4 matrix = this->getMatrix();
+
+	return Vector3(
+		Vector3(matrix.buffer[0][0], matrix.buffer[0][1], matrix.buffer[0][2]).length(),
+		Vector3(matrix.buffer[1][0], matrix.buffer[1][1], matrix.buffer[1][2]).length(),
+		Vector3(matrix.buffer[2][0], matrix.buffer[2][1], matrix.buffer[2][2]).length()
+	);
+}
+
+Quaternion Transform::getRotation() const
+{
+	return Quaternion::RotationMatrix(getMatrix());
+}
+
+Vector3 Transform::transformVector(const Vector3 & source) const
+{
+	Vector3 result;
+
+	Matrix4 matrix = this->getMatrix();
+
+	result.x = source.x * matrix.buffer[0][0] + source.y * matrix.buffer[1][0] + source.z * matrix.buffer[2][0];
+	result.y = source.x * matrix.buffer[0][1] + source.y * matrix.buffer[1][1] + source.z * matrix.buffer[2][1];
+	result.z = source.x * matrix.buffer[0][2] + source.y * matrix.buffer[1][2] + source.z * matrix.buffer[2][2];
+
+	return result;
+}
+
+Vector3 Transform::getForwardVector() const
+{
+	return Vector3::forward.rotate(rotation);
+}
+
+Vector3 Transform::getUpVector() const
+{
+	return Vector3::up.rotate(rotation);
+}
+
+Vector3 Transform::getRightVector() const
+{
+	return Vector3::right.rotate(rotation);
 }

@@ -42,9 +42,4 @@ public:
 	void init();
 	void update(float deltaTime);
 	void render(float deltaTime, Shader* shader);
-
-
-	static Vector3 getForwardVector() { return Vector3(0.0f, 0.0f, 1.0f); }
-	static Vector3 getUpVector() { return Vector3(0.0f, 1.0f, 0.0f); }
-	static Vector3 getRightVector() { return Vector3(1.0f, 0.0f, 0.0f); }
 };

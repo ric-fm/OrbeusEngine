@@ -6,22 +6,18 @@
 class Rotate : public GameComponent
 {
 private:
-	Vector3 rotateSpeed;
+	Vector3 axis;
+	float speed;
+	float angle;
 public:
-	Rotate(const Vector3& rotateSpeed)
-		: rotateSpeed(rotateSpeed)
+	Rotate(const Vector3& axis, float speed)
+		: axis(axis), speed(speed), angle(0.0f)
 	{
-
 	}
-
-	void setRotateSpeed(const Vector3& rotateSpeed) { this->rotateSpeed = rotateSpeed; }
 
 	virtual void update(float deltaTime) override
 	{
-
-		Vector3 currentRotation = getTransform()->getRotation();
-
-
-		getTransform()->setRotation(currentRotation + rotateSpeed * deltaTime);
+		angle += speed * deltaTime;
+		getTransform()->setRelativeRotation(Quaternion::AxisAngle(axis, angle));
 	}
 };

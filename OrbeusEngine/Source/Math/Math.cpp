@@ -4,6 +4,8 @@
 #include "Vector3.h"
 
 const float Math::PI = 3.14159265f;
+const float Math::Epsilon = 1E-06f;
+const float Math::Tolerance = 2e-37f;
 
 
 float Math::degreesToRadians(float angle)

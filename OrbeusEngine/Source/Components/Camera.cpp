@@ -1,6 +1,7 @@
 #include "Camera.h"
 
 #include "Core/Transform.h"
+#include "Core/GameObject.h"
 
 Camera::Camera()
 	: fov(90.0f), aspectRatio(800.0f/600.0f), near(0.1f), far(100.0f)
@@ -26,5 +27,14 @@ void Camera::calculateProjectionMatrix()
 
 Matrix4 Camera::getViewMatrix() const
 {
-	return Matrix4::LookAt(getTransform()->getPosition(), getTransform()->getPosition() + getTransform()->getForwardVector(), getTransform()->getUpVector());
+	// Get the inverted camera transform matrix
+	Matrix4 view = getOwner()->getTransform()->getMatrix().getInversed();
+
+	// Ivert OpenGL Camera forward (because in OpenGL the forward vector is -z)
+	view.buffer[0][2] *= -1.0f;
+	view.buffer[1][2] *= -1.0f;
+	view.buffer[2][2] *= -1.0f;
+	view.buffer[3][2] *= -1.0f;
+
+	return view;
 }

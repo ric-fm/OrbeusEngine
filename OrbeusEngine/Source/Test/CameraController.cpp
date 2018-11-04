@@ -4,6 +4,7 @@
 
 #include "Core/World.h"
 #include "Core/Transform.h"
+#include "Math/Math.h"
 
 void CameraController::update(float deltaTime)
 {
@@ -28,27 +29,24 @@ void CameraController::update(float deltaTime)
 
 	if (Input::isKeyDown(GLFW_KEY_Q))
 	{
-		getTransform()->addPosition(-World::getUpVector() * speed);
+		getTransform()->addPosition(-Vector3::up * speed);
 	}
 	if (Input::isKeyDown(GLFW_KEY_E))
 	{
-		getTransform()->addPosition(World::getUpVector() * speed);
+		getTransform()->addPosition(Vector3::up * speed);
 	}
 
 	Vector2 delta = Input::getMouseState().delta;
 
 	delta *= mouseSensitivity;
 
-	float yaw = getTransform()->getRotation().y;
-	float pitch = getTransform()->getRotation().x;
-
 	yaw += (float)delta.x;
-	pitch += (float)delta.y;
+	pitch -= (float)delta.y;
 
 	if (pitch > 89.0f)
 		pitch = 89.0f;
 	if (pitch < -89.0f)
 		pitch = -89.0f;
 
-	getTransform()->setRotation(Vector3(pitch, yaw, getTransform()->getRotation().z));
+	getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(pitch, yaw, 0.0f)));
 }

@@ -17,9 +17,9 @@ public:
 	{
 		if (target != nullptr)
 		{
-			getTransform()->setPosition(target->getPosition());
-			getTransform()->setRotation(target->getRotation());
-			getTransform()->setScale(target->getScale());
+			getTransform()->setRelativePosition(target->getRelativePosition());
+			getTransform()->setRelativeScale(target->getRelativeScale());
+			getTransform()->setRelativeRotation(target->getRelativeRotation());
 		}
 	}
 };

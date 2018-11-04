@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
+    <ClCompile Include="Source\Math\Quaternion.cpp" />
     <ClCompile Include="Source\Test\CameraController.cpp" />
     <ClCompile Include="Source\Core\Engine.cpp" />
     <ClCompile Include="Source\Test\CopyTransform.h" />
@@ -146,6 +147,8 @@
     <ClCompile Include="Source\Core\GameObject.cpp" />
     <ClCompile Include="Source\Core\Input.cpp" />
     <ClCompile Include="Source\Components\Light.cpp" />
+    <ClCompile Include="Source\Test\LookToController.cpp" />
+    <ClCompile Include="Source\Test\MoveController.cpp" />
     <ClCompile Include="Source\Utils\Log.cpp" />
     <ClCompile Include="Source\Test\Main.cpp" />
     <ClCompile Include="Source\Math\Math.cpp" />
@@ -183,6 +186,7 @@
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
     <ClInclude Include="Source\Components\Camera.h" />
+    <ClInclude Include="Source\Math\Quaternion.h" />
     <ClInclude Include="Source\Test\CameraController.h" />
     <ClInclude Include="Source\Core\Engine.h" />
     <ClInclude Include="Source\Core\Game.h" />
@@ -190,6 +194,8 @@
     <ClInclude Include="Source\Core\GameObject.h" />
     <ClInclude Include="Source\Core\Input.h" />
     <ClInclude Include="Source\Components\Light.h" />
+    <ClInclude Include="Source\Test\LookToController.h" />
+    <ClInclude Include="Source\Test\MoveController.h" />
     <ClInclude Include="Source\Utils\Log.h" />
     <ClInclude Include="Source\Rendering\Material.h" />
     <ClInclude Include="Source\Math\Math.h" />
