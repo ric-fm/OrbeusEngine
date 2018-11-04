@@ -29,7 +29,6 @@
     <ClCompile Include="Source\Test\Main.cpp" />
     <ClCompile Include="Source\Test\MoveController.cpp" />
     <ClCompile Include="Source\Math\Quaternion.cpp" />
-    <ClCompile Include="Source\Test\LookToController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -76,6 +75,5 @@
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Test\MoveController.h" />
     <ClInclude Include="Source\Math\Quaternion.h" />
-    <ClInclude Include="Source\Test\LookToController.h" />
   </ItemGroup>
 </Project>

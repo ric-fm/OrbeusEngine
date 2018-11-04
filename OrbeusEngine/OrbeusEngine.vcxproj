@@ -147,7 +147,7 @@
     <ClCompile Include="Source\Core\GameObject.cpp" />
     <ClCompile Include="Source\Core\Input.cpp" />
     <ClCompile Include="Source\Components\Light.cpp" />
-    <ClCompile Include="Source\Test\LookToController.cpp" />
+  
     <ClCompile Include="Source\Test\MoveController.cpp" />
     <ClCompile Include="Source\Utils\Log.cpp" />
     <ClCompile Include="Source\Test\Main.cpp" />
@@ -194,7 +194,6 @@
     <ClInclude Include="Source\Core\GameObject.h" />
     <ClInclude Include="Source\Core\Input.h" />
     <ClInclude Include="Source\Components\Light.h" />
-    <ClInclude Include="Source\Test\LookToController.h" />
     <ClInclude Include="Source\Test\MoveController.h" />
     <ClInclude Include="Source\Utils\Log.h" />
     <ClInclude Include="Source\Rendering\Material.h" />
