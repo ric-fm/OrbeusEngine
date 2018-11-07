@@ -20,7 +20,7 @@ void DirectionalLight::init()
 void DirectionalLight::updateShader()
 {
 	shader->bind();
-	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getRelativePosition());
+	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
 
 	shader->SetFloat3("directionalLight.base.color", color);
 	shader->SetFloat("directionalLight.base.intensity", intensity);
@@ -36,11 +36,11 @@ void PointLight::init()
 void PointLight::updateShader()
 {
 	shader->bind();
-	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getRelativePosition());
+	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
 
 	shader->SetFloat3("pointLight.base.color", color);
 	shader->SetFloat("pointLight.base.intensity", intensity);
-	shader->SetFloat3("pointLight.position", getTransform()->getRelativePosition());
+	shader->SetFloat3("pointLight.position", getTransform()->getPosition());
 	shader->SetFloat("pointLight.attenuation.constant", attenuation.constant);
 	shader->SetFloat("pointLight.attenuation.linear", attenuation.linear);
 	shader->SetFloat("pointLight.attenuation.exponential", attenuation.exponential);
@@ -56,11 +56,11 @@ void SpotLight::init()
 void SpotLight::updateShader()
 {
 	shader->bind();
-	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getRelativePosition());
+	shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
 
 	shader->SetFloat3("spotLight.pointLight.base.color", color);
 	shader->SetFloat("spotLight.pointLight.base.intensity", intensity);
-	shader->SetFloat3("spotLight.pointLight.position", getTransform()->getRelativePosition());
+	shader->SetFloat3("spotLight.pointLight.position", getTransform()->getPosition());
 	shader->SetFloat("spotLight.pointLight.attenuation.constant", attenuation.constant);
 	shader->SetFloat("spotLight.pointLight.attenuation.linear", attenuation.linear);
 	shader->SetFloat("spotLight.pointLight.attenuation.exponential", attenuation.exponential);

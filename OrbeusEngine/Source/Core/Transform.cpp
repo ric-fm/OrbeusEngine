@@ -63,15 +63,15 @@ Vector3 Transform::transformVector(const Vector3 & source) const
 
 Vector3 Transform::getForwardVector() const
 {
-	return Vector3::forward.rotate(rotation);
+	return Vector3::forward.rotate(getRotation());
 }
 
 Vector3 Transform::getUpVector() const
 {
-	return Vector3::up.rotate(rotation);
+	return Vector3::up.rotate(getRotation());
 }
 
 Vector3 Transform::getRightVector() const
 {
-	return Vector3::right.rotate(rotation);
+	return Vector3::right.rotate(getRotation());
 }

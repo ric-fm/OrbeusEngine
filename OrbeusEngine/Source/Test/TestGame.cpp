@@ -86,8 +86,7 @@ void TestGame::init()
 
 	GameObject* spotGO = new GameObject("SpotLight");
 	spotGO->addComponent<SpotLight>(new SpotLight(Vector3(0.0f, 1.0f, 0.0f), 0.8f, 0.0f, 0.0f, 0.2f, 20.0f, 0.8f));
-	//spotGO->getTransform()->setParent(cameraGO->getTransform());
-	spotGO->getTransform()->setRelativePosition(Vector3(2.0f, 1.0f, -2.2f));
+	spotGO->getTransform()->setParent(cameraGO->getTransform());
 
 	World::getInstance().addGameObject(directionalGO0);
 	World::getInstance().addGameObject(directionalGO1);
