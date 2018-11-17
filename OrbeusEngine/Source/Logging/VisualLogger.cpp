@@ -11,6 +11,10 @@
 
 #include "Core\Input.h"
 
+#include "Core/Transform.h"
+#include "Core/World.h"
+#include "Components/Camera.h"
+
 VisualLogger::VisualLogger()
 	: showPerformanceInfo(true)
 {
@@ -63,12 +67,18 @@ void VisualLogger::render()
 		ImGui::SetNextWindowPos(ImVec2(24, 24), ImGuiCond_Always, ImVec2(0,0));
 		ImGui::SetNextWindowBgAlpha(0.1f);
 		if (ImGui::Begin("Frame Info", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar |
-			ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings |
+			ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_AlwaysAutoResize |
 			ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav))
 		{
 			ImGui::Text("%d FPS", performanceInfo.FPS);
 			ImGui::Text("%.2f MS", performanceInfo.MS);
-			//ImGui::Separator();
+			ImGui::Separator();
+
+			Vector3 cameraPosition = World::getInstance().getActiveCamera()->getTransform()->getPosition();
+			ImGui::Text("Camera pos: (%.1f,%.1f,%.1f)", cameraPosition.x, cameraPosition.y, cameraPosition.z);
+
+
+
 			ImGui::End();
 		}
 	}
