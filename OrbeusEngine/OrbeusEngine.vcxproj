@@ -78,7 +78,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SourceDir)Libraries/stb_image/Include;$(SourceDir)Libraries/glfw-3.2.1/Include;$(SourceDir)Libraries/glew-2.1.0/Include;D:\dev\OrbeusEngine\OrbeusEngine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)Source;$(SourceDir)Libraries/stb_image/Include;$(SourceDir)Libraries/glfw-3.2.1/Include;$(SourceDir)Libraries/glew-2.1.0/Include;$(SourceDir)Libraries/imgui/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -137,9 +137,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Libraries\imgui\Include\imgui\imgui.cpp" />
+    <ClCompile Include="Libraries\imgui\Include\imgui\imgui_demo.cpp" />
+    <ClCompile Include="Libraries\imgui\Include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="Libraries\imgui\Include\imgui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
     <ClCompile Include="Source\Components\GUIText.cpp" />
+    <ClCompile Include="Source\Logging\VisualLogger.cpp" />
     <ClCompile Include="Source\Math\Quaternion.cpp" />
     <ClCompile Include="Source\Rendering\Text\Font.cpp" />
     <ClCompile Include="Source\Rendering\Text\TextMeshData.cpp" />
@@ -193,9 +198,17 @@
     <None Include="Resources\Shaders\Text\SDF-vs.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libraries\imgui\Include\imgui\imconfig.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\imgui.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\imgui_internal.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\stb_rect_pack.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\stb_textedit.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\stb_truetype.h" />
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
     <ClInclude Include="Source\Components\Camera.h" />
     <ClInclude Include="Source\Components\GUIText.h" />
+    <ClInclude Include="Source\Logging\VisualLogger.h" />
     <ClInclude Include="Source\Math\Quaternion.h" />
     <ClInclude Include="Source\Rendering\Text\Font.h" />
     <ClInclude Include="Source\Rendering\Text\TextMeshData.h" />

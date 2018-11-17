@@ -17,6 +17,10 @@ public:
 private:
 	ResourceManager();
 
+public:
+	ResourceManager(ResourceManager const&) = delete;
+	void operator=(ResourceManager const&) = delete;
+
 
 private:
 	std::unordered_map<std::string, Font*> fonts;

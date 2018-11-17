@@ -35,6 +35,11 @@
     <ClCompile Include="Source\Rendering\Text\TextMeshData.cpp" />
     <ClCompile Include="Source\ResourceManagement\ResourceManager.cpp" />
     <ClCompile Include="Source\ResourceManagement\FontLoader.cpp" />
+    <ClCompile Include="Libraries\imgui\Include\imgui\imgui.cpp" />
+    <ClCompile Include="Libraries\imgui\Include\imgui\imgui_demo.cpp" />
+    <ClCompile Include="Libraries\imgui\Include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="Libraries\imgui\Include\imgui\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="Source\Logging\VisualLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -91,5 +96,13 @@
     <ClInclude Include="Source\Rendering\Text\TextMeshData.h" />
     <ClInclude Include="Source\ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Source\ResourceManagement\FontLoader.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\imconfig.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\imgui.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\imgui_internal.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\stb_rect_pack.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\stb_textedit.h" />
+    <ClInclude Include="Libraries\imgui\Include\imgui\stb_truetype.h" />
+    <ClInclude Include="Source\Logging\VisualLogger.h" />
   </ItemGroup>
 </Project>

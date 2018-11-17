@@ -11,7 +11,8 @@
 #include "Shader.h"
 #include "Utils/Log.h"
 
-#include "Rendering\Text\TextRenderer.h"
+#include "Rendering/Text/TextRenderer.h"
+#include "Logging/VisualLogger.h"
 
 RenderingEngine::RenderingEngine(Engine* engine)
 	: engine(engine), ambientLight(0.0f, 0.0f, 0.0f)
@@ -54,6 +55,9 @@ void RenderingEngine::render(float deltaTime)
 {
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	
+	glFrontFace(GL_CW);
 
 	ambientShader->bind();
 	ambientShader->SetFloat3("ambientLight", ambientLight);
@@ -64,7 +68,6 @@ void RenderingEngine::render(float deltaTime)
 	glBlendFunc(GL_ONE, GL_ONE);
 	glDepthMask(false);
 	glDepthFunc(GL_EQUAL);
-	glFrontFace(GL_CW);
 
 	for (unsigned int i = 0; i < lights.size(); ++i)
 	{
@@ -79,6 +82,9 @@ void RenderingEngine::render(float deltaTime)
 
 	// Text Render Phase
 	textRenderer->render();
+
+	// Log Rendering
+	VisualLogger::getInstance().render();
  
 	glfwSwapBuffers(engine->getWindow()->getHandler());
 }

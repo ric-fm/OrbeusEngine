@@ -7,6 +7,8 @@
 
 #include "GLFW/glfw3.h"
 
+#include "Logging/VisualLogger.h"
+
 
 void Engine::finish()
 {
@@ -61,6 +63,7 @@ void Engine::init()
 	game->init();
 
 	World::getInstance().init();
+	VisualLogger::getInstance().init();
 }
 
 void Engine::update(float deltaTime)
@@ -70,6 +73,7 @@ void Engine::update(float deltaTime)
 	World::getInstance().update(deltaTime);
 
 	game->update(deltaTime);
+	VisualLogger::getInstance().update(deltaTime);
 }
 
 void Engine::render(float deltaTime)
