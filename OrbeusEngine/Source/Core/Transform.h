@@ -13,8 +13,8 @@ class Transform
 {
 private:
 	Vector3 position;
-	Vector3 scale;
 	Quaternion rotation;
+	Vector3 scale;
 
 	Transform* parent = nullptr;
 	std::vector<Transform*> children;

@@ -139,7 +139,12 @@
   <ItemGroup>
     <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
+    <ClCompile Include="Source\Components\GUIText.cpp" />
     <ClCompile Include="Source\Math\Quaternion.cpp" />
+    <ClCompile Include="Source\Rendering\Text\Font.cpp" />
+    <ClCompile Include="Source\Rendering\Text\TextMeshData.cpp" />
+    <ClCompile Include="Source\ResourceManagement\FontLoader.cpp" />
+    <ClCompile Include="Source\ResourceManagement\ResourceManager.cpp" />
     <ClCompile Include="Source\Test\CameraController.cpp" />
     <ClCompile Include="Source\Core\Engine.cpp" />
     <ClCompile Include="Source\Test\CopyTransform.h" />
@@ -147,7 +152,6 @@
     <ClCompile Include="Source\Core\GameObject.cpp" />
     <ClCompile Include="Source\Core\Input.cpp" />
     <ClCompile Include="Source\Components\Light.cpp" />
-  
     <ClCompile Include="Source\Test\MoveController.cpp" />
     <ClCompile Include="Source\Utils\Log.cpp" />
     <ClCompile Include="Source\Test\Main.cpp" />
@@ -166,6 +170,7 @@
     <ClCompile Include="Source\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="Source\Window\Window.cpp" />
     <ClCompile Include="Source\Core\World.cpp" />
+    <ClCompile Include="Source\Rendering\Text\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -182,11 +187,20 @@
     <None Include="Resources\Shaders\Mesh-vs.shader" />
     <None Include="Resources\Shaders\Phong-fs.shader" />
     <None Include="Resources\Shaders\Phong-vs.shader" />
+    <None Include="Resources\Shaders\Test\test-fs.shader" />
+    <None Include="Resources\Shaders\Test\test-vs.shader" />
+    <None Include="Resources\Shaders\Text\SDF-fs.shader" />
+    <None Include="Resources\Shaders\Text\SDF-vs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
     <ClInclude Include="Source\Components\Camera.h" />
+    <ClInclude Include="Source\Components\GUIText.h" />
     <ClInclude Include="Source\Math\Quaternion.h" />
+    <ClInclude Include="Source\Rendering\Text\Font.h" />
+    <ClInclude Include="Source\Rendering\Text\TextMeshData.h" />
+    <ClInclude Include="Source\ResourceManagement\FontLoader.h" />
+    <ClInclude Include="Source\ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Source\Test\CameraController.h" />
     <ClInclude Include="Source\Core\Engine.h" />
     <ClInclude Include="Source\Core\Game.h" />
@@ -212,6 +226,7 @@
     <ClInclude Include="Source\Rendering\VertexBuffer.h" />
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Core\World.h" />
+    <ClInclude Include="Source\Rendering\Text\TextRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

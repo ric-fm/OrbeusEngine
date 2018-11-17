@@ -6,7 +6,7 @@
 
 
 GameObject::GameObject(const std::string& name)
-	: name(name)
+	: ID(-1), name(name)
 {
 	transform = new Transform(this);
 }

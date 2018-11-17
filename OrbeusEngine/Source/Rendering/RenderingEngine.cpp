@@ -11,9 +11,19 @@
 #include "Shader.h"
 #include "Utils/Log.h"
 
+#include "Rendering\Text\TextRenderer.h"
+
 RenderingEngine::RenderingEngine(Engine* engine)
 	: engine(engine), ambientLight(0.0f, 0.0f, 0.0f)
 {
+}
+
+RenderingEngine::~RenderingEngine()
+{
+	if (textRenderer != nullptr)
+	{
+		delete textRenderer;
+	}
 }
 
 void RenderingEngine::registerLight(Light* light)
@@ -36,6 +46,8 @@ void RenderingEngine::init()
 	}
 
 	ambientShader = new Shader("Resources/Shaders/Forward/Ambient-vs.shader", "Resources/Shaders/Forward/Ambient-fs.shader");
+
+	textRenderer = new TextRenderer();
 }
 
 void RenderingEngine::render(float deltaTime)
@@ -54,7 +66,7 @@ void RenderingEngine::render(float deltaTime)
 	glDepthFunc(GL_EQUAL);
 	glFrontFace(GL_CW);
 
-	for (int i = 0; i < lights.size(); ++i)
+	for (unsigned int i = 0; i < lights.size(); ++i)
 	{
 		lights[i]->updateShader();
 
@@ -65,5 +77,8 @@ void RenderingEngine::render(float deltaTime)
 	glDepthMask(true);
 	glDisable(GL_BLEND);
 
+	// Text Render Phase
+	textRenderer->render();
+ 
 	glfwSwapBuffers(engine->getWindow()->getHandler());
 }

@@ -29,6 +29,12 @@
     <ClCompile Include="Source\Test\Main.cpp" />
     <ClCompile Include="Source\Test\MoveController.cpp" />
     <ClCompile Include="Source\Math\Quaternion.cpp" />
+    <ClCompile Include="Source\Rendering\Text\TextRenderer.cpp" />
+    <ClCompile Include="Source\Components\GUIText.cpp" />
+    <ClCompile Include="Source\Rendering\Text\Font.cpp" />
+    <ClCompile Include="Source\Rendering\Text\TextMeshData.cpp" />
+    <ClCompile Include="Source\ResourceManagement\ResourceManager.cpp" />
+    <ClCompile Include="Source\ResourceManagement\FontLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -45,6 +51,10 @@
     <None Include="Resources\Shaders\Forward\Point-fs.shader" />
     <None Include="Resources\Shaders\Forward\Spot-vs.shader" />
     <None Include="Resources\Shaders\Forward\Spot-fs.shader" />
+    <None Include="Resources\Shaders\Text\SDF-fs.shader" />
+    <None Include="Resources\Shaders\Text\SDF-vs.shader" />
+    <None Include="Resources\Shaders\Test\test-fs.shader" />
+    <None Include="Resources\Shaders\Test\test-vs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
@@ -75,5 +85,11 @@
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Test\MoveController.h" />
     <ClInclude Include="Source\Math\Quaternion.h" />
+    <ClInclude Include="Source\Rendering\Text\TextRenderer.h" />
+    <ClInclude Include="Source\Components\GUIText.h" />
+    <ClInclude Include="Source\Rendering\Text\Font.h" />
+    <ClInclude Include="Source\Rendering\Text\TextMeshData.h" />
+    <ClInclude Include="Source\ResourceManagement\ResourceManager.h" />
+    <ClInclude Include="Source\ResourceManagement\FontLoader.h" />
   </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@ private:
 	int channels;
 
 public:
-	Texture(const std::string& filePath, const std::string& type);
+	Texture(const std::string& filePath, const std::string& type, bool flipVertical = true);
 	~Texture();
 
 	int getWidth() const { return width; }

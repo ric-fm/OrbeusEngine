@@ -15,7 +15,10 @@ class Shader;
 
 class GameObject
 {
+	friend class World;
 private:
+	int ID;
+
 	std::string name;
 	Transform* transform = nullptr;
 	std::unordered_map<std::type_index, GameComponent*> components;
@@ -24,6 +27,8 @@ private:
 public:
 	GameObject(const std::string& name);
 	~GameObject();
+
+	int getID() const { return ID; }
 
 	const std::string& getName() const { return name; }
 	void setName(const std::string& name) { this->name = name; }

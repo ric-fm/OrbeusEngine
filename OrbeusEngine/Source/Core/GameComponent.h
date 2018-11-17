@@ -11,13 +11,18 @@ class Shader;
 
 class GameComponent
 {
+	friend class World;
 private:
+	int ID;
+
 	std::string name;
 	GameObject* owner = nullptr;
 
 public:
 	GameComponent();
 	~GameComponent();
+
+	int getID() const { return ID; }
 
 	void setName(const std::string& name) { this->name = name; }
 	const std::string& getName() const { return name; }

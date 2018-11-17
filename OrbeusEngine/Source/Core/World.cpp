@@ -6,12 +6,15 @@
 #include "Components/Camera.h"
 
 
+unsigned int World::objectCount = 0;
+unsigned int World::componentCount = 0;
+
 World::World()
 {
 	GameObject* cameraGO = new GameObject("Camera");
 	activeCamera = new Camera();
+	registerComponent<Camera>(activeCamera);
 	cameraGO->addComponent<Camera>(activeCamera);
-
 	addGameObject(cameraGO);
 }
 
@@ -21,6 +24,7 @@ World::~World()
 
 void World::addGameObject(GameObject* gameObject)
 {
+	gameObject->ID = ++objectCount;
 	gameObjects.push_back(gameObject);
 }
 

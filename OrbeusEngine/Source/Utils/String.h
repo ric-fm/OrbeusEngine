@@ -36,6 +36,17 @@ static void splitString(const std::string& source, char token, std::vector<unsig
 	}
 }
 
+static void splitString(const std::string& source, char token, std::vector<int>& result)
+{
+	std::istringstream sourceStream(source);
+	std::string element;
+	result.clear();
+	while (getline(sourceStream, element, token))
+	{
+		result.push_back(std::atoi(element.c_str()));
+	}
+}
+
 static PathInfo getPathInfo(const std::string& path)
 {
 	PathInfo result;

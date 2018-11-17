@@ -6,11 +6,11 @@
 
 #include "Utils/Log.h"
 
-Texture::Texture(const std::string& filePath, const std::string& type)
+Texture::Texture(const std::string& filePath, const std::string& type, bool flipVertical)
 	: id(0), filePath(filePath), type(type), width(0), height(0), channels(0)
 {
 	// Enable vertical flip to load the data correctly
-	stbi_set_flip_vertically_on_load(true);
+	stbi_set_flip_vertically_on_load(flipVertical);
 
 	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &channels, NULL);
 

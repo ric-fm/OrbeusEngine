@@ -3,6 +3,7 @@
 #include "Window/Window.h"
 #include "Components/Light.h"
 #include "Components/Mesh.h"
+#include "Components/GUIText.h"
 #include "Utils/Log.h"
 #include "CameraController.h"
 #include "Rotate.h"
@@ -14,6 +15,10 @@
 
 #include "Core/GameComponent.h"
 #include "Test/MoveController.h"
+
+#include "Rendering/Text/TextRenderer.h"
+
+GameObject* textGO = nullptr;
 
 
 void TestGame::init()
@@ -65,7 +70,7 @@ void TestGame::init()
 	World::getInstance().addGameObject(floor);
 	World::getInstance().addGameObject(cube);
 	World::getInstance().addGameObject(monkey1);
-	World::getInstance().addGameObject(monkey2);
+	//World::getInstance().addGameObject(monkey2);
 	//World::getInstance().addGameObject(monkey3);
 
 
@@ -94,6 +99,24 @@ void TestGame::init()
 	World::getInstance().addGameObject(pointGO1);
 	World::getInstance().addGameObject(spotGO);
 
+
+	textGO = new GameObject("Text");
+	guiText = new GUIText("Hello World!");
+	textGO->addComponent<GUIText>(guiText);
+	World::getInstance().registerComponent<GUIText>(guiText);
+
+	World::getInstance().addGameObject(textGO);
+
+	GameObject* textGO2 = new GameObject("Text2");
+	textGO2->getTransform()->setRelativePosition(Vector3(0.5f, 0.5f, 0.0f));
+	GUIText* guiText2 = new GUIText("Text", 3);
+	guiText2->setColor(Vector3(1, 0, 0));
+	textGO2->addComponent<GUIText>(guiText2);
+	World::getInstance().registerComponent<GUIText>(guiText2);
+
+	World::getInstance().addGameObject(textGO2);
+
+
 }
 
 void TestGame::update(float deltaTime)
@@ -102,4 +125,11 @@ void TestGame::update(float deltaTime)
 	{
 		Engine::getInstance().quitGame();
 	}
+
+
+	if (Input::isKeyDown(GLFW_KEY_G))
+	{
+		guiText->setText("Text2");
+	}
+
 }
