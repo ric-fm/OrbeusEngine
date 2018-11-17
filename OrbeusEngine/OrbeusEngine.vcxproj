@@ -146,9 +146,12 @@
     <ClCompile Include="Source\Components\GUIText.cpp" />
     <ClCompile Include="Source\Logging\VisualLogger.cpp" />
     <ClCompile Include="Source\Math\Quaternion.cpp" />
+    <ClCompile Include="Source\Rendering\Mesh\MeshRenderer.cpp" />
+    <ClCompile Include="Source\Rendering\Mesh\MeshData.cpp" />
     <ClCompile Include="Source\Rendering\Text\Font.cpp" />
     <ClCompile Include="Source\Rendering\Text\TextMeshData.cpp" />
     <ClCompile Include="Source\ResourceManagement\FontLoader.cpp" />
+    <ClCompile Include="Source\ResourceManagement\MeshLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\ResourceManager.cpp" />
     <ClCompile Include="Source\Test\CameraController.cpp" />
     <ClCompile Include="Source\Core\Engine.cpp" />
@@ -210,9 +213,12 @@
     <ClInclude Include="Source\Components\GUIText.h" />
     <ClInclude Include="Source\Logging\VisualLogger.h" />
     <ClInclude Include="Source\Math\Quaternion.h" />
+    <ClInclude Include="Source\Rendering\Mesh\MeshRenderer.h" />
+    <ClInclude Include="Source\Rendering\Mesh\MeshData.h" />
     <ClInclude Include="Source\Rendering\Text\Font.h" />
     <ClInclude Include="Source\Rendering\Text\TextMeshData.h" />
     <ClInclude Include="Source\ResourceManagement\FontLoader.h" />
+    <ClInclude Include="Source\ResourceManagement\MeshLoader.h" />
     <ClInclude Include="Source\ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Source\Test\CameraController.h" />
     <ClInclude Include="Source\Core\Engine.h" />

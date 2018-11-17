@@ -9,6 +9,7 @@
 class Shader;
 class Engine;
 
+class MeshRenderer;
 class TextRenderer;
 
 class RenderingEngine
@@ -21,6 +22,7 @@ private:
 
 	std::vector<Light*> lights;
 
+	MeshRenderer* meshRenderer;
 	TextRenderer* textRenderer;
 
 public:
@@ -35,5 +37,6 @@ public:
 	Vector3& getAmbientLight() { return ambientLight; }
 	void setAmbienLight(const Vector3& ambientLight) { this->ambientLight = ambientLight; }
 
+	MeshRenderer* getMeshRenderer() const { return meshRenderer; }
 	TextRenderer* getTextRenderer() const { return textRenderer; }
 };

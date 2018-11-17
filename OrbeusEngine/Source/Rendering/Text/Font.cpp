@@ -1,9 +1,13 @@
 #include "Font.h"
 
 #include <vector>
+#include <assert.h> 
 
 #include "Rendering/Texture.h"
 #include "TextMeshData.h"
+
+#include "Rendering/VertexArray.h"
+#include "Rendering/VertexBuffer.h"
 
 
 const std::string Font::FONTS_PATH("Resources/Fonts/");
@@ -43,6 +47,7 @@ void addQuad(float minX, float minY, float maxX, float maxY, std::vector<float>&
 
 TextMeshData* Font::loadText(const std::string& text, float fontSize)
 {
+	TextMeshData* result = new TextMeshData();
 	Vector2 cursor;
 
 	std::vector<float> positions;
@@ -65,5 +70,27 @@ TextMeshData* Font::loadText(const std::string& text, float fontSize)
 		cursor.x += character.nextCharacterOffset  * fontSize;
 	}
 
-	return new TextMeshData(positions, textureCoords);
+	assert((positions.size() == textureCoords.size()) && (positions.size() % 2 == 0));
+
+	std::vector<float> data;
+	data.reserve(positions.size() * 2);
+
+	for (unsigned int i = 0; i < positions.size(); i = i + 2)
+	{
+		data.push_back(positions[i]);
+		data.push_back(positions[i + 1]);
+		data.push_back(textureCoords[i]);
+		data.push_back(textureCoords[i + 1]);
+	}
+
+	result->vertexBuffer = new VertexBuffer(&data[0], data.size() * sizeof(float), data.size());
+
+	VertexBufferLayout layout;
+	layout.Push<float>(2);
+	layout.Push<float>(2);
+
+	result->vertexArray = new VertexArray();
+	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
+
+	return result;
 }

@@ -37,34 +37,44 @@ void TestGame::init()
 	GameObject* cube = new GameObject("Cube");
 	cube->getTransform()->setRelativePosition(Vector3(2.0f, 1.0f, 0.0f));
 
-	cube->addComponent<Mesh>(new Mesh("Resources/Models/Cube/Cube.obj"));
+	Mesh* cubeMesh = new Mesh("Resources/Models/Cube/Cube.obj");
+	World::getInstance().registerComponent<Mesh>(cubeMesh);
+	cube->addComponent<Mesh>(cubeMesh);
 
 
 	GameObject* monkey1 = new GameObject("Monkey");
 	GameObject* monkeyMesh1 = new GameObject("Monkey");
 	monkeyMesh1->getTransform()->setParent(monkey1->getTransform());
 
-	monkeyMesh1->addComponent<Mesh>(new Mesh("Resources/Models/Monkey/Monkey.obj"));
+	Mesh* monkeyMesh = new Mesh("Resources/Models/Monkey/Monkey.obj");
+	World::getInstance().registerComponent<Mesh>(monkeyMesh);
+	monkeyMesh1->addComponent<Mesh>(monkeyMesh);
 	monkey1->getTransform()->setRelativePosition(Vector3(0.0f, 3.0f, 2.0f));
 	monkey1->getTransform()->setRelativeScale(Vector3(2.0f, 2.0f, 2.0f));
 
 	monkey1->addComponent<MoveController>(new MoveController());
 
 	GameObject* monkey2 = new GameObject("Monkey");
-	monkey2->addComponent<Mesh>(new Mesh("Resources/Models/Monkey/Monkey.obj"));
+	Mesh* monkey2Mesh = new Mesh("Resources/Models/Monkey/Monkey.obj");
+	World::getInstance().registerComponent<Mesh>(monkey2Mesh);
+	monkey2->addComponent<Mesh>(monkey2Mesh);
 	monkey2->getTransform()->setRelativePosition(Vector3(0.0f, 0.0f, -2.0f));
 	monkey2->getTransform()->setParent(monkey1->getTransform());
 
 
 	GameObject* monkey3 = new GameObject("Monkey");
-	monkey3->addComponent<Mesh>(new Mesh("Resources/Models/Monkey/Monkey.obj"));
+	Mesh* monkey3Mesh = new Mesh("Resources/Models/Monkey/Monkey.obj");
+	World::getInstance().registerComponent<Mesh>(monkey3Mesh);
+	monkey3->addComponent<Mesh>(monkey3Mesh);
 	monkey3->getTransform()->setRelativePosition(Vector3(0.0f, 1.0f, -2.0f));
 
 
 
 	GameObject* floor = new GameObject("Floor");
 	floor->getTransform()->setRelativeScale(Vector3(10.0f));
-	floor->addComponent<Mesh>(new Mesh("Resources/Models/Plane/Plane.obj"));
+	Mesh* floorMesh = new Mesh("Resources/Models/Plane/Plane.obj");
+	World::getInstance().registerComponent<Mesh>(floorMesh);
+	floor->addComponent<Mesh>(floorMesh);
 
 
 	World::getInstance().addGameObject(floor);

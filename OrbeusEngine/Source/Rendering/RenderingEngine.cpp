@@ -11,6 +11,7 @@
 #include "Shader.h"
 #include "Utils/Log.h"
 
+#include "Rendering/Mesh/MeshRenderer.h"
 #include "Rendering/Text/TextRenderer.h"
 #include "Logging/VisualLogger.h"
 
@@ -24,6 +25,10 @@ RenderingEngine::~RenderingEngine()
 	if (textRenderer != nullptr)
 	{
 		delete textRenderer;
+	}
+	if (meshRenderer != nullptr)
+	{
+		delete meshRenderer;
 	}
 }
 
@@ -48,6 +53,7 @@ void RenderingEngine::init()
 
 	ambientShader = new Shader("Resources/Shaders/Forward/Ambient-vs.shader", "Resources/Shaders/Forward/Ambient-fs.shader");
 
+	meshRenderer = new MeshRenderer();
 	textRenderer = new TextRenderer();
 }
 
@@ -56,13 +62,13 @@ void RenderingEngine::render(float deltaTime)
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	
 	glFrontFace(GL_CW);
 
+	// Mesh Rendering (Light Forward Rendering)
 	ambientShader->bind();
 	ambientShader->SetFloat3("ambientLight", ambientLight);
 
-	World::getInstance().render(deltaTime, ambientShader);
+	meshRenderer->render(ambientShader);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE);
@@ -72,8 +78,7 @@ void RenderingEngine::render(float deltaTime)
 	for (unsigned int i = 0; i < lights.size(); ++i)
 	{
 		lights[i]->updateShader();
-
-		World::getInstance().render(deltaTime, lights[i]->getShader());
+		meshRenderer->render(lights[i]->getShader());
 	}
 
 	glDepthFunc(GL_LESS);

@@ -5,6 +5,7 @@
 
 #include "Rendering/Texture.h"
 #include "Rendering/Shader.h"
+#include "Rendering/VertexArray.h"
 #include "TextMeshData.h"
 #include "Font.h"
 
@@ -54,10 +55,10 @@ void TextRenderer::render()
 
 			TextMeshData* meshData = text->getMeshData();
 			
-			meshData->bind();
-			meshData->draw(shader);
+			meshData->vertexArray->bind();
+			meshData->vertexArray->draw(shader);
 
-			meshData->unbind();
+			meshData->vertexArray->unbind();
 		}
 
 		shader->unbind();

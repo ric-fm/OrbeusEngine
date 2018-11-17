@@ -40,6 +40,9 @@
     <ClCompile Include="Libraries\imgui\Include\imgui\imgui_draw.cpp" />
     <ClCompile Include="Libraries\imgui\Include\imgui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="Source\Logging\VisualLogger.cpp" />
+    <ClCompile Include="Source\Rendering\Mesh\MeshData.cpp" />
+    <ClCompile Include="Source\ResourceManagement\MeshLoader.cpp" />
+    <ClCompile Include="Source\Rendering\Mesh\MeshRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -104,5 +107,8 @@
     <ClInclude Include="Libraries\imgui\Include\imgui\stb_textedit.h" />
     <ClInclude Include="Libraries\imgui\Include\imgui\stb_truetype.h" />
     <ClInclude Include="Source\Logging\VisualLogger.h" />
+    <ClInclude Include="Source\Rendering\Mesh\MeshData.h" />
+    <ClInclude Include="Source\ResourceManagement\MeshLoader.h" />
+    <ClInclude Include="Source\Rendering\Mesh\MeshRenderer.h" />
   </ItemGroup>
 </Project>

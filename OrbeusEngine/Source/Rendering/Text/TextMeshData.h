@@ -4,21 +4,17 @@
 
 class VertexArray;
 class VertexBuffer;
-class Shader;
 
 class TextMeshData
 {
+	friend class Font;
+	friend class TextRenderer;
 private:
 	VertexArray* vertexArray = nullptr;
 	VertexBuffer* vertexBuffer = nullptr;
 
 public:
-	TextMeshData(const std::vector<float>& positions, const std::vector<float>& textureCoords);
+	TextMeshData();
 	~TextMeshData();
-
-	void bind() const;
-	void unbind() const;
-
-	void draw(Shader* shader) const;
 
 };

@@ -1,13 +1,14 @@
-#include "TextMeshData.h"
+#include "MeshData.h"
 
 #include "Rendering\VertexArray.h"
 #include "Rendering\VertexBuffer.h"
 
-TextMeshData::TextMeshData()
+
+MeshData::MeshData()
 {
 }
 
-TextMeshData::~TextMeshData()
+MeshData::~MeshData()
 {
 	if (vertexArray == nullptr)
 	{

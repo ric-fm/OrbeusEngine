@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <string>
 
+class MeshData;
 class Font;
 
 class ResourceManager
@@ -23,8 +24,10 @@ public:
 
 
 private:
+	std::unordered_map<std::string, MeshData*> meshes;
 	std::unordered_map<std::string, Font*> fonts;
 
 public:
+	MeshData* getMesh(const std::string& meshPath);
 	Font* getFont(const std::string& fontName);
 };

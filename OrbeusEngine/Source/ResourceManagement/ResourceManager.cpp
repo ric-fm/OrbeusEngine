@@ -1,11 +1,24 @@
 #include "ResourceManager.h"
 
+#include "Rendering/Mesh/MeshData.h"
+#include "MeshLoader.h"
+
 #include "Rendering/Text/Font.h"
 #include "FontLoader.h"
 
 
 ResourceManager::ResourceManager()
 {
+}
+
+MeshData* ResourceManager::getMesh(const std::string& meshPath)
+{
+	MeshData* meshData = meshes[meshPath];
+	if (meshData == nullptr)
+	{
+		meshes[meshPath] = meshData = MeshLoader::loadMesh(meshPath);
+	}
+	return meshData;
 }
 
 Font* ResourceManager::getFont(const std::string& fontName)
