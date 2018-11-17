@@ -38,7 +38,6 @@ void TestGame::init()
 	cube->getTransform()->setRelativePosition(Vector3(2.0f, 1.0f, 0.0f));
 
 	Mesh* cubeMesh = new Mesh("Resources/Models/Cube/Cube.obj");
-	World::getInstance().registerComponent<Mesh>(cubeMesh);
 	cube->addComponent<Mesh>(cubeMesh);
 
 
@@ -47,41 +46,23 @@ void TestGame::init()
 	monkeyMesh1->getTransform()->setParent(monkey1->getTransform());
 
 	Mesh* monkeyMesh = new Mesh("Resources/Models/Monkey/Monkey.obj");
-	World::getInstance().registerComponent<Mesh>(monkeyMesh);
-	monkeyMesh1->addComponent<Mesh>(monkeyMesh);
+	monkeyMesh1->addComponent<Mesh>(new Mesh("Resources/Models/Monkey/Monkey.obj"));
 	monkey1->getTransform()->setRelativePosition(Vector3(0.0f, 3.0f, 2.0f));
 	monkey1->getTransform()->setRelativeScale(Vector3(2.0f, 2.0f, 2.0f));
 
 	monkey1->addComponent<MoveController>(new MoveController());
 
-	GameObject* monkey2 = new GameObject("Monkey");
-	Mesh* monkey2Mesh = new Mesh("Resources/Models/Monkey/Monkey.obj");
-	World::getInstance().registerComponent<Mesh>(monkey2Mesh);
-	monkey2->addComponent<Mesh>(monkey2Mesh);
-	monkey2->getTransform()->setRelativePosition(Vector3(0.0f, 0.0f, -2.0f));
-	monkey2->getTransform()->setParent(monkey1->getTransform());
-
-
-	GameObject* monkey3 = new GameObject("Monkey");
-	Mesh* monkey3Mesh = new Mesh("Resources/Models/Monkey/Monkey.obj");
-	World::getInstance().registerComponent<Mesh>(monkey3Mesh);
-	monkey3->addComponent<Mesh>(monkey3Mesh);
-	monkey3->getTransform()->setRelativePosition(Vector3(0.0f, 1.0f, -2.0f));
-
-
 
 	GameObject* floor = new GameObject("Floor");
 	floor->getTransform()->setRelativeScale(Vector3(10.0f));
 	Mesh* floorMesh = new Mesh("Resources/Models/Plane/Plane.obj");
-	World::getInstance().registerComponent<Mesh>(floorMesh);
 	floor->addComponent<Mesh>(floorMesh);
 
 
 	World::getInstance().addGameObject(floor);
 	World::getInstance().addGameObject(cube);
 	World::getInstance().addGameObject(monkey1);
-	//World::getInstance().addGameObject(monkey2);
-	//World::getInstance().addGameObject(monkey3);
+	World::getInstance().addGameObject(monkeyMesh1);
 
 
 	GameObject* directionalGO0 = new GameObject("Directional0");
@@ -113,7 +94,6 @@ void TestGame::init()
 	textGO = new GameObject("Text");
 	guiText = new GUIText("Hello World!");
 	textGO->addComponent<GUIText>(guiText);
-	World::getInstance().registerComponent<GUIText>(guiText);
 
 	World::getInstance().addGameObject(textGO);
 
@@ -122,7 +102,6 @@ void TestGame::init()
 	GUIText* guiText2 = new GUIText("Text", 3);
 	guiText2->setColor(Vector3(1, 0, 0));
 	textGO2->addComponent<GUIText>(guiText2);
-	World::getInstance().registerComponent<GUIText>(guiText2);
 
 	World::getInstance().addGameObject(textGO2);
 

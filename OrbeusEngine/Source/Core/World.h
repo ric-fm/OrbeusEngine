@@ -33,6 +33,9 @@ public:
 	World(World const&) = delete;
 	void operator=(World const&) = delete;
 
+public:
+	~World();
+
 private:
 	GameObject* activeCameraGO = nullptr;
 	Camera* activeCamera = nullptr;
@@ -40,18 +43,12 @@ private:
 
 	std::unordered_map<std::type_index, std::vector<GameComponent*>> components;
 
-public:
-	~World();
+	void initGameObjectHierarchy(GameObject* gameObject);
+	void updateGameObjectHierarchy(GameObject* gameObject, float deltaTime);
 
+public:
 	void setActiveCamera(Camera* camera) { activeCamera = camera; }
 	Camera* getActiveCamera() const { return activeCamera; }
-
-	template<class ComponentType>
-	void registerComponent(GameComponent* component)
-	{
-		component->ID = ++componentCount;
-		components[std::type_index(typeid(ComponentType))].push_back(component);
-	}
 
 	template<class ComponentType>
 	std::vector<ComponentType*> getComponents()
@@ -72,5 +69,4 @@ public:
 
 	void init();
 	void update(float deltaTime);
-	void render(float deltaTime, Shader* shader);
 };

@@ -58,7 +58,6 @@ public:
 
 	std::vector<GameComponent*> getComponents();
 
-	virtual void init();
-	virtual void update(float deltaTime);
-	virtual void render(float deltaTime, Shader* shader);
+	virtual void init() {}
+	virtual void update(float deltaTime) {}
 };
