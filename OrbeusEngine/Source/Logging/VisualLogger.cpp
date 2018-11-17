@@ -32,7 +32,7 @@ void VisualLogger::destroy()
 void VisualLogger::update(float deltaTime)
 {
 	static float acumDeltaTime = 0.0f;
-	static float frameCount = 0.0f;
+	static int frameCount = 0;
 
 	++frameCount;
 	acumDeltaTime += deltaTime;
@@ -68,7 +68,7 @@ void VisualLogger::render()
 		{
 			ImGui::Text("%d FPS", performanceInfo.FPS);
 			ImGui::Text("%.2f MS", performanceInfo.MS);
-			ImGui::Separator();
+			//ImGui::Separator();
 			ImGui::End();
 		}
 	}
