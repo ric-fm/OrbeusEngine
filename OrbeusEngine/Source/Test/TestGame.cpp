@@ -92,7 +92,7 @@ void TestGame::init()
 	World::getInstance().addGameObject(spotGO);
 
 	GameObject* terrainGO = new GameObject("terrain");
-	Terrain* terrain = new Terrain("Resources/Textures/grass.png");
+	Terrain* terrain = new Terrain("Resources/Textures/Terrain/grassy2.png", "Resources/Textures/Terrain/mud.png", "Resources/Textures/Terrain/grassFlowers.png", "Resources/Textures/Terrain/path.png", "Resources/Textures/Terrain/blendMap.png");
 	terrainGO->addComponent<Terrain>(terrain);
 	World::getInstance().addGameObject(terrainGO);
 

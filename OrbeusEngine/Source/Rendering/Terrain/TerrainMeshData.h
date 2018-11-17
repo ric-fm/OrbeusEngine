@@ -13,7 +13,12 @@ private:
 	VertexArray* vertexArray = nullptr;
 	VertexBuffer* vertexBuffer = nullptr;
 	IndexBuffer* indexBuffer = nullptr;
-	Texture* texture;
+
+	Texture* backgroundTexture;
+	Texture* redTexture;
+	Texture* greenTexture;
+	Texture* blueTexture;
+	Texture* blendMap;
 
 public:
 	TerrainMeshData();

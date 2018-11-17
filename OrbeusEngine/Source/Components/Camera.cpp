@@ -4,7 +4,7 @@
 #include "Core/GameObject.h"
 
 Camera::Camera()
-	: fov(90.0f), aspectRatio(800.0f/600.0f), near(0.1f), far(100.0f)
+	: fov(90.0f), aspectRatio(800.0f/600.0f), near(0.1f), far(1000.0f)
 {
 	calculateProjectionMatrix();
 }

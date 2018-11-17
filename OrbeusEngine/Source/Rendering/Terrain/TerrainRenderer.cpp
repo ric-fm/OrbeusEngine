@@ -18,6 +18,13 @@
 TerrainRenderer::TerrainRenderer()
 {
 	shader = new Shader("Resources/Shaders/Terrain-vs.shader", "Resources/Shaders/Terrain-fs.shader");
+	shader->bind();
+	shader->SetInt("background_texture", 0);
+	shader->SetInt("red_texture", 1);
+	shader->SetInt("green_texture", 2);
+	shader->SetInt("blue_texture", 3);
+	shader->SetInt("blend_map", 4);
+	shader->unbind();
 }
 
 TerrainRenderer::~TerrainRenderer()
@@ -37,8 +44,6 @@ void TerrainRenderer::render()
 		shader->bind();
 		shader->SetMatrix("view", World::getInstance().getActiveCamera()->getViewMatrix());
 		shader->SetMatrix("projection", World::getInstance().getActiveCamera()->getProjectionMatrix());
-		
-		shader->SetInt("texture_diffuse", 0);
 
 		for (unsigned int i = 0; i < terrains.size(); ++i)
 		{
@@ -50,11 +55,15 @@ void TerrainRenderer::render()
 
 			terrainMeshData->vertexArray->bind();
 
-			terrainMeshData->texture->bind();
+			terrainMeshData->backgroundTexture->bind(0);
+			terrainMeshData->redTexture->bind(1);
+			terrainMeshData->greenTexture->bind(2);
+			terrainMeshData->blueTexture->bind(3);
+			terrainMeshData->blendMap->bind(4);
 
 			glDrawElements(GL_TRIANGLES, terrainMeshData->indexBuffer->getCount(), GL_UNSIGNED_INT, 0);
 
-			terrainMeshData->texture->unbind();
+			terrainMeshData->backgroundTexture->unbind();
 
 			terrainMeshData->vertexArray->unbind();
 		}

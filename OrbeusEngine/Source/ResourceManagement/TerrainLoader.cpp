@@ -10,7 +10,9 @@
 #include "Rendering\Terrain\TerrainMeshData.h"
 
 
-TerrainMeshData* TerrainLoader::generateTerrain(const std::string& texturePath, int vertexCount, float size)
+TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundTexture, const std::string & redTexture,
+	const std::string & greenTexture, const std::string & blueTexture, const std::string & blendMap,
+	int vertexCount, float size)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -78,7 +80,11 @@ TerrainMeshData* TerrainLoader::generateTerrain(const std::string& texturePath, 
 
 	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
 
-	result->texture = new Texture(texturePath, "texture_diffuse");
+	result->backgroundTexture = new Texture(backgroundTexture, "background_texture");
+	result->redTexture = new Texture(redTexture, "red_texture");
+	result->greenTexture = new Texture(greenTexture, "green_texture");
+	result->blueTexture = new Texture(blueTexture, "blue_texture");
+	result->blendMap = new Texture(blendMap, "blend_map");
 
 	return result;
 }

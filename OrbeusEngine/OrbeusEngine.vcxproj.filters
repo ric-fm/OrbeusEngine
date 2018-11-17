@@ -125,5 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\grass.png" />
+    <Image Include="Resources\Textures\Terrain\blendMap.png" />
+    <Image Include="Resources\Textures\Terrain\grassFlowers.png" />
+    <Image Include="Resources\Textures\Terrain\grassy2.png" />
+    <Image Include="Resources\Textures\Terrain\mud.png" />
+    <Image Include="Resources\Textures\Terrain\path.png" />
   </ItemGroup>
 </Project>

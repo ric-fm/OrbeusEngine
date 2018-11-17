@@ -18,8 +18,24 @@ TerrainMeshData::~TerrainMeshData()
 	{
 		delete indexBuffer;
 	}
-	if (texture != nullptr)
+	if (backgroundTexture != nullptr)
 	{
-		delete texture;
+		delete backgroundTexture;
+	}
+	if (redTexture != nullptr)
+	{
+		delete redTexture;
+	}
+	if (greenTexture != nullptr)
+	{
+		delete greenTexture;
+	}
+	if (blueTexture != nullptr)
+	{
+		delete blueTexture;
+	}
+	if (blendMap != nullptr)
+	{
+		delete blendMap;
 	}
 }
