@@ -144,15 +144,20 @@
     <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
     <ClCompile Include="Source\Components\GUIText.cpp" />
+    <ClCompile Include="Source\Components\Terrain.cpp" />
     <ClCompile Include="Source\Logging\VisualLogger.cpp" />
     <ClCompile Include="Source\Math\Quaternion.cpp" />
+    <ClCompile Include="Source\Rendering\IndexBuffer.cpp" />
     <ClCompile Include="Source\Rendering\Mesh\MeshRenderer.cpp" />
     <ClCompile Include="Source\Rendering\Mesh\MeshData.cpp" />
+    <ClCompile Include="Source\Rendering\Terrain\TerrainMeshData.cpp" />
+    <ClCompile Include="Source\Rendering\Terrain\TerrainRenderer.cpp" />
     <ClCompile Include="Source\Rendering\Text\Font.cpp" />
     <ClCompile Include="Source\Rendering\Text\TextMeshData.cpp" />
     <ClCompile Include="Source\ResourceManagement\FontLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\MeshLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\ResourceManager.cpp" />
+    <ClCompile Include="Source\ResourceManagement\TerrainLoader.cpp" />
     <ClCompile Include="Source\Test\CameraController.cpp" />
     <ClCompile Include="Source\Core\Engine.cpp" />
     <ClCompile Include="Source\Test\CopyTransform.h" />
@@ -195,6 +200,8 @@
     <None Include="Resources\Shaders\Mesh-vs.shader" />
     <None Include="Resources\Shaders\Phong-fs.shader" />
     <None Include="Resources\Shaders\Phong-vs.shader" />
+    <None Include="Resources\Shaders\Terrain-fs.shader" />
+    <None Include="Resources\Shaders\Terrain-vs.shader" />
     <None Include="Resources\Shaders\Test\test-fs.shader" />
     <None Include="Resources\Shaders\Test\test-vs.shader" />
     <None Include="Resources\Shaders\Text\SDF-fs.shader" />
@@ -211,15 +218,20 @@
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
     <ClInclude Include="Source\Components\Camera.h" />
     <ClInclude Include="Source\Components\GUIText.h" />
+    <ClInclude Include="Source\Components\Terrain.h" />
     <ClInclude Include="Source\Logging\VisualLogger.h" />
     <ClInclude Include="Source\Math\Quaternion.h" />
+    <ClInclude Include="Source\Rendering\IndexBuffer.h" />
     <ClInclude Include="Source\Rendering\Mesh\MeshRenderer.h" />
     <ClInclude Include="Source\Rendering\Mesh\MeshData.h" />
+    <ClInclude Include="Source\Rendering\Terrain\TerrainMeshData.h" />
+    <ClInclude Include="Source\Rendering\Terrain\TerrainRenderer.h" />
     <ClInclude Include="Source\Rendering\Text\Font.h" />
     <ClInclude Include="Source\Rendering\Text\TextMeshData.h" />
     <ClInclude Include="Source\ResourceManagement\FontLoader.h" />
     <ClInclude Include="Source\ResourceManagement\MeshLoader.h" />
     <ClInclude Include="Source\ResourceManagement\ResourceManager.h" />
+    <ClInclude Include="Source\ResourceManagement\TerrainLoader.h" />
     <ClInclude Include="Source\Test\CameraController.h" />
     <ClInclude Include="Source\Core\Engine.h" />
     <ClInclude Include="Source\Core\Game.h" />
@@ -246,6 +258,9 @@
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Core\World.h" />
     <ClInclude Include="Source\Rendering\Text\TextRenderer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\grass.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

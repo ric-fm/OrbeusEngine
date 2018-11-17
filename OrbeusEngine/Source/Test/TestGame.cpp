@@ -4,6 +4,7 @@
 #include "Components/Light.h"
 #include "Components/Mesh.h"
 #include "Components/GUIText.h"
+#include "Components/Terrain.h"
 #include "Utils/Log.h"
 #include "CameraController.h"
 #include "Rotate.h"
@@ -53,13 +54,13 @@ void TestGame::init()
 	monkey1->addComponent<MoveController>(new MoveController());
 
 
-	GameObject* floor = new GameObject("Floor");
-	floor->getTransform()->setRelativeScale(Vector3(10.0f));
-	Mesh* floorMesh = new Mesh("Resources/Models/Plane/Plane.obj");
-	floor->addComponent<Mesh>(floorMesh);
+	//GameObject* floor = new GameObject("Floor");
+	//floor->getTransform()->setRelativeScale(Vector3(10.0f));
+	//Mesh* floorMesh = new Mesh("Resources/Models/Plane/Plane.obj");
+	//floor->addComponent<Mesh>(floorMesh);
 
 
-	World::getInstance().addGameObject(floor);
+	//World::getInstance().addGameObject(floor);
 	World::getInstance().addGameObject(cube);
 	World::getInstance().addGameObject(monkey1);
 	World::getInstance().addGameObject(monkeyMesh1);
@@ -90,21 +91,10 @@ void TestGame::init()
 	World::getInstance().addGameObject(pointGO1);
 	World::getInstance().addGameObject(spotGO);
 
-
-	textGO = new GameObject("Text");
-	guiText = new GUIText("Hello World!");
-	textGO->addComponent<GUIText>(guiText);
-
-	World::getInstance().addGameObject(textGO);
-
-	GameObject* textGO2 = new GameObject("Text2");
-	textGO2->getTransform()->setRelativePosition(Vector3(0.5f, 0.5f, 0.0f));
-	GUIText* guiText2 = new GUIText("Text", 3);
-	guiText2->setColor(Vector3(1, 0, 0));
-	textGO2->addComponent<GUIText>(guiText2);
-
-	World::getInstance().addGameObject(textGO2);
-
+	GameObject* terrainGO = new GameObject("terrain");
+	Terrain* terrain = new Terrain("Resources/Textures/grass.png");
+	terrainGO->addComponent<Terrain>(terrain);
+	World::getInstance().addGameObject(terrainGO);
 
 }
 

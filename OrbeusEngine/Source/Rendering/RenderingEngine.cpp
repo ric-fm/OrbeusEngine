@@ -13,6 +13,7 @@
 
 #include "Rendering/Mesh/MeshRenderer.h"
 #include "Rendering/Text/TextRenderer.h"
+#include "Rendering/Terrain/TerrainRenderer.h"
 #include "Logging/VisualLogger.h"
 
 RenderingEngine::RenderingEngine(Engine* engine)
@@ -22,13 +23,17 @@ RenderingEngine::RenderingEngine(Engine* engine)
 
 RenderingEngine::~RenderingEngine()
 {
+	if (meshRenderer != nullptr)
+	{
+		delete meshRenderer;
+	}
 	if (textRenderer != nullptr)
 	{
 		delete textRenderer;
 	}
-	if (meshRenderer != nullptr)
+	if (terrainRenderer != nullptr)
 	{
-		delete meshRenderer;
+		delete terrainRenderer;
 	}
 }
 
@@ -55,6 +60,7 @@ void RenderingEngine::init()
 
 	meshRenderer = new MeshRenderer();
 	textRenderer = new TextRenderer();
+	terrainRenderer = new TerrainRenderer();
 }
 
 void RenderingEngine::render(float deltaTime)
@@ -63,6 +69,10 @@ void RenderingEngine::render(float deltaTime)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glFrontFace(GL_CW);
+
+
+	// Terrain Renderer
+	terrainRenderer->render();
 
 	// Mesh Rendering (Light Forward Rendering)
 	ambientShader->bind();

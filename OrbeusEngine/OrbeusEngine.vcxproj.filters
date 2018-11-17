@@ -43,6 +43,11 @@
     <ClCompile Include="Source\Rendering\Mesh\MeshData.cpp" />
     <ClCompile Include="Source\ResourceManagement\MeshLoader.cpp" />
     <ClCompile Include="Source\Rendering\Mesh\MeshRenderer.cpp" />
+    <ClCompile Include="Source\Rendering\Terrain\TerrainMeshData.cpp" />
+    <ClCompile Include="Source\Rendering\Terrain\TerrainRenderer.cpp" />
+    <ClCompile Include="Source\Components\Terrain.cpp" />
+    <ClCompile Include="Source\Rendering\IndexBuffer.cpp" />
+    <ClCompile Include="Source\ResourceManagement\TerrainLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -63,6 +68,8 @@
     <None Include="Resources\Shaders\Text\SDF-vs.shader" />
     <None Include="Resources\Shaders\Test\test-fs.shader" />
     <None Include="Resources\Shaders\Test\test-vs.shader" />
+    <None Include="Resources\Shaders\Terrain-fs.shader" />
+    <None Include="Resources\Shaders\Terrain-vs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
@@ -110,5 +117,13 @@
     <ClInclude Include="Source\Rendering\Mesh\MeshData.h" />
     <ClInclude Include="Source\ResourceManagement\MeshLoader.h" />
     <ClInclude Include="Source\Rendering\Mesh\MeshRenderer.h" />
+    <ClInclude Include="Source\Rendering\Terrain\TerrainMeshData.h" />
+    <ClInclude Include="Source\Components\Terrain.h" />
+    <ClInclude Include="Source\Rendering\Terrain\TerrainRenderer.h" />
+    <ClInclude Include="Source\Rendering\IndexBuffer.h" />
+    <ClInclude Include="Source\ResourceManagement\TerrainLoader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\grass.png" />
   </ItemGroup>
 </Project>
