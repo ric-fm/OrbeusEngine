@@ -50,6 +50,7 @@ void RenderingEngine::init()
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_CLAMP);
+		glFrontFace(GL_CW);
 	}
 	else
 	{
@@ -68,34 +69,9 @@ void RenderingEngine::render(float deltaTime)
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	glFrontFace(GL_CW);
 
-
-	// Terrain Renderer
 	terrainRenderer->render();
-
-	// Mesh Rendering (Light Forward Rendering)
-	ambientShader->bind();
-	ambientShader->SetFloat3("ambientLight", World::getInstance().getActiveCamera()->getAmbientLight());
-
-	meshRenderer->render(ambientShader);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_ONE, GL_ONE);
-	glDepthMask(false);
-	glDepthFunc(GL_EQUAL);
-
-	for (unsigned int i = 0; i < lights.size(); ++i)
-	{
-		lights[i]->updateShader();
-		meshRenderer->render(lights[i]->getShader());
-	}
-
-	glDepthFunc(GL_LESS);
-	glDepthMask(true);
-	glDisable(GL_BLEND);
-
-	// Text Render Phase
+	meshRenderer->render();
 	textRenderer->render();
 
 	// Log Rendering

@@ -3,15 +3,6 @@ const int MAX_DIRECTIONAL_LIGHTS = 4;
 const int MAX_POINT_LIGHTS = 4;
 const int MAX_SPOT_LIGHTS = 4;
 
-struct Material
-{
-	sampler2D texture_diffuse;
-	sampler2D texture_specular;
-
-	float specularIntensity;
-	float specularPower;
-};
-
 struct BaseLight
 {
 	vec3 color;

@@ -100,6 +100,17 @@ void TestGame::init()
 	terrainGO->addComponent<Terrain>(terrain);
 	World::getInstance().addGameObject(terrainGO);
 
+
+	GameObject* grassGO = new GameObject("Grass");
+	grassGO->getTransform()->setRelativePosition(Vector3(0, 0, 0));
+	grassGO->addComponent<Mesh>(new Mesh("Resources/Models/Grass/Grass.obj", true));
+	World::getInstance().addGameObject(grassGO);
+
+	GameObject* grassGO2 = new GameObject("Grass2");
+	grassGO2->getTransform()->setRelativePosition(Vector3(0.5f, 0, 1));
+	grassGO2->addComponent<Mesh>(new Mesh("Resources/Models/Grass/Grass.obj", true));
+	World::getInstance().addGameObject(grassGO2);
+
 }
 
 void TestGame::update(float deltaTime)

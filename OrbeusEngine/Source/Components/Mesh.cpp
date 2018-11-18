@@ -4,8 +4,8 @@
 #include "Rendering/Mesh/MeshData.h"
 
 
-Mesh::Mesh(const std::string& meshFilePath)
-	: meshFilePath(meshFilePath)
+Mesh::Mesh(const std::string& meshFilePath, bool transparency)
+	: meshFilePath(meshFilePath), transparency(transparency)
 {
 	meshData = ResourceManager::getInstance().getMesh(meshFilePath);
 }

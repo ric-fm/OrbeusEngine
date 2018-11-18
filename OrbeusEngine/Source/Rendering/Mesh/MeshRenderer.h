@@ -7,7 +7,9 @@ class Shader;
 class MeshRenderer
 {
 private:
-
+	Shader* shader;
 public:
-	void render(Shader* shader);
+	MeshRenderer();
+	~MeshRenderer();
+	void render();
 };
