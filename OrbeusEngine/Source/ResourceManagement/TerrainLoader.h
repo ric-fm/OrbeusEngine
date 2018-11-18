@@ -2,12 +2,15 @@
 
 #include <string>
 
+#define HEIGHTMAP_MAX_PIXEL_COLOR 256.0f * 256.0f * 256.0f
+//#define HEIGHTMAP_MAX_PIXEL_COLOR 128 * 128 * 128
+
 class TerrainMeshData;
 
 class TerrainLoader
 {
 public:
 	static TerrainMeshData* generateTerrain(const std::string& backgroundTexture, const std::string& redTexture, 
-		const std::string& greenTexture, const std::string& blueTexture, const std::string& blendMap,
-		int vertexCount = 128, float size = 800.0f);
+		const std::string& greenTexture, const std::string& blueTexture, const std::string& blendMap, const std::string& heightMap,
+		float maxHeight = 40.0f, float size = 800.0f);
 };

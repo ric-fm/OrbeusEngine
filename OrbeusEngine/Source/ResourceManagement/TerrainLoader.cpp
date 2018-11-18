@@ -8,11 +8,35 @@
 #include "Rendering\IndexBuffer.h"
 #include "Rendering\Texture.h"
 #include "Rendering\Terrain\TerrainMeshData.h"
+#include "Utils\ImageBuffer.h"
 
+float getHeight(int x, int z, float maxHeight, ImageBuffer* image)
+{
+	float result = (float)image->getPixelRGB(x, z);
+	result -= (HEIGHTMAP_MAX_PIXEL_COLOR / 2.0f);
+	result /= (HEIGHTMAP_MAX_PIXEL_COLOR / 2.0f);
+	result *= maxHeight;
+
+	return result;
+}
+
+Vector3 calculateNormal(int x, int z, float maxHeight, ImageBuffer* image)
+{
+	float hL = x > 0 ? getHeight(x - 1, z, maxHeight, image) : 0.0f;
+	float hR = x < image->getWidth() - 1 ? getHeight(x + 1, z, maxHeight, image) : 0.0f;
+	float hD = z > 0 ? getHeight(x, z - 1, maxHeight, image) : 0.0f;
+	float hU = z < image->getHeight() - 1 ? getHeight(x, z + 1, maxHeight, image) : 0.0f;
+
+	return Vector3(
+		hL - hR,
+		2.0f,
+		hD - hU
+	).getNormalized();
+}
 
 TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundTexture, const std::string & redTexture,
-	const std::string & greenTexture, const std::string & blueTexture, const std::string & blendMap,
-	int vertexCount, float size)
+	const std::string & greenTexture, const std::string & blueTexture, const std::string & blendMap, const std::string& heightMap,
+	float maxHeight, float size)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -20,8 +44,12 @@ TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundT
 	// Offset to set the pivot of the Terrain in (0,0,0)
 	float offset = size / 2.0F;
 
+
+	ImageBuffer* image = new ImageBuffer(heightMap);
+	int vertexCount = image->getWidth();
+
 	// Num of quads in one row or column
-	int quadCount = ((float)vertexCount - 1);
+	int quadCount = vertexCount - 1;
 	float inverseQuadCount = 1.0f / (float)quadCount;
 	
 	float quadSize = size / ((float)vertexCount - 1);
@@ -32,8 +60,8 @@ TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundT
 
 			vertices.push_back(
 				{
-					Vector3(x * quadSize - offset, 0, z * quadSize - offset),
-					Vector3(0, 1, 0),
+					Vector3(x * quadSize - offset, getHeight(x,z, maxHeight, image), z * quadSize - offset),
+					calculateNormal(x, z, maxHeight, image),
 					Vector2(x * inverseQuadCount, z * inverseQuadCount)
 				}
 			);

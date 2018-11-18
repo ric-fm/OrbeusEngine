@@ -166,6 +166,7 @@
     <ClCompile Include="Source\Core\Input.cpp" />
     <ClCompile Include="Source\Components\Light.cpp" />
     <ClCompile Include="Source\Test\MoveController.cpp" />
+    <ClCompile Include="Source\Utils\ImageBuffer.cpp" />
     <ClCompile Include="Source\Utils\Log.cpp" />
     <ClCompile Include="Source\Test\Main.cpp" />
     <ClCompile Include="Source\Math\Math.cpp" />
@@ -240,6 +241,7 @@
     <ClInclude Include="Source\Core\Input.h" />
     <ClInclude Include="Source\Components\Light.h" />
     <ClInclude Include="Source\Test\MoveController.h" />
+    <ClInclude Include="Source\Utils\ImageBuffer.h" />
     <ClInclude Include="Source\Utils\Log.h" />
     <ClInclude Include="Source\Rendering\Material.h" />
     <ClInclude Include="Source\Math\Math.h" />
@@ -264,6 +266,7 @@
     <Image Include="Resources\Textures\Terrain\blendMap.png" />
     <Image Include="Resources\Textures\Terrain\grassFlowers.png" />
     <Image Include="Resources\Textures\Terrain\grassy2.png" />
+    <Image Include="Resources\Textures\Terrain\heightmap.png" />
     <Image Include="Resources\Textures\Terrain\mud.png" />
     <Image Include="Resources\Textures\Terrain\path.png" />
   </ItemGroup>

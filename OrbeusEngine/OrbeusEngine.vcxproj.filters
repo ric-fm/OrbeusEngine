@@ -48,6 +48,7 @@
     <ClCompile Include="Source\Components\Terrain.cpp" />
     <ClCompile Include="Source\Rendering\IndexBuffer.cpp" />
     <ClCompile Include="Source\ResourceManagement\TerrainLoader.cpp" />
+    <ClCompile Include="Source\Utils\ImageBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -122,6 +123,7 @@
     <ClInclude Include="Source\Rendering\Terrain\TerrainRenderer.h" />
     <ClInclude Include="Source\Rendering\IndexBuffer.h" />
     <ClInclude Include="Source\ResourceManagement\TerrainLoader.h" />
+    <ClInclude Include="Source\Utils\ImageBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\grass.png" />
@@ -130,5 +132,6 @@
     <Image Include="Resources\Textures\Terrain\grassy2.png" />
     <Image Include="Resources\Textures\Terrain\mud.png" />
     <Image Include="Resources\Textures\Terrain\path.png" />
+    <Image Include="Resources\Textures\Terrain\heightmap.png" />
   </ItemGroup>
 </Project>
