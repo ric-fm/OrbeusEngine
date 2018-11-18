@@ -27,6 +27,8 @@ void TestGame::init()
 	Engine::getInstance().getWindow()->setCursorMode(GLFW_CURSOR_DISABLED);
 
 	World::getInstance().getActiveCamera()->setAmbienLight(Vector3(0.2f, 0.2f, 0.2f));
+	World::getInstance().getActiveCamera()->setSkyColor(Vector3(0.1f, 0.9f, 1.0f));
+	World::getInstance().getActiveCamera()->setFogDensity(0.008f);
 
 	GameObject* cameraGO = World::getInstance().getActiveCamera()->getOwner();
 

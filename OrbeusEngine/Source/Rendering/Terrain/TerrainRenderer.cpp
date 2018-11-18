@@ -50,7 +50,9 @@ void TerrainRenderer::render()
 		shader->SetMatrix("view", World::getInstance().getActiveCamera()->getViewMatrix());
 		shader->SetMatrix("projection", World::getInstance().getActiveCamera()->getProjectionMatrix());
 		shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
+		shader->SetFloat3("fogColor", World::getInstance().getActiveCamera()->getSkyColor());
 		shader->SetFloat3("ambientLight", World::getInstance().getActiveCamera()->getAmbientLight());
+		shader->SetFloat("fogDensity", World::getInstance().getActiveCamera()->getFogDensity());
 
 		for(unsigned int i = 0; i < directionalLights.size() && i < 4; ++i)
 		{

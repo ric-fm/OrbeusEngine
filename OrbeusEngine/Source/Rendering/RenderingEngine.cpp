@@ -66,7 +66,8 @@ void RenderingEngine::init()
 
 void RenderingEngine::render(float deltaTime)
 {
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	Vector3 skyColor = World::getInstance().getActiveCamera()->getSkyColor();
+	glClearColor(skyColor.x, skyColor.y, skyColor.z, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 

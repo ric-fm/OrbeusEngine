@@ -6,12 +6,15 @@ out vec4 FragColor;
 in vec3 Normal;
 in vec2 TexCoord;
 in vec3 WorldPos;
+in float visibility;
 
 uniform sampler2D background_texture;
 uniform sampler2D red_texture;
 uniform sampler2D green_texture;
 uniform sampler2D blue_texture;
 uniform sampler2D blend_map;
+
+uniform vec3 fogColor;
 
 vec3 calcMultiTextureColor(sampler2D background_texture, sampler2D red_texture, sampler2D green_texture, sampler2D blue_texture, sampler2D blend_map, vec2 texCoord, float tiling)
 {
@@ -36,4 +39,5 @@ void main()
 	vec3 diffuse = light.diffuse * color;
 
 	FragColor = vec4(ambient + diffuse, 1.0f);
+	FragColor = mix(vec4(fogColor, 1.0f), FragColor, visibility);
 }

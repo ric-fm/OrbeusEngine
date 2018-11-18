@@ -16,16 +16,24 @@ private:
 
 	float fov;
 
+	Vector3 skyColor;
 	Vector3 ambientLight;
+	float fogDensity;
 
 	void calculateProjectionMatrix();
 public:
 	Camera();
-	Camera(float fov, float aspectRatio, float near, float far);
+	Camera(float fov, float aspectRatio, float near, float far, Vector3 skyColor = Vector3(0.0f, 0.0f, 0.0f), Vector3 ambientLight = Vector3(0.1f, 0.1f, 0.1f), float fogDensity = 0.0f);
 	~Camera();
+
+	Vector3& getSkyColor() { return skyColor; }
+	void setSkyColor(const Vector3& skyColor) { this->skyColor = skyColor; }
 
 	Vector3& getAmbientLight() { return ambientLight; }
 	void setAmbienLight(const Vector3& ambientLight) { this->ambientLight = ambientLight; }
+
+	float getFogDensity() const { return fogDensity; }
+	void setFogDensity(float fogDensity) { this->fogDensity = fogDensity; }
 
 	Matrix4 getViewMatrix() const;
 	Matrix4 getProjectionMatrix() const { return projection; }

@@ -4,13 +4,13 @@
 #include "Core/GameObject.h"
 
 Camera::Camera()
-	: fov(90.0f), aspectRatio(800.0f/600.0f), near(0.1f), far(1000.0f), ambientLight(0.0f, 0.0f, 0.0f)
+	: fov(90.0f), aspectRatio(800.0f/600.0f), near(0.1f), far(1000.0f), ambientLight(0.0f, 0.0f, 0.0f), skyColor(0.0f, 0.0f, 0.0f), fogDensity(0.0f)
 {
 	calculateProjectionMatrix();
 }
 
-Camera::Camera(float fov, float aspectRatio, float near, float far)
-	: fov(fov), aspectRatio(aspectRatio), near(near), far(far), ambientLight(0.0f, 0.0f, 0.0f)
+Camera::Camera(float fov, float aspectRatio, float near, float far, Vector3 skyColor, Vector3 ambientLight, float fogDensity)
+	: fov(fov), aspectRatio(aspectRatio), near(near), far(far), skyColor(skyColor), ambientLight(ambientLight), fogDensity(fogDensity)
 {
 	calculateProjectionMatrix();
 }
