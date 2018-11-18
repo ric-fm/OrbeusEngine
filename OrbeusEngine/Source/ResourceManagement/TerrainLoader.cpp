@@ -80,10 +80,10 @@ TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundT
 
 	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
 
-	result->backgroundTexture = new Texture(backgroundTexture, "background_texture");
-	result->redTexture = new Texture(redTexture, "red_texture");
-	result->greenTexture = new Texture(greenTexture, "green_texture");
-	result->blueTexture = new Texture(blueTexture, "blue_texture");
+	result->backgroundTexture = new Texture(backgroundTexture, "background_texture", -0.4f);
+	result->redTexture = new Texture(redTexture, "red_texture", -0.4f);
+	result->greenTexture = new Texture(greenTexture, "green_texture", -0.4f);
+	result->blueTexture = new Texture(blueTexture, "blue_texture", -0.4f);
 	result->blendMap = new Texture(blendMap, "blend_map");
 
 	return result;

@@ -6,7 +6,7 @@
 
 #include "Utils/Log.h"
 
-Texture::Texture(const std::string& filePath, const std::string& type, bool flipVertical)
+Texture::Texture(const std::string& filePath, const std::string& type, float lodBIAS, bool flipVertical)
 	: id(0), filePath(filePath), type(type), width(0), height(0), channels(0)
 {
 	// Enable vertical flip to load the data correctly
@@ -21,8 +21,10 @@ Texture::Texture(const std::string& filePath, const std::string& type, bool flip
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Trilinear filtering
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, lodBIAS);
 
 		unsigned int format;
 		switch (channels)
