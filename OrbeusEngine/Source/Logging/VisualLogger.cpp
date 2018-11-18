@@ -23,7 +23,7 @@ VisualLogger::VisualLogger()
 void VisualLogger::init()
 {
 	ImGui::CreateContext();
-	ImGui_ImplGlfwGL3_Init(Engine::getInstance().getWindow()->getHandler(), true);
+	ImGui_ImplGlfwGL3_Init(Engine::getInstance().getWindow()->getHandler(), false);
 	ImGui::StyleColorsDark();
 }
 
