@@ -197,6 +197,7 @@
     <None Include="Resources\Shaders\Forward\Point-vs.shader" />
     <None Include="Resources\Shaders\Forward\Spot-fs.shader" />
     <None Include="Resources\Shaders\Forward\Spot-vs.shader" />
+    <None Include="Resources\Shaders\Lighting-header.shader" />
     <None Include="Resources\Shaders\Mesh-fs.shader" />
     <None Include="Resources\Shaders\Mesh-vs.shader" />
     <None Include="Resources\Shaders\Phong-fs.shader" />

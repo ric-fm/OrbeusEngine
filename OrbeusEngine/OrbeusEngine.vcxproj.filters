@@ -71,6 +71,7 @@
     <None Include="Resources\Shaders\Test\test-vs.shader" />
     <None Include="Resources\Shaders\Terrain-fs.shader" />
     <None Include="Resources\Shaders\Terrain-vs.shader" />
+    <None Include="Resources\Shaders\Lighting-header.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
