@@ -17,7 +17,30 @@ std::string Shader::readShaderFile(const std::string& filePath)
 	{
 		while (getline(file, line))
 		{
-			result += line + '\n';
+			std::istringstream lineStream(line);
+			std::string element;
+			lineStream >> element;
+
+			if (element == "#include")
+			{
+				lineStream >> element;
+
+				std::string includePath = "Resources/Shaders/" + element;
+
+				std::ifstream file2(includePath.c_str());
+				if (file2.is_open())
+				{
+					while (getline(file2, line))
+					{
+						result += line + '\n';
+					}
+				}
+				file2.close();
+			}
+			else
+			{
+				result += line + '\n';
+			}
 		}
 
 		file.close();
