@@ -439,8 +439,8 @@ Matrix4 Matrix4::Perspective(float fov, float aspectRatio, float near, float far
 
 Matrix4 Matrix4::LookAt(const Vector3& eye, const Vector3& target, const Vector3& upDir)
 {
-	Vector3 forward = (eye - target).getNormalizez();
-	Vector3 left = upDir.cross(forward).getNormalizez();
+	Vector3 forward = (eye - target).getNormalized();
+	Vector3 left = upDir.cross(forward).getNormalized();
 	Vector3 up = forward.cross(left);
 
 	float tx = -left.x * eye.x - left.y * eye.y - left.z * eye.z;

@@ -250,7 +250,7 @@ void Vector3::normalize()
 	}
 }
 
-Vector3 Vector3::getNormalizez() const
+Vector3 Vector3::getNormalized() const
 {
 	float length = this->length();
 	if (length == 0)

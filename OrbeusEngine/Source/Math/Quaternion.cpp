@@ -136,7 +136,7 @@ void Quaternion::getAxisAngle(Vector3& axis, float& angle) const
 {
 	Quaternion quatNormal = getNormalized();
 
-	axis = Vector3(quatNormal.x, quatNormal.y, quatNormal.z).getNormalizez();
+	axis = Vector3(quatNormal.x, quatNormal.y, quatNormal.z).getNormalized();
 
 	angle = Math::radiansToDegrees(2.0f * acos(quatNormal.w));
 }
@@ -164,7 +164,7 @@ Quaternion Quaternion::RotationMatrix(const Matrix4& m)
 Quaternion Quaternion::AxisAngle(const Vector3& axis, float angle)
 {
 	float halfAngle = Math::degreesToRadians(angle) * 0.5f;
-	Vector3 v = axis.getNormalizez() * sinf(halfAngle);
+	Vector3 v = axis.getNormalized() * sinf(halfAngle);
 
 	return Quaternion(
 		v.x,

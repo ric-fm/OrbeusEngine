@@ -62,7 +62,7 @@ struct Vector3
 	float length() const;
 	float lengthSquared() const;
 	void normalize();
-	Vector3 getNormalizez() const;
+	Vector3 getNormalized() const;
 
 	float angle(const Vector3& target) const;
 	float distance(const Vector3& target) const;
