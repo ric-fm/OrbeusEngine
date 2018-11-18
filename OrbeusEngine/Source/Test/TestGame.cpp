@@ -26,7 +26,7 @@ void TestGame::init()
 {
 	Engine::getInstance().getWindow()->setCursorMode(GLFW_CURSOR_DISABLED);
 
-	Engine::getInstance().getRenderingEngine()->setAmbienLight(Vector3(0.2f, 0.2f, 0.2f));
+	World::getInstance().getActiveCamera()->setAmbienLight(Vector3(0.2f, 0.2f, 0.2f));
 
 	GameObject* cameraGO = World::getInstance().getActiveCamera()->getOwner();
 
@@ -62,12 +62,12 @@ void TestGame::init()
 
 	//World::getInstance().addGameObject(floor);
 	World::getInstance().addGameObject(cube);
-	World::getInstance().addGameObject(monkey1);
-	World::getInstance().addGameObject(monkeyMesh1);
+	//World::getInstance().addGameObject(monkey1);
+	//World::getInstance().addGameObject(monkeyMesh1);
 
 
 	GameObject* directionalGO0 = new GameObject("Directional0");
-	directionalGO0->addComponent<DirectionalLight>(new DirectionalLight(Vector3(1.0f, 0.0f, 0.0f), 0.8f));
+	directionalGO0->addComponent<DirectionalLight>(new DirectionalLight(Vector3(1.0f, 1.0f, 1.0f), 0.8f));
 	directionalGO0->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(60, 20, 0)));
 
 	GameObject* directionalGO1 = new GameObject("Directional1");
@@ -75,18 +75,20 @@ void TestGame::init()
 
 	GameObject* pointGO0 = new GameObject("PointLight0");
 	pointGO0->addComponent<PointLight>(new PointLight(Vector3(1.0f, 0.0f, 0.0f), 0.5f, 1.0f, 0.09f, 0.032f, 5.0f));
-	pointGO0->getTransform()->setRelativePosition(Vector3(2.0f, 1.0f, 5.0f));
+	pointGO0->getTransform()->setParent(cameraGO->getTransform());
+	pointGO0->getTransform()->setRelativePosition(Vector3(-1.0f, -1.0f, 0.0f));
 
 	GameObject* pointGO1 = new GameObject("PointLight1");
-	pointGO1->addComponent<PointLight>(new PointLight(Vector3(0.0f, 0.0f, 1.0f), 0.5f, 1.0f, 0.09f, 0.032f, 5.0f));
-	pointGO1->getTransform()->setRelativePosition(Vector3(5.0f, 1.0f, 0.0f));
+	pointGO1->addComponent<PointLight>(new PointLight(Vector3(0.0f, 0.0f, 1.0f), 0.5f, 1.0f, 0.09f, 0.032f, 25.0f));
+	pointGO1->getTransform()->setParent(cameraGO->getTransform());
+	pointGO1->getTransform()->setRelativePosition(Vector3(1.0f, -1.0f, 0.0f));
 
 	GameObject* spotGO = new GameObject("SpotLight");
 	spotGO->addComponent<SpotLight>(new SpotLight(Vector3(0.0f, 1.0f, 0.0f), 0.8f, 0.0f, 0.0f, 0.2f, 20.0f, 0.8f));
 	spotGO->getTransform()->setParent(cameraGO->getTransform());
 
 	World::getInstance().addGameObject(directionalGO0);
-	World::getInstance().addGameObject(directionalGO1);
+	//World::getInstance().addGameObject(directionalGO1);
 	World::getInstance().addGameObject(pointGO0);
 	World::getInstance().addGameObject(pointGO1);
 	World::getInstance().addGameObject(spotGO);
@@ -106,11 +108,4 @@ void TestGame::update(float deltaTime)
 	{
 		Engine::getInstance().quitGame();
 	}
-
-
-	if (Input::isKeyDown(GLFW_KEY_G))
-	{
-		guiText->setText("Text2");
-	}
-
 }

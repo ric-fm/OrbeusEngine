@@ -19,8 +19,6 @@ private:
 	Engine* engine;
 	Shader* ambientShader;
 
-	Vector3 ambientLight;
-
 	std::vector<Light*> lights;
 
 	MeshRenderer* meshRenderer;
@@ -35,9 +33,6 @@ public:
 
 	void init();
 	void render(float deltaTime);
-
-	Vector3& getAmbientLight() { return ambientLight; }
-	void setAmbienLight(const Vector3& ambientLight) { this->ambientLight = ambientLight; }
 
 	MeshRenderer* getMeshRenderer() const { return meshRenderer; }
 	TextRenderer* getTextRenderer() const { return textRenderer; }

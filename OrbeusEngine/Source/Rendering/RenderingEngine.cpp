@@ -17,7 +17,7 @@
 #include "Logging/VisualLogger.h"
 
 RenderingEngine::RenderingEngine(Engine* engine)
-	: engine(engine), ambientLight(0.0f, 0.0f, 0.0f)
+	: engine(engine)
 {
 }
 
@@ -76,7 +76,7 @@ void RenderingEngine::render(float deltaTime)
 
 	// Mesh Rendering (Light Forward Rendering)
 	ambientShader->bind();
-	ambientShader->SetFloat3("ambientLight", ambientLight);
+	ambientShader->SetFloat3("ambientLight", World::getInstance().getActiveCamera()->getAmbientLight());
 
 	meshRenderer->render(ambientShader);
 
