@@ -8,10 +8,17 @@ static GLFWwindow* windowHandler;
 static Input::MouseState currentMouseState;
 static Input::MouseState lastMouseState;
 
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	currentMouseState.scroll = yoffset;
+}
+
 void Input::setWindow(GLFWwindow* window)
 {
 	windowHandler = window;
 	lastMouseState.position = getMousePosition();
+
+	glfwSetScrollCallback(windowHandler, scroll_callback);
 }
 
 void Input::update(float deltaTime)
@@ -22,6 +29,9 @@ void Input::update(float deltaTime)
 
 	lastMouseState.delta = currentMouseState.delta;
 	lastMouseState.position = currentMouseState.position;
+	lastMouseState.scroll = currentMouseState.scroll;
+
+	currentMouseState.scroll = 0.0f;
 
 	glfwPollEvents();
 }
@@ -40,6 +50,7 @@ Vector2 Input::getMousePosition()
 {
 	double x, y;
 	glfwGetCursorPos(windowHandler, &x, &y);
+
 
 	return Vector2((float)x, (float)y);
 }

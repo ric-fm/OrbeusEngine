@@ -13,13 +13,8 @@ public:
 	{
 		Vector2 position;
 		Vector2 delta;
+		float scroll;
 	};
-
-private:
-	//static GLFWwindow* windowHandler;
-
-	//static MouseState currentMouseState;
-	//static MouseState lastMouseState;
 
 public:
 	static void setWindow(GLFWwindow* window);

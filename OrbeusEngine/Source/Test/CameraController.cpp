@@ -36,6 +36,10 @@ void CameraController::update(float deltaTime)
 		getTransform()->addPosition(Vector3::up * speed);
 	}
 
+	float scroll = Input::getMouseState().scroll;
+	cameraSpeed += scroll * incrementSpeed;
+	cameraSpeed = Math::clamp(cameraSpeed, minCameraSpeed, maxCameraSpeed);
+
 	Vector2 delta = Input::getMouseState().delta;
 
 	delta *= mouseSensitivity;

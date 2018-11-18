@@ -11,6 +11,9 @@ private:
 public:
 	float cameraSpeed = 15.0f;
 	float mouseSensitivity = 0.1f;
+	float minCameraSpeed = 10.0f;
+	float maxCameraSpeed = 500.0f;
+	float incrementSpeed = 10.0f;
 	virtual void update(float deltaTime) override;
 
 };
