@@ -12,7 +12,7 @@
 
 float getHeight(int x, int z, float maxHeight, ImageBuffer* image)
 {
-	float result = (float)image->getPixelRGB(x, z);
+	float result = (float)image->getPixelRGBValue(x, z);
 	result -= (HEIGHTMAP_MAX_PIXEL_COLOR / 2.0f);
 	result /= (HEIGHTMAP_MAX_PIXEL_COLOR / 2.0f);
 	result *= maxHeight;

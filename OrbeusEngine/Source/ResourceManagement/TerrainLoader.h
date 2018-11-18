@@ -3,7 +3,6 @@
 #include <string>
 
 #define HEIGHTMAP_MAX_PIXEL_COLOR 256.0f * 256.0f * 256.0f
-//#define HEIGHTMAP_MAX_PIXEL_COLOR 128 * 128 * 128
 
 class TerrainMeshData;
 

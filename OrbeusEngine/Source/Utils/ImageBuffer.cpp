@@ -4,7 +4,8 @@
 
 #include "stb_image/stb_image.h"
 
-ImageBuffer::ImageBuffer(const std::string & filePath)
+ImageBuffer::ImageBuffer(const std::string& filePath)
+	: filePath(filePath)
 {
 	data = stbi_load(filePath.c_str(), &width, &height, &channels, NULL);
 }
@@ -18,7 +19,7 @@ ImageBuffer::~ImageBuffer()
 	}
 }
 
-int ImageBuffer::getPixelRGB(unsigned int i, unsigned int j) const
+int ImageBuffer::getPixelRGBValue(unsigned int i, unsigned int j) const
 {
 	assert(i <= width && j <= height);
 
@@ -28,4 +29,17 @@ int ImageBuffer::getPixelRGB(unsigned int i, unsigned int j) const
 	unsigned char b = data[offset + 2];
 
 	return 0xFFFF * r + 0xFF * g + b;
+}
+
+Vector3 ImageBuffer::getPixelRGB(unsigned int i, unsigned int j) const
+{
+	assert(i <= width && j <= height);
+
+	unsigned int offset = (i * width + j) * channels;
+
+	return Vector3(
+		data[offset],
+		data[offset + 1],
+		data[offset + 2]
+	);
 }
