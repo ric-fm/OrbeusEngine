@@ -14,7 +14,7 @@ out vec3 WorldPos;
 out float visibility;
 
 uniform float fogDensity;
-const float fogGradient = 1.5f;
+const float fogGradient = 1.0f;
 
 void main()
 {

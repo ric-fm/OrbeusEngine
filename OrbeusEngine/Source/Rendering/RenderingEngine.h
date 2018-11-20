@@ -12,6 +12,7 @@ class Engine;
 class MeshRenderer;
 class TextRenderer;
 class TerrainRenderer;
+class SkyBoxRenderer;
 
 class RenderingEngine
 {
@@ -24,6 +25,7 @@ private:
 	MeshRenderer* meshRenderer;
 	TextRenderer* textRenderer;
 	TerrainRenderer* terrainRenderer;
+	SkyBoxRenderer* skyBoxRenderer;
 
 public:
 	RenderingEngine(Engine* engine);
@@ -37,4 +39,5 @@ public:
 	MeshRenderer* getMeshRenderer() const { return meshRenderer; }
 	TextRenderer* getTextRenderer() const { return textRenderer; }
 	TerrainRenderer* getTerrainRenderer() const { return terrainRenderer; }
+	SkyBoxRenderer* getSkyBoxRenderer() const { return skyBoxRenderer; }
 };

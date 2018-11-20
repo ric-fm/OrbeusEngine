@@ -14,6 +14,7 @@
 #include "Rendering/Mesh/MeshRenderer.h"
 #include "Rendering/Text/TextRenderer.h"
 #include "Rendering/Terrain/TerrainRenderer.h"
+#include "Rendering/SkyBoxRenderer.h"
 #include "Logging/VisualLogger.h"
 
 RenderingEngine::RenderingEngine(Engine* engine)
@@ -34,6 +35,10 @@ RenderingEngine::~RenderingEngine()
 	if (terrainRenderer != nullptr)
 	{
 		delete terrainRenderer;
+	}
+	if (skyBoxRenderer != nullptr)
+	{
+		delete skyBoxRenderer;
 	}
 }
 
@@ -62,6 +67,7 @@ void RenderingEngine::init()
 	meshRenderer = new MeshRenderer();
 	textRenderer = new TextRenderer();
 	terrainRenderer = new TerrainRenderer();
+	skyBoxRenderer = new SkyBoxRenderer();
 }
 
 void RenderingEngine::render(float deltaTime)
@@ -70,9 +76,9 @@ void RenderingEngine::render(float deltaTime)
 	glClearColor(skyColor.x, skyColor.y, skyColor.z, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-
-	terrainRenderer->render();
 	meshRenderer->render();
+	terrainRenderer->render();
+	skyBoxRenderer->render();
 	textRenderer->render();
 
 	// Log Rendering

@@ -9,8 +9,8 @@ Camera::Camera()
 	calculateProjectionMatrix();
 }
 
-Camera::Camera(float fov, float aspectRatio, float near, float far, Vector3 skyColor, Vector3 ambientLight, float fogDensity)
-	: fov(fov), aspectRatio(aspectRatio), near(near), far(far), skyColor(skyColor), ambientLight(ambientLight), fogDensity(fogDensity)
+Camera::Camera(float fov, float aspectRatio, float near, float far, Vector3 skyColor, Vector3 ambientLight, Vector3 fogColor, float fogDensity)
+	: fov(fov), aspectRatio(aspectRatio), near(near), far(far), skyColor(skyColor), ambientLight(ambientLight), fogColor(fogColor), fogDensity(fogDensity)
 {
 	calculateProjectionMatrix();
 }

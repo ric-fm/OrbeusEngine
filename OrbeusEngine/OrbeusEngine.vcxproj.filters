@@ -49,6 +49,9 @@
     <ClCompile Include="Source\Rendering\IndexBuffer.cpp" />
     <ClCompile Include="Source\ResourceManagement\TerrainLoader.cpp" />
     <ClCompile Include="Source\Utils\ImageBuffer.cpp" />
+    <ClCompile Include="Source\Rendering\CubeMap.cpp" />
+    <ClCompile Include="Source\Rendering\SkyBoxRenderer.cpp" />
+    <ClCompile Include="Source\ResourceManagement\CubeMapLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -72,6 +75,8 @@
     <None Include="Resources\Shaders\Terrain-fs.shader" />
     <None Include="Resources\Shaders\Terrain-vs.shader" />
     <None Include="Resources\Shaders\Lighting-header.shader" />
+    <None Include="Resources\Shaders\SkyBox-fs.shader" />
+    <None Include="Resources\Shaders\SkyBox-vs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
@@ -125,6 +130,9 @@
     <ClInclude Include="Source\Rendering\IndexBuffer.h" />
     <ClInclude Include="Source\ResourceManagement\TerrainLoader.h" />
     <ClInclude Include="Source\Utils\ImageBuffer.h" />
+    <ClInclude Include="Source\Rendering\CubeMap.h" />
+    <ClInclude Include="Source\Rendering\SkyBoxRenderer.h" />
+    <ClInclude Include="Source\ResourceManagement\CubeMapLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\grass.png" />
