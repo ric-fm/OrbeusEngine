@@ -4,6 +4,7 @@
 
 class Texture
 {
+	friend class TextureLoader;
 private:
 	unsigned int id;
 	std::string filePath;
@@ -13,7 +14,7 @@ private:
 	int channels;
 
 public:
-	Texture(const std::string& filePath, const std::string& type, float lodBIAS = -1.0f, bool flipVertical = true);
+	Texture();
 	~Texture();
 
 	int getWidth() const { return width; }

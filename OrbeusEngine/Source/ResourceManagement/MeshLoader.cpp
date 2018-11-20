@@ -7,7 +7,7 @@
 #include "Rendering/VertexBuffer.h"
 #include "Rendering/Material.h"
 #include "Rendering/Mesh\MeshData.h"
-
+#include "ResourceManagement/ResourceManager.h"
 #include "Utils/Log.h"
 
 OBJIndex parseOBJIndex(const std::string& index)
@@ -206,7 +206,7 @@ void generateMaterials(MTLInfo info, std::vector<Material>& materials)
 
 		for (unsigned int j = 0; j < texturesInfo.size(); ++j)
 		{
-			Texture* texture = new Texture(info.pathInfo.directory + texturesInfo[j]->name, texturesInfo[j]->type);
+			Texture* texture = ResourceManager::getInstance().getTexture(info.pathInfo.directory + texturesInfo[j]->name, texturesInfo[j]->type);
 
 			if (texturesInfo[j]->type == "texture_diffuse")
 			{

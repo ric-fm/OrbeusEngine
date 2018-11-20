@@ -8,13 +8,14 @@
 #include "Components/Camera.h"
 #include "Rendering/VertexArray.h"
 #include "ResourceManagement/CubeMapLoader.h"
+#include "ResourceManagement/ShaderLoader.h"
 
 
 SkyBoxRenderer::SkyBoxRenderer()
 {
 	cubeMap = CubeMapLoader::generateCubeMap("Resources/Textures/SkyBox/test/");
 
-	shader = new Shader("Resources/Shaders/SkyBox-vs.shader", "Resources/Shaders/SkyBox-fs.shader");
+	shader = ShaderLoader::loadShader("Resources/Shaders/SkyBox-vs.shader", "Resources/Shaders/SkyBox-fs.shader");
 	shader->bind();
 	shader->SetInt("skybox", 0);
 }

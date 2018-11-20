@@ -160,14 +160,15 @@
     <ClCompile Include="Source\ResourceManagement\FontLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\MeshLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\ResourceManager.cpp" />
+    <ClCompile Include="Source\ResourceManagement\ShaderLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\TerrainLoader.cpp" />
+    <ClCompile Include="Source\ResourceManagement\TextureLoader.cpp" />
     <ClCompile Include="Source\Test\CameraController.cpp" />
     <ClCompile Include="Source\Core\Engine.cpp" />
     <ClCompile Include="Source\Test\CopyTransform.h" />
     <ClCompile Include="Source\Core\GameComponent.cpp" />
     <ClCompile Include="Source\Core\GameObject.cpp" />
     <ClCompile Include="Source\Core\Input.cpp" />
-    <ClCompile Include="Source\Components\Light.cpp" />
     <ClCompile Include="Source\Test\MoveController.cpp" />
     <ClCompile Include="Source\Utils\ImageBuffer.cpp" />
     <ClCompile Include="Source\Utils\Log.cpp" />
@@ -241,7 +242,9 @@
     <ClInclude Include="Source\ResourceManagement\FontLoader.h" />
     <ClInclude Include="Source\ResourceManagement\MeshLoader.h" />
     <ClInclude Include="Source\ResourceManagement\ResourceManager.h" />
+    <ClInclude Include="Source\ResourceManagement\ShaderLoader.h" />
     <ClInclude Include="Source\ResourceManagement\TerrainLoader.h" />
+    <ClInclude Include="Source\ResourceManagement\TextureLoader.h" />
     <ClInclude Include="Source\Test\CameraController.h" />
     <ClInclude Include="Source\Core\Engine.h" />
     <ClInclude Include="Source\Core\Game.h" />

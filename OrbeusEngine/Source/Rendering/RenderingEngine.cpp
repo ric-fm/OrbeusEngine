@@ -62,8 +62,6 @@ void RenderingEngine::init()
 		Log::error("Failed to init GLEW");
 	}
 
-	ambientShader = new Shader("Resources/Shaders/Forward/Ambient-vs.shader", "Resources/Shaders/Forward/Ambient-fs.shader");
-
 	meshRenderer = new MeshRenderer();
 	textRenderer = new TextRenderer();
 	terrainRenderer = new TerrainRenderer();

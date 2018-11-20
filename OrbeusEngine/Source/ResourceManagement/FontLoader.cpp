@@ -6,8 +6,8 @@
 
 #include "Rendering/Text/Font.h"
 #include "Rendering/Texture.h"
+#include "ResourceManagement/ResourceManager.h"
 #include "Utils/String.h"
-
 
 static bool processLine(std::ifstream& file, std::unordered_map<std::string, std::string>& values)
 {
@@ -63,7 +63,7 @@ Font* FontLoader::LoadFont(const std::string& fontImagePath, const std::string& 
 	Font* result = nullptr;
 
 	// Load Texture
-	Texture* atlas = new Texture(fontImagePath, "atlas", false);
+	Texture* atlas = ResourceManager::getInstance().getTexture(fontImagePath, "atlas", false);
 
 	if (atlas != nullptr)
 	{

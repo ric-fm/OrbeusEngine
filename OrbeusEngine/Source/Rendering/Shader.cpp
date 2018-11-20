@@ -1,109 +1,20 @@
 #include "Shader.h"
 
-#include <fstream>
+#include <GL/glew.h>
 
 #include "Math/Vector3.h"
 #include "Math/Vector2.h"
 #include "Math/Matrix4.h"
 #include "Utils/Log.h"
 
-std::string Shader::readShaderFile(const std::string& filePath)
+
+Shader::Shader()
 {
-	std::string result;
-
-	std::ifstream file(filePath.c_str());
-	std::string line;
-	if (file.is_open())
-	{
-		while (getline(file, line))
-		{
-			std::istringstream lineStream(line);
-			std::string element;
-			lineStream >> element;
-
-			if (element == "#include")
-			{
-				lineStream >> element;
-
-				std::string includePath = "Resources/Shaders/" + element;
-
-				std::ifstream file2(includePath.c_str());
-				if (file2.is_open())
-				{
-					while (getline(file2, line))
-					{
-						result += line + '\n';
-					}
-				}
-				file2.close();
-			}
-			else
-			{
-				result += line + '\n';
-			}
-		}
-
-		file.close();
-	}
-	else
-	{
-		Log::error("SHADER. File %s doesn't exists", filePath.c_str());
-
-	}
-
-	return result;
 }
 
-unsigned int Shader::createShader(const std::string & vertexFilePath, const std::string & fragmentFilePath)
+Shader::~Shader()
 {
-	std::string vertexSource = readShaderFile(vertexFilePath);
-	std::string fragmentSource = readShaderFile(fragmentFilePath);
-
-	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	const char* vsSrc = vertexSource.c_str();
-	glShaderSource(vertexShader, 1, &vsSrc, NULL);
-	glCompileShader(vertexShader);
-
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		Log::error("VERTEX COMPILATION FAILED: %s", infoLog);
-	}
-
-	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	const char* fsSrc = fragmentSource.c_str();
-	glShaderSource(fragmentShader, 1, &fsSrc, NULL);
-	glCompileShader(fragmentShader);
-
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		Log::error("FRAGMENT COMPILATION FAILED: %s", infoLog);
-	}
-
-	unsigned int shaderProgram = glCreateProgram();
-
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		Log::error("SHADER LINKING FAILED: %s", infoLog);
-
-	}
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
-	return shaderProgram;
+	glDeleteProgram(id);
 }
 
 unsigned int Shader::getUniformLocation(const std::string& name)
@@ -122,16 +33,6 @@ unsigned int Shader::getUniformLocation(const std::string& name)
 	uniformLocations[name] = location;
 
 	return location;
-}
-
-Shader::Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath)
-{
-	id = createShader(vertexFilePath, fragmentFilePath);
-}
-
-Shader::~Shader()
-{
-	glDeleteProgram(id);
 }
 
 void Shader::bind()

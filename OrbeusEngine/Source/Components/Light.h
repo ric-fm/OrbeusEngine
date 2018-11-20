@@ -3,15 +3,12 @@
 #include "Core/GameComponent.h"
 
 #include "Math/Vector3.h"
-#include "Rendering/Shader.h"
 
 class Light : public GameComponent
 {
 protected:
 	Vector3 color;
 	float intensity;
-
-	Shader* shader;
 
 public:
 	Light(const Light& baseLight)
@@ -36,15 +33,9 @@ public:
 	void setIntensity(float intensity) { this->intensity = intensity; }
 	float getIntensity() const { return intensity; }
 
-	Shader* getShader() const { return shader; }
-
-	virtual void init() override;
-
-	virtual void updateShader() {}
-
 };
 
-struct DirectionalLight : public Light
+class DirectionalLight : public Light
 {
 
 public:
@@ -57,10 +48,6 @@ public:
 		: Light(color, intensity)
 	{
 	}
-
-	virtual void init() override;
-
-	virtual void updateShader() override;
 };
 
 struct Attenuation
@@ -111,9 +98,6 @@ public:
 	void setRadius(float radius) { this->radius = radius; }
 	float getRadius() const { return radius; }
 
-	virtual void init() override;
-
-	virtual void updateShader() override;
 };
 
 class SpotLight : public PointLight
@@ -137,7 +121,4 @@ public:
 	void setCutoff(float cutoff) { this->cutoff = cutoff; }
 	float getCutOff() const { return cutoff; }
 
-	virtual void init() override;
-
-	virtual void updateShader() override;
 };

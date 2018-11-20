@@ -14,11 +14,12 @@
 #include "Components\GUIText.h"
 #include "Core\Transform.h"
 #include "Core\World.h"
+#include "ResourceManagement/ShaderLoader.h"
 
 
 TextRenderer::TextRenderer()
 {
-	shader = new Shader("Resources/Shaders/Text/SDF-vs.shader", "Resources/Shaders/Text/SDF-fs.shader");
+	shader = ShaderLoader::loadShader("Resources/Shaders/Text/SDF-vs.shader", "Resources/Shaders/Text/SDF-fs.shader");
 }
 
 TextRenderer::~TextRenderer()

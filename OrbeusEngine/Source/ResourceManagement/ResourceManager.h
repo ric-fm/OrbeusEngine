@@ -5,6 +5,7 @@
 
 class MeshData;
 class Font;
+class Texture;
 
 class ResourceManager
 {
@@ -25,9 +26,11 @@ public:
 
 private:
 	std::unordered_map<std::string, MeshData*> meshes;
+	std::unordered_map<std::string, Texture*> textures;
 	std::unordered_map<std::string, Font*> fonts;
 
 public:
 	MeshData* getMesh(const std::string& meshPath);
+	Texture* getTexture(const std::string& texturePath, const std::string& type, float lodBIAS = -1.0f, bool flipVertical = true);
 	Font* getFont(const std::string& fontName);
 };

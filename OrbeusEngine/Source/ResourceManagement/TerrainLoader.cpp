@@ -8,6 +8,7 @@
 #include "Rendering\IndexBuffer.h"
 #include "Rendering\Texture.h"
 #include "Rendering\Terrain\TerrainMeshData.h"
+#include "ResourceManagement\ResourceManager.h"
 #include "Utils\ImageBuffer.h"
 
 float getHeight(int x, int z, float maxHeight, ImageBuffer* image)
@@ -108,11 +109,11 @@ TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundT
 
 	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
 
-	result->backgroundTexture = new Texture(backgroundTexture, "background_texture", -0.4f);
-	result->redTexture = new Texture(redTexture, "red_texture", -0.4f);
-	result->greenTexture = new Texture(greenTexture, "green_texture", -0.4f);
-	result->blueTexture = new Texture(blueTexture, "blue_texture", -0.4f);
-	result->blendMap = new Texture(blendMap, "blend_map");
+	result->backgroundTexture = ResourceManager::getInstance().getTexture(backgroundTexture, "background_texture", -0.4f);
+	result->redTexture = ResourceManager::getInstance().getTexture(redTexture, "red_texture", -0.4f);
+	result->greenTexture = ResourceManager::getInstance().getTexture(greenTexture, "green_texture", -0.4f);
+	result->blueTexture = ResourceManager::getInstance().getTexture(blueTexture, "blue_texture", -0.4f);
+	result->blendMap = ResourceManager::getInstance().getTexture(blendMap, "blend_map");
 
 	return result;
 }

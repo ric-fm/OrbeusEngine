@@ -12,10 +12,11 @@
 #include "Rendering/VertexBuffer.h"
 #include "Rendering/Shader.h"
 #include "Components/Light.h"
+#include "ResourceManagement/ShaderLoader.h"
 
 MeshRenderer::MeshRenderer()
 {
-	shader = new Shader("Resources/Shaders/Mesh-vs.shader", "Resources/Shaders/Mesh-fs.shader");
+	shader = ShaderLoader::loadShader("Resources/Shaders/Mesh-vs.shader", "Resources/Shaders/Mesh-fs.shader");
 }
 
 MeshRenderer::~MeshRenderer()

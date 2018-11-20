@@ -12,7 +12,6 @@
     <ClCompile Include="Source\Test\CameraController.cpp" />
     <ClCompile Include="Source\Test\CopyTransform.h" />
     <ClCompile Include="Source\Components\Camera.cpp" />
-    <ClCompile Include="Source\Components\Light.cpp" />
     <ClCompile Include="Source\Math\Matrix4.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
     <ClCompile Include="Source\Math\Vector3.cpp" />
@@ -52,6 +51,8 @@
     <ClCompile Include="Source\Rendering\CubeMap.cpp" />
     <ClCompile Include="Source\Rendering\SkyBoxRenderer.cpp" />
     <ClCompile Include="Source\ResourceManagement\CubeMapLoader.cpp" />
+    <ClCompile Include="Source\ResourceManagement\TextureLoader.cpp" />
+    <ClCompile Include="Source\ResourceManagement\ShaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -133,6 +134,8 @@
     <ClInclude Include="Source\Rendering\CubeMap.h" />
     <ClInclude Include="Source\Rendering\SkyBoxRenderer.h" />
     <ClInclude Include="Source\ResourceManagement\CubeMapLoader.h" />
+    <ClInclude Include="Source\ResourceManagement\TextureLoader.h" />
+    <ClInclude Include="Source\ResourceManagement\ShaderLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\grass.png" />

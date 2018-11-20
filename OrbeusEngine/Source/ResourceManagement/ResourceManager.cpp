@@ -3,6 +3,9 @@
 #include "Rendering/Mesh/MeshData.h"
 #include "MeshLoader.h"
 
+#include "Rendering/Texture.h"
+#include "TextureLoader.h"
+
 #include "Rendering/Text/Font.h"
 #include "FontLoader.h"
 
@@ -19,6 +22,16 @@ MeshData* ResourceManager::getMesh(const std::string& meshPath)
 		meshes[meshPath] = meshData = MeshLoader::loadMesh(meshPath);
 	}
 	return meshData;
+}
+
+Texture* ResourceManager::getTexture(const std::string& texturePath, const std::string& type, float lodBIAS, bool flipVertical)
+{
+	Texture* texture = textures[texturePath];
+	if (texture == nullptr)
+	{
+		textures[texturePath] = texture = TextureLoader::loadTexture(texturePath, type, lodBIAS, flipVertical);
+	}
+	return texture;
 }
 
 Font* ResourceManager::getFont(const std::string& fontName)

@@ -3,8 +3,6 @@
 #include <string>
 #include <unordered_map>
 
-#include <GL/glew.h>
-
 struct Vector3;
 struct Vector2;
 struct Matrix4;
@@ -12,17 +10,15 @@ struct Matrix4;
 
 class Shader
 {
+	friend class ShaderLoader;
 private:
 	unsigned int id;
 	std::unordered_map<std::string, unsigned int> uniformLocations;
 
-	std::string readShaderFile(const std::string& filePath);
-	unsigned int createShader(const std::string& vertexFilePath, const std::string& fragmentFilePath);
-
 	unsigned int getUniformLocation(const std::string& name);
 
 public:
-	Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath);
+	Shader();
 	~Shader();
 
 	void bind();

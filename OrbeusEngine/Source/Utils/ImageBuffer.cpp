@@ -21,7 +21,7 @@ ImageBuffer::~ImageBuffer()
 
 int ImageBuffer::getPixelRGBValue(unsigned int i, unsigned int j) const
 {
-	assert(i <= width && j <= height);
+	assert((int)i <= width && (int)j <= height);
 
 	unsigned int offset = (i * width + j) * channels;
 	unsigned char r = data[offset];
@@ -33,7 +33,7 @@ int ImageBuffer::getPixelRGBValue(unsigned int i, unsigned int j) const
 
 Vector3 ImageBuffer::getPixelRGB(unsigned int i, unsigned int j) const
 {
-	assert(i <= width && j <= height);
+	assert((int)i <= width && (int)j <= height);
 
 	unsigned int offset = (i * width + j) * channels;
 

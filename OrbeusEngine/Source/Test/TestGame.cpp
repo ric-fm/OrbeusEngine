@@ -114,6 +114,13 @@ void TestGame::init()
 	grassGO2->addComponent<Mesh>(new Mesh("Resources/Models/Grass/Grass.obj", true));
 	World::getInstance().addGameObject(grassGO2);
 
+	GameObject* textgo = new GameObject("Text");
+	textgo->addComponent<GUIText>(new GUIText("Hello world"));
+
+	World::getInstance().addGameObject(textgo);
+
+
+
 }
 
 void TestGame::update(float deltaTime)

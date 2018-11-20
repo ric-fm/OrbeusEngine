@@ -14,12 +14,13 @@
 #include "Core/World.h"
 #include "Components/Terrain.h"
 #include "Components/Camera.h"
-
 #include "Components/Light.h"
+#include "ResourceManagement/ShaderLoader.h"
+
 
 TerrainRenderer::TerrainRenderer()
 {
-	shader = new Shader("Resources/Shaders/Terrain-vs.shader", "Resources/Shaders/Terrain-fs.shader");
+	shader = ShaderLoader::loadShader("Resources/Shaders/Terrain-vs.shader", "Resources/Shaders/Terrain-fs.shader");
 	shader->bind();
 	shader->SetInt("background_texture", 0);
 	shader->SetInt("red_texture", 1);

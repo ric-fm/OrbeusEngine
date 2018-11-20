@@ -10,7 +10,7 @@ static Input::MouseState lastMouseState;
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	currentMouseState.scroll = yoffset;
+	currentMouseState.scroll = (float)yoffset;
 }
 
 void Input::setWindow(GLFWwindow* window)
