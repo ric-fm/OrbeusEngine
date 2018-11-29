@@ -117,10 +117,10 @@ void TestGame::preInit()
 	grassGO2->addComponent<Mesh>(new Mesh("Resources/Models/Grass/Grass.obj", true));
 	World::getInstance().addGameObject(grassGO2);
 
-	//GameObject* textgo = new GameObject("Text");
-	//textgo->addComponent<GUIText>(new GUIText("Hello world"));
-
-	//World::getInstance().addGameObject(textgo);
+	GameObject* textgo = new GameObject("Text");
+	textgo->addComponent<GUIText>(new GUIText("Orbeus Engine", 2));
+	textgo->getTransform()->setRelativePosition(Vector3(0.4f, 0.0f, 0.0f));
+	World::getInstance().addGameObject(textgo);
 
 	WaterPlane* waterPlane = new WaterPlane();
 	waterGO = new GameObject("Water");

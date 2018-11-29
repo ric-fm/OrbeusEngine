@@ -12,8 +12,8 @@ const float edge = 0.1;
 
 void main()
 {
-	float distance = 1.0 - texture(atlas, TexCoord).a;
-	float alpha = 1.0 - smoothstep(width, width + edge, distance);
+	float distance = texture(atlas, TexCoord).a;
+	float alpha = smoothstep(width, width + edge, distance);
 
 	FragColor = vec4(color, alpha);
 }

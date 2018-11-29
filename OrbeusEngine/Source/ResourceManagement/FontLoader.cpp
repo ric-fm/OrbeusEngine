@@ -63,7 +63,7 @@ Font* FontLoader::LoadFont(const std::string& fontImagePath, const std::string& 
 	Font* result = nullptr;
 
 	// Load Texture
-	Texture* atlas = ResourceManager::getInstance().getTexture(fontImagePath, "atlas", false);
+	Texture* atlas = ResourceManager::getInstance().getTexture(fontImagePath, "atlas", -1.0f, false);
 
 	if (atlas != nullptr)
 	{
