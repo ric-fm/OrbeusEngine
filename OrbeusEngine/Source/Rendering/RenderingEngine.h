@@ -2,10 +2,6 @@
 
 #include <vector>
 
-#include "Math/Vector3.h"
-
-#include "Components/Light.h"
-
 class Shader;
 class Engine;
 
@@ -13,28 +9,29 @@ class MeshRenderer;
 class TextRenderer;
 class TerrainRenderer;
 class SkyBoxRenderer;
+class WaterRenderer;
+class Camera;
 
 class RenderingEngine
 {
 private:
 	Engine* engine;
-	Shader* ambientShader;
-
-	std::vector<Light*> lights;
 
 	MeshRenderer* meshRenderer;
 	TextRenderer* textRenderer;
 	TerrainRenderer* terrainRenderer;
 	SkyBoxRenderer* skyBoxRenderer;
+	WaterRenderer* waterRenderer;
 
 public:
 	RenderingEngine(Engine* engine);
 	~RenderingEngine();
 
-	void registerLight(Light* light);
-
 	void init();
+	void renderScene(Camera* camera);
 	void render(float deltaTime);
+
+	void setBlendingEnabled(bool enabled);
 
 	MeshRenderer* getMeshRenderer() const { return meshRenderer; }
 	TextRenderer* getTextRenderer() const { return textRenderer; }

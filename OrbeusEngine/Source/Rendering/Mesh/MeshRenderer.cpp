@@ -3,6 +3,7 @@
 #include "Components/Mesh.h"
 #include "Components/Camera.h"
 #include "Core/World.h"
+#include "Core/Engine.h"
 #include "Core/Transform.h"
 #include "Math/Matrix4.h"
 
@@ -10,6 +11,7 @@
 #include "Rendering/Material.h"
 #include "Rendering/VertexArray.h"
 #include "Rendering/VertexBuffer.h"
+#include "Rendering/RenderingEngine.h"
 #include "Rendering/Shader.h"
 #include "Components/Light.h"
 #include "ResourceManagement/ShaderLoader.h"
@@ -27,7 +29,7 @@ MeshRenderer::~MeshRenderer()
 	}
 }
 
-void MeshRenderer::render()
+void MeshRenderer::render(Camera* camera)
 {
 	std::vector<Mesh*> meshes = World::getInstance().getComponents<Mesh>();
 	std::vector<DirectionalLight*> directionalLights = World::getInstance().getComponents<DirectionalLight>();
@@ -37,10 +39,11 @@ void MeshRenderer::render()
 	if (meshes.size() > 0)
 	{
 		shader->bind();
-		shader->SetMatrix("view", World::getInstance().getActiveCamera()->getViewMatrix());
-		shader->SetMatrix("projection", World::getInstance().getActiveCamera()->getProjectionMatrix());
-		shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
-		shader->SetFloat3("ambientLight", World::getInstance().getActiveCamera()->getAmbientLight());
+		shader->SetMatrix("view", camera->getViewMatrix());
+		shader->SetMatrix("projection", camera->getProjectionMatrix());
+		shader->SetFloat3("viewPos", camera->getTransform()->getPosition());
+		shader->SetFloat3("ambientLight", camera->getAmbientLight());
+		shader->SetFloat4("clipPlane", camera->getClipPlane());
 
 		for (unsigned int i = 0; i < directionalLights.size() && i < 4; ++i)
 		{

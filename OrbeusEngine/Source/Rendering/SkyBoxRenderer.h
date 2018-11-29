@@ -2,6 +2,7 @@
 
 class CubeMap;
 class Shader;
+class Camera;
 
 class SkyBoxRenderer
 {
@@ -11,6 +12,6 @@ private:
 public:
 	SkyBoxRenderer();
 	~SkyBoxRenderer();
-	void render();
+	void render(Camera* camera);
 
 };

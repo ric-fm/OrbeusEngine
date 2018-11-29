@@ -1,6 +1,7 @@
 #pragma once
 
 class Shader;
+class Camera;
 
 class TerrainRenderer
 {
@@ -10,5 +11,5 @@ public:
 	TerrainRenderer();
 	~TerrainRenderer();
 
-	void render();
+	void render(Camera* camera);
 };

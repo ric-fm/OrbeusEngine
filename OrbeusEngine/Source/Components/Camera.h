@@ -3,6 +3,7 @@
 #include "Core/GameComponent.h"
 #include "Math/Matrix4.h"
 #include "Math/Vector3.h"
+#include "Math/Vector4.h"
 
 
 class Camera : public GameComponent
@@ -21,6 +22,9 @@ private:
 	Vector3 fogColor;
 	float fogDensity;
 
+	Vector4 clipPlane;
+	bool isClipPlaneEnabled;
+
 	void calculateProjectionMatrix();
 public:
 	Camera();
@@ -38,6 +42,12 @@ public:
 
 	float getFogDensity() const { return fogDensity; }
 	void setFogDensity(float fogDensity) { this->fogDensity = fogDensity; }
+
+	void setClipPlane(const Vector4& plane) { clipPlane = plane; }
+	Vector4 getClipPlane() const { return clipPlane; }
+
+	void SetClipPlaneEnabled(bool enabled) { isClipPlaneEnabled = enabled; }
+	bool getIsClipPlaneEnabled() const { return isClipPlaneEnabled; }
 
 	Matrix4 getViewMatrix() const;
 	Matrix4 getProjectionMatrix() const { return projection; }

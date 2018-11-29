@@ -2,8 +2,9 @@
 
 #include <GL/glew.h>
 
-#include "Math/Vector3.h"
 #include "Math/Vector2.h"
+#include "Math/Vector3.h"
+#include "Math/Vector4.h"
 #include "Math/Matrix4.h"
 #include "Utils/Log.h"
 
@@ -78,6 +79,16 @@ void Shader::SetFloat3(const std::string& name, float x, float y, float z)
 void Shader::SetFloat3(const std::string& name, const Vector3& vector)
 {
 	glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);
+}
+
+void Shader::SetFloat4(const std::string& name, float x, float y, float z, float w)
+{
+	glUniform4f(getUniformLocation(name), x, y, z, w);
+}
+
+void Shader::SetFloat4(const std::string& name, const Vector4& vector)
+{
+	glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w);
 }
 
 void Shader::SetMatrix(const std::string& name, const Matrix4& matrix)

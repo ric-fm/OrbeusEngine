@@ -3,8 +3,9 @@
 #include <string>
 #include <unordered_map>
 
-struct Vector3;
 struct Vector2;
+struct Vector3;
+struct Vector4;
 struct Matrix4;
 
 
@@ -35,6 +36,9 @@ public:
 
 	void SetFloat3(const std::string& name, float x, float y, float z);
 	void SetFloat3(const std::string& name, const Vector3& vector);
+
+	void SetFloat4(const std::string& name, float x, float y, float z, float w);
+	void SetFloat4(const std::string& name, const Vector4& vector);
 
 	void SetMatrix(const std::string& name, const Matrix4& matrix);
 };

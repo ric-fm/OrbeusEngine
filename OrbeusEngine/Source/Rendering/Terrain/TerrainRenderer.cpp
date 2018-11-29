@@ -8,10 +8,12 @@
 #include "Rendering/IndexBuffer.h"
 #include "Rendering/Shader.h"
 #include "Rendering/Texture.h"
+#include "Rendering/RenderingEngine.h"
 #include "Rendering/Terrain/TerrainMeshData.h"
 
 #include "Core/Transform.h"
 #include "Core/World.h"
+#include "Core/Engine.h"
 #include "Components/Terrain.h"
 #include "Components/Camera.h"
 #include "Components/Light.h"
@@ -38,7 +40,7 @@ TerrainRenderer::~TerrainRenderer()
 	}
 }
 
-void TerrainRenderer::render()
+void TerrainRenderer::render(Camera* camera)
 {
 	std::vector<Terrain*> terrains = World::getInstance().getComponents<Terrain>();
 	std::vector<DirectionalLight*> directionalLights = World::getInstance().getComponents<DirectionalLight>();
@@ -48,12 +50,13 @@ void TerrainRenderer::render()
 	if (terrains.size() > 0)
 	{
 		shader->bind();
-		shader->SetMatrix("view", World::getInstance().getActiveCamera()->getViewMatrix());
-		shader->SetMatrix("projection", World::getInstance().getActiveCamera()->getProjectionMatrix());
-		shader->SetFloat3("viewPos", World::getInstance().getActiveCamera()->getTransform()->getPosition());
-		shader->SetFloat3("fogColor", World::getInstance().getActiveCamera()->getFogColor());
-		shader->SetFloat3("ambientLight", World::getInstance().getActiveCamera()->getAmbientLight());
-		shader->SetFloat("fogDensity", World::getInstance().getActiveCamera()->getFogDensity());
+		shader->SetMatrix("view", camera->getViewMatrix());
+		shader->SetMatrix("projection", camera->getProjectionMatrix());
+		shader->SetFloat3("viewPos", camera->getTransform()->getPosition());
+		shader->SetFloat3("fogColor", camera->getFogColor());
+		shader->SetFloat3("ambientLight", camera->getAmbientLight());
+		shader->SetFloat("fogDensity", camera->getFogDensity());
+		shader->SetFloat4("clipPlane", camera->getClipPlane());
 
 		for(unsigned int i = 0; i < directionalLights.size() && i < 4; ++i)
 		{

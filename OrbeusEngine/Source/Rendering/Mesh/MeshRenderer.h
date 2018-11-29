@@ -3,6 +3,7 @@
 #include "Components\Mesh.h"
 
 class Shader;
+class Camera;
 
 class MeshRenderer
 {
@@ -11,5 +12,5 @@ private:
 public:
 	MeshRenderer();
 	~MeshRenderer();
-	void render();
+	void render(Camera * camera);
 };

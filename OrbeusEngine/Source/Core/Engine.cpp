@@ -60,10 +60,12 @@ void Engine::init()
 
 	Input::setWindow(window->getHandler());
 
-	game->init();
+	game->preInit();
 
 	World::getInstance().init();
 	VisualLogger::getInstance().init();
+
+	game->postInit();
 }
 
 void Engine::update(float deltaTime)
@@ -71,9 +73,9 @@ void Engine::update(float deltaTime)
 	Input::update(deltaTime);
 
 	World::getInstance().update(deltaTime);
+	VisualLogger::getInstance().update(deltaTime);
 
 	game->update(deltaTime);
-	VisualLogger::getInstance().update(deltaTime);
 }
 
 void Engine::render(float deltaTime)

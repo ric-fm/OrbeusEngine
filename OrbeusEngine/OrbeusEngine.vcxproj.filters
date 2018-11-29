@@ -53,6 +53,12 @@
     <ClCompile Include="Source\ResourceManagement\CubeMapLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\TextureLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\ShaderLoader.cpp" />
+    <ClCompile Include="Source\Rendering\FrameBuffer.cpp" />
+    <ClCompile Include="Source\Rendering\Quad.cpp" />
+    <ClCompile Include="Source\Components\WaterPlane.cpp" />
+    <ClCompile Include="Source\Rendering\Water\WaterRenderer.cpp" />
+    <ClCompile Include="Source\Math\Vector4.cpp" />
+    <ClCompile Include="Source\Components\CameraCapture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -78,10 +84,11 @@
     <None Include="Resources\Shaders\Lighting-header.shader" />
     <None Include="Resources\Shaders\SkyBox-fs.shader" />
     <None Include="Resources\Shaders\SkyBox-vs.shader" />
+    <None Include="Resources\Shaders\Water-vs.shader" />
+    <None Include="Resources\Shaders\Water-fs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
-    <ClInclude Include="Source\Core\GameComponent.h" />
     <ClInclude Include="Source\Core\GameObject.h" />
     <ClInclude Include="Source\Core\Game.h" />
     <ClInclude Include="Source\Core\Transform.h" />
@@ -136,6 +143,12 @@
     <ClInclude Include="Source\ResourceManagement\CubeMapLoader.h" />
     <ClInclude Include="Source\ResourceManagement\TextureLoader.h" />
     <ClInclude Include="Source\ResourceManagement\ShaderLoader.h" />
+    <ClInclude Include="Source\Rendering\FrameBuffer.h" />
+    <ClInclude Include="Source\Rendering\Quad.h" />
+    <ClInclude Include="Source\Components\WaterPlane.h" />
+    <ClInclude Include="Source\Rendering\Water\WaterRenderer.h" />
+    <ClInclude Include="Source\Math\Vector4.h" />
+    <ClInclude Include="Source\Components\CameraCapture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\grass.png" />

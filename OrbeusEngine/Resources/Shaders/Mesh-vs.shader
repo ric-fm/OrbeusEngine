@@ -12,9 +12,16 @@ out vec3 Normal;
 out vec2 TexCoord;
 out vec3 WorldPos;
 
+uniform vec4 clipPlane;
+
 void main()
 {
+	vec4 worldPos = model * vec4(aPos, 1.0f);
+	gl_ClipDistance[0] = dot(worldPos, clipPlane);
+
 	gl_Position = projection * view * model * vec4(aPos, 1.0f);
+
+
 	Normal = (mat3(transpose(inverse(model))) * aNormal);
 	TexCoord = aTexCoord;
 	WorldPos = (model * vec4(aPos, 1.0)).xyz;

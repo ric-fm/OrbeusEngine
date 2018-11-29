@@ -6,6 +6,7 @@
 #include "Utils/Log.h"
 
 Window::Window(int width, int height, const char* title)
+	: width(width), height(height)
 {
 	if (glfwInit())
 	{
@@ -30,4 +31,11 @@ Window::Window(int width, int height, const char* title)
 void Window::setCursorMode(unsigned int mode)
 {
 	glfwSetInputMode(window, GLFW_CURSOR, mode);
+}
+
+void Window::resize(int newWidth, int newHeight)
+{
+	width = newWidth;
+	height = newHeight;
+	glViewport(0, 0, width, height);
 }

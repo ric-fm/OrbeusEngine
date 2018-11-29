@@ -5,6 +5,7 @@
 class Texture
 {
 	friend class TextureLoader;
+	friend class FrameBuffer;
 private:
 	unsigned int id;
 	std::string filePath;

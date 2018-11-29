@@ -16,10 +16,16 @@ out float visibility;
 uniform float fogDensity;
 const float fogGradient = 1.0f;
 
+uniform vec4 clipPlane;
+
 void main()
 {
+	vec4 worldPos = model * vec4(aPos, 1.0f);
+	gl_ClipDistance[0] = dot(worldPos, clipPlane);
+
 	vec4 posRelativeToCamera = view * model * vec4(aPos, 1.0f);	
 	gl_Position = projection * posRelativeToCamera;
+
 	Normal = (mat3(transpose(inverse(model))) * aNormal);
 	TexCoord = aTexCoord;
 	WorldPos = (model * vec4(aPos, 1.0)).xyz;

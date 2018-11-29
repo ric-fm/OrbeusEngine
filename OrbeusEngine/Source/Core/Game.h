@@ -13,6 +13,7 @@ class Game
 {
 public:
 
-	virtual void init() {}
+	virtual void preInit() {}
+	virtual void postInit() {}
 	virtual void update(float deltaTime) {}
 };

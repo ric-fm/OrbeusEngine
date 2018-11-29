@@ -32,14 +32,14 @@ SkyBoxRenderer::~SkyBoxRenderer()
 	}
 }
 
-void SkyBoxRenderer::render()
+void SkyBoxRenderer::render(Camera* camera)
 {
 	// Change the depth function to allow the skybox pass the depth tests because we generate a cube
 	// of 1.0f in the vertex positions, so we don't need to worry about the cubemap size
 	glDepthFunc(GL_LEQUAL);
 
 	shader->bind();
-	Matrix4 viewMatrix = World::getInstance().getActiveCamera()->getViewMatrix();
+	Matrix4 viewMatrix = camera->getViewMatrix();
 
 	// Remove the translation of the matrix so the skybox is centered on camera
 	viewMatrix.buffer[3][0] = 0.0f;
@@ -47,8 +47,8 @@ void SkyBoxRenderer::render()
 	viewMatrix.buffer[3][2] = 0.0f;
 
 	shader->SetMatrix("view", viewMatrix);
-	shader->SetMatrix("projection", World::getInstance().getActiveCamera()->getProjectionMatrix());
-	shader->SetFloat3("fogColor", World::getInstance().getActiveCamera()->getFogColor());
+	shader->SetMatrix("projection", camera->getProjectionMatrix());
+	shader->SetFloat3("fogColor", camera->getFogColor());
 
 	cubeMap->bind();
 
