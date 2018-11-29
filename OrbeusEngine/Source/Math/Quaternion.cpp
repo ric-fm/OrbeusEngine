@@ -143,11 +143,26 @@ void Quaternion::getAxisAngle(Vector3& axis, float& angle) const
 
 Vector3 Quaternion::getEulerAngles() const
 {
-	// Based on Cocos2D
-	float pitch = atan2f(2.f * (w * x + y * z), 1.f - 2.f * (x * x + y * y));
-	float yaw = asinf(Math::clamp((2.f * (w * y - z * x)), -1.0f, 1.0f)); // TODO: Test if clamp is necesary
-	//float yaw = asinf(2.f * (w * y - z * x));
-	float roll = atan2f(2.f * (w * z + x * y), 1.f - 2.f * (y * y + z * z));
+	// Based on Three.js
+	// YXZ order
+	Matrix4 m = Matrix4::Rotation(*this);
+
+	float pitch = asin(-Math::clamp(m.buffer[2][1], -1.0f, 1.0f));
+	float yaw, roll;
+
+	if (abs(m.buffer[2][1]) < 0.99999) {
+		yaw = atan2(m.buffer[2][0], m.buffer[2][2]);
+		roll = atan2(m.buffer[0][1], m.buffer[1][1]);
+		if (abs(roll) < Math::Epsilon)
+		{
+			roll = 0.0f;
+		}
+	}
+	else {
+
+		yaw = atan2(-m.buffer[0][2], m.buffer[0][0]);
+		roll = 0.0f;
+	}
 
 	return Vector3(
 		Math::radiansToDegrees(pitch),

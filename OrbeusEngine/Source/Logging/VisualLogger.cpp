@@ -75,7 +75,9 @@ void VisualLogger::render()
 			ImGui::Separator();
 
 			Vector3 cameraPosition = World::getInstance().getActiveCamera()->getTransform()->getPosition();
+			Vector3 cameraRotation = World::getInstance().getActiveCamera()->getTransform()->getRotation().getEulerAngles();
 			ImGui::Text("Camera pos: (%.1f,%.1f,%.1f)", cameraPosition.x, cameraPosition.y, cameraPosition.z);
+			ImGui::Text("Camera rot: (%.1f,%.1f,%.1f)", cameraRotation.x, cameraRotation.y, cameraRotation.z);
 
 
 
