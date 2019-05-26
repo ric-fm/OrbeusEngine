@@ -233,3 +233,8 @@ float Vector2::distanceSquared(const Vector2 & target) const
 {
 	return (*this - target).lengthSquared();
 }
+
+Vector2 Vector2::Lerp(const Vector2& a, const Vector2& b, float t)
+{
+	return a + (b - a) * Math::clamp(t, 0.0f, 1.0f);
+}

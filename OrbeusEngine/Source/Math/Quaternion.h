@@ -56,7 +56,9 @@ struct Quaternion
 	static Quaternion AxisAngle(const Vector3& axis, float angle);
 	static Quaternion EulerAngles(const Vector3& angles);
 
-	// TODO: inverse, lerp, slerp, squad, lookto
+	static Quaternion Lerp(const Quaternion& a, const Quaternion& b, float t);
+
+	// TODO: inverse, slerp, squad, lookto
 
 	std::string toString() const
 	{

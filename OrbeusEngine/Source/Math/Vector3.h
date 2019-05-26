@@ -72,7 +72,9 @@ struct Vector3
 
 	Vector3 rotate(const Quaternion& q) const;
 
-	// TODO: clamp, lerp, smooth
+	static Vector3 Lerp(const Vector3& a, const Vector3& b, float t);
+
+	// TODO: clamp, smooth
 
 	std::string toString() const
 	{

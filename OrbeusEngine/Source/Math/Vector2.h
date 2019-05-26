@@ -63,6 +63,8 @@ struct Vector2
 	float distance(const Vector2& target) const;
 	float distanceSquared(const Vector2& target) const;
 
+	static Vector2 Lerp(const Vector2& a, const Vector2& b, float t);
+
 	std::string toString() const
 	{
 		return formatString("(%f, %f)", x, y);

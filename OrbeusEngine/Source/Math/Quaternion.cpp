@@ -213,3 +213,31 @@ Quaternion Quaternion::EulerAngles(const Vector3& angles)
 		cX * cY * cZ + sX * sY * sZ
 	);
 }
+
+Quaternion Quaternion::Lerp(const Quaternion &a, const Quaternion &b, float t)
+{
+	Quaternion result;
+
+	t = Math::clamp(t, 0.0f, 1.0f);
+
+	float dot = a.dot(b);
+	float blendI = 1.0f - t;
+
+	if (dot < 0)
+	{
+		result.w = blendI * a.w + t * -b.w;
+		result.x = blendI * a.x + t * -b.x;
+		result.y = blendI * a.y + t * -b.y;
+		result.z = blendI * a.z + t * -b.z;
+	}
+	else
+	{
+		result.w = blendI * a.w + t * b.w;
+		result.x = blendI * a.x + t * b.x;
+		result.y = blendI * a.y + t * b.y;
+		result.z = blendI * a.z + t * b.z;
+	}
+	result.normalize();
+
+	return result;
+}

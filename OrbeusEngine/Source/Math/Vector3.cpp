@@ -315,3 +315,8 @@ Vector3 Vector3::rotate(const Quaternion& q) const
 		iz * q.w + iw * -q.z + ix * -q.y - iy * -q.x
 	);
 }
+
+Vector3 Vector3::Lerp(const Vector3 & a, const Vector3 & b, float t)
+{
+	return a + (b - a) * Math::clamp(t, 0.0f, 1.0f);
+}
