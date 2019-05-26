@@ -17,7 +17,7 @@ private:
 
 	std::string name;
 	GameObject* owner = nullptr;
-
+	bool enabled = true;
 public:
 	GameComponent();
 	~GameComponent();
@@ -30,6 +30,9 @@ public:
 	void setOwner(GameObject* owner) { this->owner = owner; }
 	GameObject* getOwner() const { return owner; }
 	Transform* getTransform() const;
+
+	void setEnabled(bool enabled) { this->enabled = enabled; }
+	bool isEnabled() { return enabled; }
 
 	virtual void init() { }
 	virtual void update(float deltaTime) { }

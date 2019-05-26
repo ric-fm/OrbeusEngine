@@ -39,10 +39,11 @@ public:
 	void getAllChildren(std::vector<GameObject*>& children);
 
 	template<class ComponentType>
-	inline void addComponent(GameComponent* component)
+	inline ComponentType* addComponent(GameComponent* component)
 	{
 		components[std::type_index(typeid(ComponentType))] = component;
 		component->setOwner(this);
+		return static_cast<ComponentType*>(component);
 	}
 
 	template<class ComponentType>

@@ -50,7 +50,8 @@ void World::updateGameObjectHierarchy(GameObject* gameObject, float deltaTime)
 	// Update gameObject components
 	for (auto it = gameObject->components.begin(); it != gameObject->components.end(); ++it)
 	{
-		it->second->update(deltaTime);
+		if(it->second->isEnabled())
+			it->second->update(deltaTime);
 	}
 
 	// Update children
