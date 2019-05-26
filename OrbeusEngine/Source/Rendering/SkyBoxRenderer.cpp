@@ -2,6 +2,7 @@
 
 #include "CubeMap.h"
 #include "Rendering/Shader.h"
+#include "Rendering/VertexArray.h"
 
 #include "Core/World.h"
 #include "Core/Transform.h"

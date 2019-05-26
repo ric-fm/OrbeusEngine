@@ -1,6 +1,7 @@
 #include "VertexArray.h"
 
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 #include "Shader.h"
 
 VertexArray::VertexArray()
@@ -42,6 +43,11 @@ void VertexArray::AddBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layou
 	}
 }
 
+void VertexArray::setIndexBuffer(IndexBuffer* indexBuffer)
+{
+	this->indexBuffer = indexBuffer;
+}
+
 void VertexArray::bind()
 {
 	glBindVertexArray(id);
@@ -55,5 +61,12 @@ void VertexArray::unbind()
 void VertexArray::draw(Shader* shader)
 {
 	bind();
-	vertexBuffer->draw(shader);
+	if (indexBuffer != nullptr)
+	{
+		glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, 0);
+	}
+	else
+	{
+		glDrawArrays(GL_TRIANGLES, 0, vertexBuffer->getCount());
+	}
 }

@@ -7,10 +7,9 @@
 #include "Core/Transform.h"
 #include "Math/Matrix4.h"
 
-#include "Rendering/Mesh\MeshData.h"
+#include "Rendering/Mesh/MeshData.h"
 #include "Rendering/Material.h"
 #include "Rendering/VertexArray.h"
-#include "Rendering/VertexBuffer.h"
 #include "Rendering/RenderingEngine.h"
 #include "Rendering/Shader.h"
 #include "Components/Light.h"

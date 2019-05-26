@@ -6,6 +6,7 @@
 
 class VertexArray;
 class VertexBuffer;
+class IndexBuffer;
 class Shader;
 
 class MeshData
@@ -15,6 +16,7 @@ class MeshData
 private:
 	VertexArray* vertexArray = nullptr;
 	VertexBuffer* vertexBuffer = nullptr;
+	IndexBuffer* indexBuffer = nullptr;
 
 	std::vector<Material> materials;
 public:

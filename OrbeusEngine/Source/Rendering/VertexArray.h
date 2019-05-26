@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 
 class VertexBuffer;
+class IndexBuffer;
 class Shader;
 
 struct VertexBufferAttribute
@@ -63,12 +64,15 @@ private:
 	unsigned int id;
 
 	VertexBuffer* vertexBuffer;
+	IndexBuffer* indexBuffer;
 
 public:
 	VertexArray();
 	~VertexArray();
 
 	void AddBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layout);
+	void setIndexBuffer(IndexBuffer* indexBuffer);
+	bool isIndexed() { return indexBuffer != nullptr; }
 
 	void bind();
 	void unbind();

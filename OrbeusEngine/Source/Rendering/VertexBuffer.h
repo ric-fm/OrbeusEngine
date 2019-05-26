@@ -18,5 +18,7 @@ public:
 
 	void unbind();
 
+	unsigned int getCount() const { return count; }
+
 	void draw(Shader* shader);
 };

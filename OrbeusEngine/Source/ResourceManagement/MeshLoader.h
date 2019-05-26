@@ -2,10 +2,12 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
 #include "Utils/String.h"
+#include "Utils/Hash.h"
 
 
 class MeshData;
@@ -15,7 +17,31 @@ struct OBJIndex
 	unsigned int position;
 	unsigned int texCoord;
 	unsigned int normal;
+
+	bool operator==(const OBJIndex &other) const
+	{
+		return (position == other.position
+			&& texCoord == other.texCoord
+			&& normal == other.normal);
+	}
 };
+
+// https://stackoverflow.com/questions/17016175/c-unordered-map-using-a-custom-class-type-as-the-key
+namespace std
+{
+	template<>
+	struct hash<OBJIndex>
+	{
+		size_t operator()(OBJIndex const& index) const noexcept
+		{
+			std::size_t result = 0;
+			hash_combine(result, index.position);
+			hash_combine(result, index.texCoord);
+			hash_combine(result, index.normal);
+			return result;
+		}
+	};
+}
 
 struct OBJInfo
 {
@@ -58,5 +84,5 @@ struct Vertex
 class MeshLoader
 {
 public:
-	static MeshData* loadMesh(const std::string& filePath);
+	static MeshData* loadMesh(const std::string& filePath, bool indexed = true);
 };

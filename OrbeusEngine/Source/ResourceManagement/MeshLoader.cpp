@@ -5,6 +5,7 @@
 
 #include "Rendering/VertexArray.h"
 #include "Rendering/VertexBuffer.h"
+#include "Rendering/IndexBuffer.h"
 #include "Rendering/Material.h"
 #include "Rendering/Mesh\MeshData.h"
 #include "ResourceManagement/ResourceManager.h"
@@ -196,6 +197,46 @@ void generateVertices(const OBJInfo& info, std::vector<Vertex>& vertices)
 	}
 }
 
+void generateVertices(const OBJInfo& info, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices)
+{
+	// Process the separated processed arrays into an array of OpenGL Vertex (Position, Normal, TexCoord)
+	if (info.positions.size() > 0 && info.normals.size() > 0 && info.texCoords.size() > 0)
+	{
+		// HashMap of ObjectIndex to detect Indexing Vertex Duplication
+		std::unordered_map<OBJIndex, unsigned int> VertexIndexMap;
+		for (unsigned int i = 0; i < info.indices.size(); ++i)
+		{
+			OBJIndex CurrentIndex = info.indices[i];
+
+			unsigned int PositionIndex = CurrentIndex.position;
+			unsigned int TexCoordIndex = CurrentIndex.texCoord;
+			unsigned int NormalIndex = CurrentIndex.normal;
+
+			if (VertexIndexMap.find(CurrentIndex) != VertexIndexMap.end())
+			{
+				// If the Index was processed, use the existing index
+				// to a existing vertex instead of insert a new vertex
+				indices.push_back(VertexIndexMap[CurrentIndex]);
+			}
+			else
+			{
+				// If the Index wasn't processed, insert the vertex and the index
+				// and mark the index as processed
+				VertexIndexMap[CurrentIndex] = vertices.size();
+
+				indices.push_back(vertices.size());
+				vertices.push_back({
+					info.positions[PositionIndex],
+					info.normals[NormalIndex],
+					info.texCoords[TexCoordIndex]
+					});
+			}
+		}
+		Log::info("MeshLoader");
+	}
+}
+
+
 void generateMaterials(MTLInfo info, std::vector<Material>& materials)
 {
 	for (unsigned int i = 0; i < info.materials.size(); ++i)
@@ -223,7 +264,7 @@ void generateMaterials(MTLInfo info, std::vector<Material>& materials)
 	}
 }
 
-MeshData* MeshLoader::loadMesh(const std::string& filePath)
+MeshData* MeshLoader::loadMesh(const std::string& filePath, bool indexed)
 {
 	MeshData* result = new MeshData();
 
@@ -232,11 +273,23 @@ MeshData* MeshLoader::loadMesh(const std::string& filePath)
 
 	// Generate vertices
 	std::vector<Vertex> vertices;
-	generateVertices(objInfo, vertices);
+	std::vector<unsigned int> indices;
+	if (indexed)
+	{
+		generateVertices(objInfo, vertices, indices);
+	}
+	else
+	{
+		generateVertices(objInfo, vertices);
+	}
 
 	// Load VAO
 	result->vertexArray = new VertexArray();
 	result->vertexBuffer = new VertexBuffer(vertices.data(), vertices.size() * sizeof(Vertex), vertices.size());
+	if (indexed)
+	{
+		result->indexBuffer = new IndexBuffer(indices.data(), indices.size());
+	}
 	VertexBufferLayout layout;
 	layout.Push<float>(3);
 	layout.Push<float>(3);
