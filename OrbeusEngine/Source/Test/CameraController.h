@@ -8,6 +8,8 @@ private:
 	float yaw = 0;
 	float pitch = 0;
 
+	bool lastRightButton = false;
+
 public:
 	float cameraSpeed = 15.0f;
 	float mouseSensitivity = 0.1f;

@@ -17,6 +17,5 @@ public:
 	GameObject* waterRefractionGO;
 	GameObject* waterReflectionGO;
 
-	bool gameMode = false;
 	bool lockCursor = false;
 };

@@ -38,7 +38,6 @@ void TestGame::preInit()
 	cameraGO->getTransform()->setRelativePosition(Vector3(0.0f, 3.0f, -8.0f));
 
 	CameraController* cameraController = cameraGO->addComponent<CameraController>(new CameraController());
-	cameraController->setEnabled(gameMode);
 
 
 	//GameObject* cube = new GameObject("Cube");
@@ -179,16 +178,16 @@ void TestGame::update(float deltaTime)
 		Engine::getInstance().quitGame();
 	}
 
-	if (Input::isKeyDown(GLFW_KEY_F2))
-	{
-		gameMode = !gameMode;
-		GameObject* cameraGO = World::getInstance().getActiveCamera()->getOwner();
-		CameraController* cameraController = cameraGO->getComponent<CameraController>();
-		if (gameMode)
-			cameraController->setEnabled(true);
-		else
-			cameraController->setEnabled(false);
-	}
+	//if (Input::isKeyDown(GLFW_KEY_F2))
+	//{
+	//	gameMode = !gameMode;
+	//	GameObject* cameraGO = World::getInstance().getActiveCamera()->getOwner();
+	//	CameraController* cameraController = cameraGO->getComponent<CameraController>();
+	//	if (gameMode)
+	//		cameraController->setEnabled(true);
+	//	else
+	//		cameraController->setEnabled(false);
+	//}
 	if (Input::isKeyDown(GLFW_KEY_F3))
 	{
 		lockCursor = !lockCursor;

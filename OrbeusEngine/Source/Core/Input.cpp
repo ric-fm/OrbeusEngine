@@ -43,7 +43,7 @@ bool Input::isKeyDown(int key)
 
 bool Input::isMouseButtonDown(int button)
 {
-	return glfwGetMouseButton(windowHandler, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
+	return glfwGetMouseButton(windowHandler, button) == GLFW_PRESS;
 }
 
 Vector2 Input::getMousePosition()
