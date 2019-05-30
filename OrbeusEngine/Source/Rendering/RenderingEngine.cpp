@@ -10,6 +10,7 @@
 #include "Components/Camera.h"
 
 #include "Rendering/Mesh/MeshRenderer.h"
+#include "Rendering/SkeletalMesh/SkeletalMeshRenderer.h"
 #include "Rendering/Text/TextRenderer.h"
 #include "Rendering/Terrain/TerrainRenderer.h"
 #include "Rendering/SkyBoxRenderer.h"
@@ -29,6 +30,10 @@ RenderingEngine::~RenderingEngine()
 	if (meshRenderer != nullptr)
 	{
 		delete meshRenderer;
+	}
+	if (skeletalMeshRenderer != nullptr)
+	{
+		delete skeletalMeshRenderer;
 	}
 	if (textRenderer != nullptr)
 	{
@@ -64,6 +69,7 @@ void RenderingEngine::init()
 	}
 
 	meshRenderer = new MeshRenderer();
+	skeletalMeshRenderer = new SkeletalMeshRenderer();
 	textRenderer = new TextRenderer();
 	terrainRenderer = new TerrainRenderer();
 	skyBoxRenderer = new SkyBoxRenderer();
@@ -82,6 +88,7 @@ void RenderingEngine::renderScene(Camera* camera)
 	}
 
 	meshRenderer->render(camera);
+	skeletalMeshRenderer->render(camera);
 	terrainRenderer->render(camera);
 	skyBoxRenderer->render(camera);
 

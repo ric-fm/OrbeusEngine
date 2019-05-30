@@ -4,6 +4,8 @@
 #include "World.h"
 #include "Rendering/RenderingEngine.h"
 #include "Game.h"
+#include "Editor/EditorManager.h"
+#include "Editor/AnimatedModelEditor.h"
 
 #include "GLFW/glfw3.h"
 
@@ -66,6 +68,9 @@ void Engine::init()
 	VisualLogger::getInstance().init();
 
 	game->postInit();
+
+	EditorManager::getInstance().addEditor(new AnimatedModelEditor());
+	EditorManager::getInstance().init();
 }
 
 void Engine::update(float deltaTime)
@@ -74,6 +79,7 @@ void Engine::update(float deltaTime)
 
 	World::getInstance().update(deltaTime);
 	VisualLogger::getInstance().update(deltaTime);
+	EditorManager::getInstance().update(deltaTime);
 
 	game->update(deltaTime);
 }

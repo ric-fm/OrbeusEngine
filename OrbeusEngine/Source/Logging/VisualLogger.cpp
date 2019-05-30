@@ -14,6 +14,8 @@
 #include "Core/Transform.h"
 #include "Core/World.h"
 #include "Components/Camera.h"
+#include "Editor/EditorManager.h"
+
 
 VisualLogger::VisualLogger()
 	: showPerformanceInfo(true)
@@ -48,6 +50,7 @@ void VisualLogger::update(float deltaTime)
 		frameCount = 0;
 		acumDeltaTime = 0.0f;
 	}
+	performanceInfo.deltaTime = deltaTime;
 
 	static bool lastF1KeyDown = false;
 	bool f1KeyDown = Input::isKeyDown(GLFW_KEY_F1);
@@ -72,6 +75,7 @@ void VisualLogger::render()
 		{
 			ImGui::Text("%d FPS", performanceInfo.FPS);
 			ImGui::Text("%.2f MS", performanceInfo.MS);
+			ImGui::Text("%.2f MS", performanceInfo.deltaTime);
 			ImGui::Separator();
 
 			Vector3 cameraPosition = World::getInstance().getActiveCamera()->getTransform()->getPosition();
@@ -79,11 +83,11 @@ void VisualLogger::render()
 			ImGui::Text("Camera pos: (%.1f,%.1f,%.1f)", cameraPosition.x, cameraPosition.y, cameraPosition.z);
 			ImGui::Text("Camera rot: (%.1f,%.1f,%.1f)", cameraRotation.x, cameraRotation.y, cameraRotation.z);
 
-
-
 			ImGui::End();
 		}
 	}
+
+	EditorManager::getInstance().render();
 
 	ImGui::Render();
 	ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());

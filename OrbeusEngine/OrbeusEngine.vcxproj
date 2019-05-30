@@ -58,6 +58,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="OrbeusEngine.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -78,12 +79,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SourceDir)Source;$(SourceDir)Libraries/stb_image/Include;$(SourceDir)Libraries/glfw-3.2.1/Include;$(SourceDir)Libraries/glew-2.1.0/Include;$(SourceDir)Libraries/imgui/Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)Source;$(SourceDir)Libraries/stb_image/Include;$(SourceDir)Libraries/glfw-3.2.1/Include;$(SourceDir)Libraries/glew-2.1.0/Include;$(SourceDir)Libraries/imgui/Include;$(FBX_SDK_DIR)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SourceDir)Libraries\glfw-3.2.1\Lib;$(SourceDir)Libraries\glew-2.1.0\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;libfbxsdk-md.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SourceDir)Libraries\glfw-3.2.1\Lib;$(SourceDir)Libraries\glew-2.1.0\Lib;$(FBX_SDK_DIR)lib\vs2015\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBMCT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -144,13 +147,17 @@
     <ClCompile Include="Libraries\stb_image\Include\stb_image\stb_image.cpp" />
     <ClCompile Include="Source\Components\Camera.cpp" />
     <ClCompile Include="Source\Components\CameraCapture.cpp" />
+    <ClCompile Include="Source\Components\SkeletalMesh.cpp" />
     <ClCompile Include="Source\Components\GUIText.cpp" />
     <ClCompile Include="Source\Components\Terrain.cpp" />
     <ClCompile Include="Source\Components\WaterPlane.cpp" />
+    <ClCompile Include="Source\Editor\AnimatedModelEditor.cpp" />
+    <ClCompile Include="Source\Editor\EditorManager.cpp" />
     <ClCompile Include="Source\Logging\VisualLogger.cpp" />
     <ClCompile Include="Source\Math\Quaternion.cpp" />
     <ClCompile Include="Source\Math\Vector4.cpp" />
     <ClCompile Include="Source\Rendering\CubeMap.cpp" />
+    <ClCompile Include="Source\Rendering\SkeletalMesh\SkeletalMeshRenderer.cpp" />
     <ClCompile Include="Source\Rendering\FrameBuffer.cpp" />
     <ClCompile Include="Source\Rendering\IndexBuffer.cpp" />
     <ClCompile Include="Source\Rendering\Mesh\MeshRenderer.cpp" />
@@ -163,6 +170,7 @@
     <ClCompile Include="Source\Rendering\Text\TextMeshData.cpp" />
     <ClCompile Include="Source\Rendering\Water\WaterRenderer.cpp" />
     <ClCompile Include="Source\ResourceManagement\CubeMapLoader.cpp" />
+    <ClCompile Include="Source\ResourceManagement\FBXLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\FontLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\MeshLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\ResourceManager.cpp" />
@@ -192,6 +200,7 @@
     <ClCompile Include="Source\Math\Vector3.cpp" />
     <ClCompile Include="Source\Rendering\VertexArray.cpp" />
     <ClCompile Include="Source\Rendering\VertexBuffer.cpp" />
+    <ClCompile Include="Source\Utils\TimeMeasure.cpp" />
     <ClCompile Include="Source\Window\Window.cpp" />
     <ClCompile Include="Source\Core\World.cpp" />
     <ClCompile Include="Source\Rendering\Text\TextRenderer.cpp" />
@@ -199,6 +208,8 @@
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
     <None Include="Resources\Shaders\Basic-vs.shader" />
+    <None Include="Resources\Shaders\Bone-fs.shader" />
+    <None Include="Resources\Shaders\Bone-vs.shader" />
     <None Include="Resources\Shaders\Forward\Ambient-fs.shader" />
     <None Include="Resources\Shaders\Forward\Ambient-vs.shader" />
     <None Include="Resources\Shaders\Forward\Directional-fs.shader" />
@@ -212,6 +223,7 @@
     <None Include="Resources\Shaders\Mesh-vs.shader" />
     <None Include="Resources\Shaders\Phong-fs.shader" />
     <None Include="Resources\Shaders\Phong-vs.shader" />
+    <None Include="Resources\Shaders\SkeletalMesh-fs.shader" />
     <None Include="Resources\Shaders\SkyBox-fs.shader" />
     <None Include="Resources\Shaders\SkyBox-vs.shader" />
     <None Include="Resources\Shaders\Terrain-fs.shader" />
@@ -220,6 +232,7 @@
     <None Include="Resources\Shaders\Test\test-vs.shader" />
     <None Include="Resources\Shaders\Text\SDF-fs.shader" />
     <None Include="Resources\Shaders\Text\SDF-vs.shader" />
+    <None Include="Resources\Shaders\SkeletalMesh-vs.shader" />
     <None Include="Resources\Shaders\Water-fs.shader" />
     <None Include="Resources\Shaders\Water-vs.shader" />
   </ItemGroup>
@@ -234,15 +247,22 @@
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
     <ClInclude Include="Source\Components\Camera.h" />
     <ClInclude Include="Source\Components\CameraCapture.h" />
+    <ClInclude Include="Source\Components\SkeletalMesh.h" />
     <ClInclude Include="Source\Components\GUIText.h" />
     <ClInclude Include="Source\Components\Terrain.h" />
     <ClInclude Include="Source\Components\WaterPlane.h" />
+    <ClInclude Include="Source\Editor\AnimatedModelEditor.h" />
+    <ClInclude Include="Source\Editor\Editor.h" />
+    <ClInclude Include="Source\Editor\EditorManager.h" />
     <ClInclude Include="Source\Logging\VisualLogger.h" />
     <ClInclude Include="Source\Math\Quaternion.h" />
     <ClInclude Include="Source\Math\Vector4.h" />
     <ClInclude Include="Source\Rendering\CubeMap.h" />
+    <ClInclude Include="Source\Rendering\SkeletalMesh\SkeletalMeshRenderer.h" />
     <ClInclude Include="Source\Rendering\FrameBuffer.h" />
     <ClInclude Include="Source\Rendering\IndexBuffer.h" />
+    <ClInclude Include="Source\Rendering\SkeletalMesh\Animation.h" />
+    <ClInclude Include="Source\Rendering\SkeletalMesh\Bone.h" />
     <ClInclude Include="Source\Rendering\Mesh\MeshRenderer.h" />
     <ClInclude Include="Source\Rendering\Mesh\MeshData.h" />
     <ClInclude Include="Source\Rendering\Quad.h" />
@@ -253,6 +273,7 @@
     <ClInclude Include="Source\Rendering\Text\TextMeshData.h" />
     <ClInclude Include="Source\Rendering\Water\WaterRenderer.h" />
     <ClInclude Include="Source\ResourceManagement\CubeMapLoader.h" />
+    <ClInclude Include="Source\ResourceManagement\FBXLoader.h" />
     <ClInclude Include="Source\ResourceManagement\FontLoader.h" />
     <ClInclude Include="Source\ResourceManagement\MeshLoader.h" />
     <ClInclude Include="Source\ResourceManagement\ResourceManager.h" />
@@ -267,6 +288,7 @@
     <ClInclude Include="Source\Core\Input.h" />
     <ClInclude Include="Source\Components\Light.h" />
     <ClInclude Include="Source\Test\MoveController.h" />
+    <ClInclude Include="Source\Utils\Hash.h" />
     <ClInclude Include="Source\Utils\ImageBuffer.h" />
     <ClInclude Include="Source\Utils\Log.h" />
     <ClInclude Include="Source\Rendering\Material.h" />
@@ -283,6 +305,7 @@
     <ClInclude Include="Source\Math\Vector3.h" />
     <ClInclude Include="Source\Rendering\VertexArray.h" />
     <ClInclude Include="Source\Rendering\VertexBuffer.h" />
+    <ClInclude Include="Source\Utils\TimeMeasure.h" />
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Core\World.h" />
     <ClInclude Include="Source\Rendering\Text\TextRenderer.h" />

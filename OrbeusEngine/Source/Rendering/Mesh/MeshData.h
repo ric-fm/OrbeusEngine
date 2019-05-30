@@ -12,7 +12,9 @@ class Shader;
 class MeshData
 {
 	friend class MeshLoader;
+	friend class FBXLoader;
 	friend class MeshRenderer;
+	friend class SkeletalMeshRenderer;
 private:
 	VertexArray* vertexArray = nullptr;
 	VertexBuffer* vertexBuffer = nullptr;

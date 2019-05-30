@@ -7,6 +7,8 @@
 #include "Components/Terrain.h"
 #include "Components/WaterPlane.h"
 #include "Components/CameraCapture.h"
+#include "Components/Mesh.h"
+#include "Components/SkeletalMesh.h"
 #include "Utils/Log.h"
 #include "CameraController.h"
 #include "Rotate.h"
@@ -19,7 +21,6 @@
 #include "Core/GameComponent.h"
 #include "Test/MoveController.h"
 
-#include "Rendering/Text/TextRenderer.h"
 #include "ResourceManagement/ResourceManager.h"
 
 GameObject* textGO = nullptr;
@@ -27,8 +28,6 @@ GameObject* textGO = nullptr;
 
 void TestGame::preInit()
 {
-	Engine::getInstance().getWindow()->setCursorMode(GLFW_CURSOR_DISABLED);
-
 	World::getInstance().getActiveCamera()->setAmbienLight(Vector3(0.2f, 0.2f, 0.2f));
 	World::getInstance().getActiveCamera()->setSkyColor(Vector3(0.1f, 0.9f, 1.0f));
 	World::getInstance().getActiveCamera()->setFogColor(Vector3(0.94f, 0.93f, 0.92f));
@@ -38,38 +37,39 @@ void TestGame::preInit()
 
 	cameraGO->getTransform()->setRelativePosition(Vector3(0.0f, 3.0f, -8.0f));
 
-	cameraGO->addComponent<CameraController>(new CameraController());
+	CameraController* cameraController = cameraGO->addComponent<CameraController>(new CameraController());
+	cameraController->setEnabled(gameMode);
 
 
-	GameObject* cube = new GameObject("Cube");
-	cube->getTransform()->setRelativePosition(Vector3(2.0f, 1.0f, 0.0f));
+	//GameObject* cube = new GameObject("Cube");
+	//cube->getTransform()->setRelativePosition(Vector3(2.0f, 1.0f, 0.0f));
 
-	Mesh* cubeMesh = new Mesh("Resources/Models/Cube/Cube.obj");
-	cube->addComponent<Mesh>(cubeMesh);
-
-
-	GameObject* monkey1 = new GameObject("Monkey");
-	GameObject* monkeyMesh1 = new GameObject("Monkey");
-	monkeyMesh1->getTransform()->setParent(monkey1->getTransform());
-
-	Mesh* monkeyMesh = new Mesh("Resources/Models/Monkey/Monkey.obj");
-	monkeyMesh1->addComponent<Mesh>(new Mesh("Resources/Models/Monkey/Monkey.obj"));
-	monkey1->getTransform()->setRelativePosition(Vector3(0.0f, 3.0f, 2.0f));
-	monkey1->getTransform()->setRelativeScale(Vector3(2.0f, 2.0f, 2.0f));
-
-	monkey1->addComponent<MoveController>(new MoveController());
+	////Mesh* cubeMesh = new Mesh("Resources/Models/Cube/Cube.obj");
+	////cube->addComponent<Mesh>(cubeMesh);
 
 
-	//GameObject* floor = new GameObject("Floor");
-	//floor->getTransform()->setRelativeScale(Vector3(10.0f));
-	//Mesh* floorMesh = new Mesh("Resources/Models/Plane/Plane.obj");
-	//floor->addComponent<Mesh>(floorMesh);
+	//GameObject* monkey1 = new GameObject("Monkey");
+	//GameObject* monkeyMesh1 = new GameObject("Monkey");
+	//monkeyMesh1->getTransform()->setParent(monkey1->getTransform());
+
+	//Mesh* monkeyMesh = new Mesh("Resources/Models/Monkey/Monkey.obj");
+	//monkeyMesh1->addComponent<Mesh>(new Mesh("Resources/Models/Monkey/Monkey.obj"));
+	//monkey1->getTransform()->setRelativePosition(Vector3(0.0f, 3.0f, 2.0f));
+	//monkey1->getTransform()->setRelativeScale(Vector3(2.0f, 2.0f, 2.0f));
+
+	//monkey1->addComponent<MoveController>(new MoveController());
 
 
-	//World::getInstance().addGameObject(floor);
-	World::getInstance().addGameObject(cube);
-	//World::getInstance().addGameObject(monkey1);
-	//World::getInstance().addGameObject(monkeyMesh1);
+	////GameObject* floor = new GameObject("Floor");
+	////floor->getTransform()->setRelativeScale(Vector3(10.0f));
+	////Mesh* floorMesh = new Mesh("Resources/Models/Plane/Plane.obj");
+	////floor->addComponent<Mesh>(floorMesh);
+
+
+	////World::getInstance().addGameObject(floor);
+	////World::getInstance().addGameObject(cube);
+	////World::getInstance().addGameObject(monkey1);
+	////World::getInstance().addGameObject(monkeyMesh1);
 
 
 	GameObject* directionalGO0 = new GameObject("Directional0");
@@ -94,77 +94,82 @@ void TestGame::preInit()
 	spotGO->getTransform()->setParent(cameraGO->getTransform());
 
 	World::getInstance().addGameObject(directionalGO0);
-	//World::getInstance().addGameObject(directionalGO1);
+	World::getInstance().addGameObject(directionalGO1);
 	World::getInstance().addGameObject(pointGO0);
 	World::getInstance().addGameObject(pointGO1);
 	World::getInstance().addGameObject(spotGO);
 
-	GameObject* terrainGO = new GameObject("terrain");
-	Terrain* terrain = new Terrain("Resources/Textures/Terrain/grassy2.png", "Resources/Textures/Terrain/mud.png",
-		"Resources/Textures/Terrain/grassFlowers.png", "Resources/Textures/Terrain/path.png", "Resources/Textures/Terrain/blendMap.png",
-		"Resources/Textures/Terrain/heightmap.png");
-	terrainGO->addComponent<Terrain>(terrain);
-	World::getInstance().addGameObject(terrainGO);
+	//GameObject* terrainGO = new GameObject("terrain");
+	//Terrain* terrain = new Terrain("Resources/Textures/Terrain/grassy2.png", "Resources/Textures/Terrain/mud.png",
+	//	"Resources/Textures/Terrain/grassFlowers.png", "Resources/Textures/Terrain/path.png", "Resources/Textures/Terrain/blendMap.png",
+	//	"Resources/Textures/Terrain/heightmap.png");
+	//terrainGO->addComponent<Terrain>(terrain);
+	////World::getInstance().addGameObject(terrainGO);
 
 
-	GameObject* grassGO = new GameObject("Grass");
-	grassGO->getTransform()->setRelativePosition(Vector3(0, 0, 0));
-	grassGO->addComponent<Mesh>(new Mesh("Resources/Models/Grass/Grass.obj", true));
-	World::getInstance().addGameObject(grassGO);
+	//GameObject* grassGO = new GameObject("Grass");
+	//grassGO->getTransform()->setRelativePosition(Vector3(0, 0, 0));
+	//grassGO->addComponent<Mesh>(new Mesh("Resources/Models/Grass/Grass.obj", true));
+	////World::getInstance().addGameObject(grassGO);
 
-	GameObject* grassGO2 = new GameObject("Grass2");
-	grassGO2->getTransform()->setRelativePosition(Vector3(0.5f, 0, 1));
-	grassGO2->addComponent<Mesh>(new Mesh("Resources/Models/Grass/Grass.obj", true));
-	World::getInstance().addGameObject(grassGO2);
+	//GameObject* grassGO2 = new GameObject("Grass2");
+	//grassGO2->getTransform()->setRelativePosition(Vector3(0.5f, 0, 1));
+	//grassGO2->addComponent<Mesh>(new Mesh("Resources/Models/Grass/Grass.obj", true));
+	////World::getInstance().addGameObject(grassGO2);
 
-	GameObject* textgo = new GameObject("Text");
-	textgo->addComponent<GUIText>(new GUIText("Orbeus Engine", 2));
-	textgo->getTransform()->setRelativePosition(Vector3(0.4f, 0.0f, 0.0f));
-	World::getInstance().addGameObject(textgo);
+	//GameObject* textgo = new GameObject("Text");
+	//textgo->addComponent<GUIText>(new GUIText("Orbeus Engine", 2));
+	//textgo->getTransform()->setRelativePosition(Vector3(0.4f, 0.0f, 0.0f));
+	////World::getInstance().addGameObject(textgo);
 
-	WaterPlane* waterPlane = new WaterPlane();
-	waterGO = new GameObject("Water");
-	waterGO->addComponent<WaterPlane>(waterPlane);
-	//waterGO->getTransform()->setRelativePosition(Vector3(0.0f, 0.0f, 4.0f));
-	waterGO->getTransform()->setRelativePosition(Vector3(78.0f, -12.0f, 26.0f));
-	waterGO->getTransform()->setRelativeScale(Vector3(200.0f, 1.0f, 200.0f));
-
-
-	CameraCapture* reflectionCapture = new CameraCapture(320, 180);
-	waterReflectionGO = new GameObject("WaterReflection");
-	waterReflectionGO->addComponent<CameraCapture>(reflectionCapture);
-
-	CameraCapture* refractionCapture = new CameraCapture(1280, 720);
-	waterRefractionGO = new GameObject("WaterRefraction");
-	waterRefractionGO->addComponent<CameraCapture>(refractionCapture);
-	
-	waterPlane->setNormalMap(ResourceManager::getInstance().getTexture("Resources/Textures/Water/NormalMap.png", "normal"));
-	waterPlane->setDudvMap(ResourceManager::getInstance().getTexture("Resources/Textures/Water/DUDV.png", "map"));
-
-	World::getInstance().addGameObject(waterRefractionGO);
-	World::getInstance().addGameObject(waterReflectionGO);
-	World::getInstance().addGameObject(waterGO);
+	//WaterPlane* waterPlane = new WaterPlane();
+	//waterGO = new GameObject("Water");
+	//waterGO->addComponent<WaterPlane>(waterPlane);
+	////waterGO->getTransform()->setRelativePosition(Vector3(0.0f, 0.0f, 4.0f));
+	//waterGO->getTransform()->setRelativePosition(Vector3(78.0f, -12.0f, 26.0f));
+	//waterGO->getTransform()->setRelativeScale(Vector3(200.0f, 1.0f, 200.0f));
 
 
-	cameraGO->getTransform()->setRelativePosition(Vector3(78.0f, -10.0f, 26.0f));
-	//waterGO->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90.0f, 0.0f, 0.0f)));
-	cube->getTransform()->setRelativePosition(Vector3(95.0f, -10.0f, 50.0f));
-	cube->getTransform()->setRelativeScale(Vector3(2.0f, 2.0f, 2.0f));
+	//CameraCapture* reflectionCapture = new CameraCapture(320, 180);
+	//waterReflectionGO = new GameObject("WaterReflection");
+	//waterReflectionGO->addComponent<CameraCapture>(reflectionCapture);
 
+	//CameraCapture* refractionCapture = new CameraCapture(1280, 720);
+	//waterRefractionGO = new GameObject("WaterRefraction");
+	//waterRefractionGO->addComponent<CameraCapture>(refractionCapture);
+	//
+	//waterPlane->setNormalMap(ResourceManager::getInstance().getTexture("Resources/Textures/Water/NormalMap.png", "normal"));
+	//waterPlane->setDudvMap(ResourceManager::getInstance().getTexture("Resources/Textures/Water/DUDV.png", "map"));
+
+	////World::getInstance().addGameObject(waterRefractionGO);
+	////World::getInstance().addGameObject(waterReflectionGO);
+	////World::getInstance().addGameObject(waterGO);
+
+
+
+	cameraGO->getTransform()->setRelativePosition(Vector3(0.0f, 1.0f, -3.0f));
+
+	GameObject* animatedGO = new GameObject("Animation Test");
+	animatedGO->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90, 0, 0)));
+	std::string fbxPath;
+	fbxPath = "Resources/Models/Animation/test.fbx";
+	animatedGO->addComponent<SkeletalMesh>(new SkeletalMesh(fbxPath));
+
+	World::getInstance().addGameObject(animatedGO);
 }
 
 void TestGame::postInit()
 {
-	WaterPlane* waterPlane = waterGO->getComponent<WaterPlane>();
-	CameraCapture* reflectionCapture = waterReflectionGO->getComponent<CameraCapture>();
-	CameraCapture* refractionCapture = waterRefractionGO->getComponent<CameraCapture>();
+	//WaterPlane* waterPlane = waterGO->getComponent<WaterPlane>();
+	//CameraCapture* reflectionCapture = waterReflectionGO->getComponent<CameraCapture>();
+	//CameraCapture* refractionCapture = waterRefractionGO->getComponent<CameraCapture>();
 
-	waterPlane->setReflectionTexture(reflectionCapture->getColorTexture());
-	waterPlane->setRefractionTexture(refractionCapture->getColorTexture());
-	waterPlane->setRefractionDepthTexture(refractionCapture->getDepthTexture());
+	//waterPlane->setReflectionTexture(reflectionCapture->getColorTexture());
+	//waterPlane->setRefractionTexture(refractionCapture->getColorTexture());
+	//waterPlane->setRefractionDepthTexture(refractionCapture->getDepthTexture());
 
-	reflectionCapture->setClipPlane(Vector4(0, 1, 0, -waterPlane->getTransform()->getRelativePosition().y + 1.0f));
-	refractionCapture->setClipPlane(Vector4(0, -1, 0, waterPlane->getTransform()->getRelativePosition().y + 1.0f));
+	//reflectionCapture->setClipPlane(Vector4(0, 1, 0, -waterPlane->getTransform()->getRelativePosition().y + 1.0f));
+	//refractionCapture->setClipPlane(Vector4(0, -1, 0, waterPlane->getTransform()->getRelativePosition().y + 1.0f));
 }
 
 void TestGame::update(float deltaTime)
@@ -174,25 +179,44 @@ void TestGame::update(float deltaTime)
 		Engine::getInstance().quitGame();
 	}
 
+	if (Input::isKeyDown(GLFW_KEY_F2))
+	{
+		gameMode = !gameMode;
+		GameObject* cameraGO = World::getInstance().getActiveCamera()->getOwner();
+		CameraController* cameraController = cameraGO->getComponent<CameraController>();
+		if (gameMode)
+			cameraController->setEnabled(true);
+		else
+			cameraController->setEnabled(false);
+	}
+	if (Input::isKeyDown(GLFW_KEY_F3))
+	{
+		lockCursor = !lockCursor;
+		if(lockCursor)
+			Engine::getInstance().getWindow()->setCursorMode(GLFW_CURSOR_DISABLED);
+		else
+			Engine::getInstance().getWindow()->setCursorMode(GLFW_CURSOR_HIDDEN);
+	}
 
-	WaterPlane* waterPlane = waterGO->getComponent<WaterPlane>();
-	CameraCapture* reflectionCapture = waterReflectionGO->getComponent<CameraCapture>();
-	CameraCapture* refractionCapture = waterRefractionGO->getComponent<CameraCapture>();
 
-	Camera* camera = World::getInstance().getActiveCamera();
-	Quaternion cameraRotation = camera->getTransform()->getRelativeRotation();
-	Vector3 cameraPosition = camera->getTransform()->getRelativePosition();
-	Vector3 invPitchRotation = cameraRotation.getEulerAngles();
-	invPitchRotation.x *= -1;
+	//WaterPlane* waterPlane = waterGO->getComponent<WaterPlane>();
+	//CameraCapture* reflectionCapture = waterReflectionGO->getComponent<CameraCapture>();
+	//CameraCapture* refractionCapture = waterRefractionGO->getComponent<CameraCapture>();
 
-	float offsetHeight = 2.0f * (camera->getTransform()->getPosition().y - waterPlane->getTransform()->getRelativePosition().y);
+	//Camera* camera = World::getInstance().getActiveCamera();
+	//Quaternion cameraRotation = camera->getTransform()->getRelativeRotation();
+	//Vector3 cameraPosition = camera->getTransform()->getRelativePosition();
+	//Vector3 invPitchRotation = cameraRotation.getEulerAngles();
+	//invPitchRotation.x *= -1;
 
-	reflectionCapture->getTransform()->setRelativePosition(cameraPosition - Vector3(0, offsetHeight, 0));
-	reflectionCapture->getTransform()->setRelativeRotation(Quaternion::EulerAngles(invPitchRotation));
-	
-	refractionCapture->getTransform()->setRelativePosition(cameraPosition);
-	refractionCapture->getTransform()->setRelativeRotation(cameraRotation);
+	//float offsetHeight = 2.0f * (camera->getTransform()->getPosition().y - waterPlane->getTransform()->getRelativePosition().y);
 
-	reflectionCapture->capture();
-	refractionCapture->capture();
+	//reflectionCapture->getTransform()->setRelativePosition(cameraPosition - Vector3(0, offsetHeight, 0));
+	//reflectionCapture->getTransform()->setRelativeRotation(Quaternion::EulerAngles(invPitchRotation));
+	//
+	//refractionCapture->getTransform()->setRelativePosition(cameraPosition);
+	//refractionCapture->getTransform()->setRelativeRotation(cameraRotation);
+
+	//reflectionCapture->capture();
+	//refractionCapture->capture();
 }

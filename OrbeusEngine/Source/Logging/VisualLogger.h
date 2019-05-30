@@ -5,6 +5,7 @@ struct PerformanceInfo
 {
 	float MS;
 	int FPS;
+	float deltaTime;
 };
 
 class VisualLogger

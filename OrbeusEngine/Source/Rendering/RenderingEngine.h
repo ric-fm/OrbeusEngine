@@ -6,6 +6,7 @@ class Shader;
 class Engine;
 
 class MeshRenderer;
+class SkeletalMeshRenderer;
 class TextRenderer;
 class TerrainRenderer;
 class SkyBoxRenderer;
@@ -18,6 +19,7 @@ private:
 	Engine* engine;
 
 	MeshRenderer* meshRenderer;
+	SkeletalMeshRenderer* skeletalMeshRenderer;
 	TextRenderer* textRenderer;
 	TerrainRenderer* terrainRenderer;
 	SkyBoxRenderer* skyBoxRenderer;
@@ -34,6 +36,7 @@ public:
 	void setBlendingEnabled(bool enabled);
 
 	MeshRenderer* getMeshRenderer() const { return meshRenderer; }
+	SkeletalMeshRenderer* getFBXMeshRenderer() const { return skeletalMeshRenderer; }
 	TextRenderer* getTextRenderer() const { return textRenderer; }
 	TerrainRenderer* getTerrainRenderer() const { return terrainRenderer; }
 	SkyBoxRenderer* getSkyBoxRenderer() const { return skyBoxRenderer; }

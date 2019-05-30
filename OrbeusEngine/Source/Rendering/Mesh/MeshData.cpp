@@ -10,13 +10,10 @@ MeshData::MeshData()
 
 MeshData::~MeshData()
 {
-	if (vertexArray == nullptr)
-	{
+	if (vertexArray)
 		delete vertexArray;
-	}
-
-	if (vertexBuffer == nullptr)
-	{
+	if (vertexBuffer)
 		delete vertexBuffer;
-	}
+	if (indexBuffer)
+		delete indexBuffer;
 }
