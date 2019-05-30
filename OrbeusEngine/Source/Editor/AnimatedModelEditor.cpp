@@ -9,9 +9,13 @@
 
 void AnimatedModelEditor::init()
 {
-	selectedMesh = World::getInstance().getComponents<SkeletalMesh>()[0];
-	selectedGameObject = selectedMesh->getOwner();
-	selectedMesh->setAnimation(selectedMesh->getAnimationData()->animations[0]);
+	auto meshes = World::getInstance().getComponents<SkeletalMesh>();
+	if (meshes.size() > 0)
+	{
+		selectedMesh = meshes[0];
+		selectedGameObject = selectedMesh->getOwner();
+		selectedMesh->setAnimation(selectedMesh->getAnimationData()->animations[0]);
+	}
 }
 
 void AnimatedModelEditor::destroy()
@@ -24,6 +28,8 @@ void AnimatedModelEditor::update(float deltaTime)
 
 void AnimatedModelEditor::render()
 {
+	if (!selectedMesh)
+		return;
 	ImGui::SetNextWindowPos(ImVec2(400, 20), ImGuiCond_Always, ImVec2(0, 0));
 	ImGui::SetNextWindowBgAlpha(0.1f);
 	if (ImGui::Begin("Animation Info", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar |

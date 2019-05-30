@@ -296,6 +296,7 @@ MeshData* MeshLoader::loadMesh(const std::string& filePath, bool indexed)
 	layout.Push<float>(2);
 
 	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
+	result->vertexArray->setIndexBuffer(result->indexBuffer);
 
 	// Load materials
 	if (!objInfo.mtl.empty())
