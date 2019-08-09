@@ -11,6 +11,8 @@ private:
 	GameObject* selectedGameObject;
 	SkeletalMesh* selectedMesh;
 
+	int selectedBoneIndex = 0;
+
 public:
 	virtual void init() override;
 	virtual void destroy() override;

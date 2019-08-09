@@ -146,15 +146,60 @@ void TestGame::preInit()
 
 
 
-	cameraGO->getTransform()->setRelativePosition(Vector3(0.0f, 1.0f, -3.0f));
+	//cameraGO->getTransform()->setRelativePosition(Vector3(0.0f, 1.0f, -3.0f));
+
+	//GameObject* cube = new GameObject("Cube");
+	//cube->getTransform()->setRelativePosition(Vector3(-2, 0, 0));
+	//cube->addComponent<Cube>(new Cube());
+	//World::getInstance().addGameObject(cube);
+
+	//GameObject* cubeOBJ = new GameObject("Cube OBJ");
+	//cubeOBJ->getTransform()->setRelativePosition(Vector3(2, 0, 0));
+	////cubeOBJ->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(0, 180, 0)));
+	//cubeOBJ->addComponent<Mesh>(new Mesh("Resources/Models/Animation/Triangle.obj"));
+	//World::getInstance().addGameObject(cubeOBJ);
+
+
+	//GameObject* cubeFBX = new GameObject("Cube FBX");
+	//cubeFBX->getTransform()->setRelativePosition(Vector3(-2, 0, 0));
+	////cubeFBX->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(0, 180, 0)));
+	////cubeFBX->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90, 0, 0)));
+	//cubeFBX->addComponent<SkeletalMesh>(new SkeletalMesh("Resources/Models/Animation/Triangle.fbx"));
+	////cubeFBX->addComponent<SkeletalMesh>(new SkeletalMesh("Resources/Models/Animation/Triangle2.fbx"));
+	////cubeFBX->addComponent<SkeletalMesh>(new SkeletalMesh("Resources/Models/Animation/max.fbx"));
+	//World::getInstance().addGameObject(cubeFBX);
+
+
+	//GameObject* cubeFBX2 = new GameObject("Cube FBX2");
+	//cubeFBX2->getTransform()->setRelativePosition(Vector3(2, 0, 0));
+	////cubeFBX->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(0, 180, 0)));
+	////cubeFBX->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90, 0, 0)));
+	////cubeFBX->addComponent<SkeletalMesh>(new SkeletalMesh("Resources/Models/Animation/Triangle.fbx"));
+	//cubeFBX2->addComponent<SkeletalMesh>(new SkeletalMesh("Resources/Models/Animation/Triangle2.fbx"));
+	////cubeFBX->addComponent<SkeletalMesh>(new SkeletalMesh("Resources/Models/Animation/max.fbx"));
+	//World::getInstance().addGameObject(cubeFBX2);
+
+
 
 	GameObject* animatedGO = new GameObject("Animation Test");
-	animatedGO->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90, 0, 0)));
+	animatedGO->getTransform()->setRelativePosition(Vector3(-2, 0, 0));
+	//animatedGO->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90, 0, 0)));
 	std::string fbxPath;
 	fbxPath = "Resources/Models/Animation/test.fbx";
+	//fbxPath = "Resources/Models/Animation/test2.fbx";
+	//fbxPath = "Resources/Models/Plane/Plane.fbx";
+	//fbxPath = "Resources/Models/Cube/Cube.fbx";
+	//fbxPath = "Resources/Models/Animation/CubeAxis.fbx";
+
 	animatedGO->addComponent<SkeletalMesh>(new SkeletalMesh(fbxPath));
 
 	World::getInstance().addGameObject(animatedGO);
+
+	GameObject* cubeOBJ = new GameObject("Cube OBJ");
+	cubeOBJ->getTransform()->setRelativePosition(Vector3(2, 0, 0));
+	//cubeOBJ->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(0, 180, 0)));
+	cubeOBJ->addComponent<Mesh>(new Mesh("Resources/Models/Animation/test.obj"));
+	World::getInstance().addGameObject(cubeOBJ);
 }
 
 void TestGame::postInit()

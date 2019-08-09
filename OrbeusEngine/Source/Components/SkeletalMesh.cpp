@@ -64,9 +64,7 @@ void SkeletalMesh::update(float deltaTime)
 				playing = false;
 			}
 		}
-
-		std::unordered_map<std::string, Matrix4> currentPose = calculateCurrentAnimationPose();
-		recursiveApplyPoseToBones(currentPose, boneData->rootBone, Matrix4());
+		calculateCurrentPose();
 	}
 }
 
@@ -75,8 +73,7 @@ void SkeletalMesh::setAnimationTime(float time, bool update)
 	animationTime = time;
 	if (update)
 	{
-		std::unordered_map<std::string, Matrix4> currentPose = calculateCurrentAnimationPose();
-		recursiveApplyPoseToBones(currentPose, boneData->rootBone, Matrix4());
+		calculateCurrentPose();
 	}
 }
 
@@ -86,8 +83,7 @@ void SkeletalMesh::setAnimation(Animation* animation, float time, bool update)
 	currentAnimation = animation;
 	if (update)
 	{
-		std::unordered_map<std::string, Matrix4> currentPose = calculateCurrentAnimationPose();
-		recursiveApplyPoseToBones(currentPose, boneData->rootBone, Matrix4());
+		calculateCurrentPose();
 	}
 }
 
@@ -101,18 +97,21 @@ std::unordered_map<std::string, Matrix4> SkeletalMesh::calculateCurrentAnimation
 	return interpolatePoses(previousFrame, nextFrame, progression);
 }
 
-void SkeletalMesh::recursiveApplyPoseToBones(std::unordered_map<std::string, Matrix4>& currentPose, Bone* bone, const Matrix4& parentTransform)
+void recursiveGetPose(Bone* bone, const Matrix4& parentTransform, std::unordered_map<std::string, Matrix4>& pose, std::vector<Matrix4>& transforms)
 {
-	Matrix4 currentLocalTransform = currentPose[bone->name];
-	Matrix4 currentTransform = parentTransform * currentLocalTransform;
-	bone->transformMatrix = currentTransform;
-
-	std::vector<Bone*> children = bone->children;
-	for (unsigned int i = 0; i < bone->children.size(); ++i)
+	Matrix4 boneTransform = parentTransform * pose[bone->name];
+	transforms.push_back(boneTransform);
+	for (Bone* childBone : bone->children)
 	{
-		Bone* childBone = bone->children[i];
-		recursiveApplyPoseToBones(currentPose, childBone, currentTransform);
+		recursiveGetPose(childBone, boneTransform, pose, transforms);
 	}
+}
+void SkeletalMesh::calculateCurrentPose()
+{
+	std::unordered_map<std::string, Matrix4> currentPose = calculateCurrentAnimationPose();
+	currentPoseV.clear();
+	recursiveGetPose(boneData->rootBone, Matrix4(), currentPose, currentPoseV);
+	Log::info("");
 }
 
 void SkeletalMesh::getPreviousAndNextFrames(KeyFrame*& previousFrame, KeyFrame*& nextFrame)

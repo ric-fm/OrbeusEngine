@@ -5,7 +5,12 @@
 #include "Components/SkeletalMesh.h"
 #include "Rendering/SkeletalMesh/Animation.h"
 #include "Math/Math.h"
+#include "Math/Quaternion.h"
 #include "Utils/Log.h"
+#include "Core/Engine.h"
+#include "Rendering/RenderingEngine.h"
+#include "Rendering/SkeletalMesh/SkeletalMeshRenderer.h"
+#include "Rendering/SkeletalMesh/Bone.h"
 
 void AnimatedModelEditor::init()
 {
@@ -14,7 +19,13 @@ void AnimatedModelEditor::init()
 	{
 		selectedMesh = meshes[0];
 		selectedGameObject = selectedMesh->getOwner();
-		selectedMesh->setAnimation(selectedMesh->getAnimationData()->animations[0]);
+		if (selectedMesh->animationData != nullptr)
+		{
+			selectedMesh->setPlaying(false);
+			selectedMesh->setAnimation(selectedMesh->getAnimationData()->animations[0], 0.0f);
+		}
+		else
+			selectedMesh = nullptr;
 	}
 }
 
@@ -25,6 +36,16 @@ void AnimatedModelEditor::destroy()
 void AnimatedModelEditor::update(float deltaTime)
 {
 }
+
+void recursiveGetBones(Bone* bone, std::vector<Bone*>& bones)
+{
+	bones.push_back(bone);
+	for (Bone* childBone : bone->children)
+	{
+		recursiveGetBones(childBone, bones);
+	}
+}
+
 
 void AnimatedModelEditor::render()
 {
@@ -37,6 +58,77 @@ void AnimatedModelEditor::render()
 		ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav))
 	{
 		ImGui::Text("GameObject: %s", selectedGameObject->getName().c_str());
+		bool drawMesh = Engine::getInstance().getRenderingEngine()->getSkeletalMeshRenderer()->drawMeshes;
+		if (ImGui::Checkbox("Draw mesh", &drawMesh))
+		{
+			Engine::getInstance().getRenderingEngine()->getSkeletalMeshRenderer()->drawMeshes = drawMesh;
+		}
+		bool drawBones = Engine::getInstance().getRenderingEngine()->getSkeletalMeshRenderer()->drawBones;
+		if (ImGui::Checkbox("Draw bones", &drawBones))
+		{
+			Engine::getInstance().getRenderingEngine()->getSkeletalMeshRenderer()->drawBones = drawBones;
+		}
+
+		BoneData* boneData = selectedMesh->getBoneData();
+		std::vector<Bone*> bones;
+		recursiveGetBones(boneData->rootBone, bones);
+		std::string boneItems;
+		for (int i = 0; i < bones.size(); ++i)
+		{
+			Bone* bone = bones[i];
+			boneItems += bone->name;
+			boneItems += '\0';
+		}
+		boneItems += '\0';
+		bool boneChanged = false;
+		if (ImGui::Combo("Bones", &selectedBoneIndex, boneItems.c_str()))
+		{
+			
+		}
+
+		std::vector<Matrix4>& pose = selectedMesh->currentPoseV;
+		Matrix4& currentBoneMatrix = pose[selectedBoneIndex];
+
+		float positions[3];
+		Vector3 bonePosition = currentBoneMatrix.getTranslation();
+		positions[0] = bonePosition[0];
+		positions[1] = bonePosition[1];
+		positions[2] = bonePosition[2];
+		if (ImGui::SliderFloat3("Position", positions, -100, 100, "%.2f"))
+		{
+			bonePosition.set(positions[0], positions[1], positions[2]);
+			Log::info("New bone position %s", bonePosition.toString().c_str());
+			boneChanged = true;
+		}
+		//if (ImGui::InputFloat3("Position", positions))
+		//{
+		//	bonePosition.set(positions[0], positions[1], positions[2]);
+		//	Log::info("New bone position %s", bonePosition.toString().c_str());
+		//	boneChanged = true;
+		//}
+
+		float rotations[3];
+		Vector3 boneRotation = currentBoneMatrix.getRotation().getEulerAngles();
+		rotations[0] = boneRotation[0];
+		rotations[1] = boneRotation[1];
+		rotations[2] = boneRotation[2];
+		if (ImGui::SliderFloat3("Rotation", rotations, -180, 180, "%.2f"))
+		{
+			boneRotation.set(rotations[0], rotations[1], rotations[2]);
+			Log::info("New bone rotation %s", boneRotation.toString().c_str());
+			boneChanged = true;
+		}
+		//if (ImGui::InputFloat3("Rotation", rotations))
+		//{
+		//	boneRotation.set(rotations[0], rotations[1], rotations[2]);
+		//	Log::info("New bone rotation %s", boneRotation.toString().c_str());
+		//	boneChanged = true;
+		//}
+		if (boneChanged)
+		{
+			currentBoneMatrix = Matrix4::Translation(bonePosition) * Matrix4::Rotation(Quaternion::EulerAngles(boneRotation));
+		}
+
 		AnimationData* animData = selectedMesh->getAnimationData();
 		Animation* currentAnimation = selectedMesh->getCurrentAnimation();
 

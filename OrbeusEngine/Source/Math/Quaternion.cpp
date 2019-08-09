@@ -107,6 +107,48 @@ Quaternion & Quaternion::operator-=(const Quaternion& other)
 	return *this = *this - other;
 }
 
+float Quaternion::operator[](unsigned int index) const
+{
+	assert(index < 4);
+	if (index == 0)
+	{
+		return x;
+	}
+	else if (index == 1)
+	{
+		return y;
+	}
+	else if (index == 2)
+	{
+		return z;
+	}
+	else
+	{
+		return w;
+	}
+}
+
+float& Quaternion::operator[](unsigned int index)
+{
+	assert(index < 4);
+	if (index == 0)
+	{
+		return x;
+	}
+	else if (index == 1)
+	{
+		return y;
+	}
+	else if (index == 2)
+	{
+		return z;
+	}
+	else
+	{
+		return w;
+	}
+}
+
 void Quaternion::set(float x, float y, float z, float w)
 {
 	this->x = x; this->y = y; this->z = z; this->w = w;

@@ -40,6 +40,9 @@ struct Quaternion
 	Quaternion operator-(const Quaternion& other) const;
 	Quaternion& operator-=(const Quaternion& other);
 
+	float operator[](unsigned int index) const;
+	float& operator[](unsigned int index);
+
 	void set(float x, float y, float z, float w);
 
 	bool isIdentity() const;

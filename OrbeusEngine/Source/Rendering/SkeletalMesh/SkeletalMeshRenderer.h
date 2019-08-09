@@ -11,13 +11,18 @@ struct Bone;
 
 class SkeletalMeshRenderer
 {
+	friend class AnimatedModelEditor;
 private:
 	Shader* shader;
 	Shader* boneShader;
 	MeshData* boneMeshData;
 
+	// For debug
+	bool drawMeshes = true;
+	bool drawBones = false;
+
 	void recursiveDrawBones(Bone* currentBone);
-	void RecursiveGetBoneTransforms(Bone* currentBone, const Matrix4& parentTransform, std::vector<Matrix4>& transforms);
+	void recursiveGetBoneTransforms(Bone* currentBone, const Matrix4& parentTransform, std::vector<Matrix4>& transforms);
 
 public:
 	SkeletalMeshRenderer();

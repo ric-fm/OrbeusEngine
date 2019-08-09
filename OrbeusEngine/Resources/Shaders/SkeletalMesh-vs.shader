@@ -1,7 +1,7 @@
 #version 330
 
 const int MAX_BONES = 50;
-const int MAX_WEIGHTS = 3;
+const int MAX_WEIGHTS = 1;
 
 layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec3 aNormal;
@@ -42,6 +42,6 @@ void main()
 	gl_Position = projection * view * model * totalLocalPos;
 
 	Normal = totalNormal.xyz;
-	//TexCoord = aTexCoord;
+	TexCoord = aTexCoord;
 	Color = aPos;
 }

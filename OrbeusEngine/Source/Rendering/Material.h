@@ -17,7 +17,7 @@ struct Material
 	float specularIntensity;
 	float specularPower;
 
-	Material(const Vector3& diffuse, const Vector3& specular) 
+	Material(const Vector3& diffuse = Vector3(), const Vector3& specular = Vector3())
 		: diffuse(diffuse), specular(specular),
 		diffuseTexture(nullptr), specularTexture(nullptr),
 		useDiffuseTexture(false), useSpecularTexture(false),

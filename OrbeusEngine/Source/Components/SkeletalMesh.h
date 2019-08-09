@@ -19,6 +19,7 @@ struct Key;
 class SkeletalMesh : public GameComponent
 {
 	friend class AnimatedModelEditor;
+	friend class SkeletalMeshRenderer;
 private:
 	MeshData* meshData;
 	BoneData* boneData;
@@ -31,6 +32,9 @@ private:
 	float rate = 1.0f;
 	bool playing = true;
 	bool looping = true; // TODO: Esto seguramente tenga que ir en la animación
+
+	std::unordered_map<std::string, Matrix4> currentPose;
+	std::vector<Matrix4> currentPoseV;
 
 
 public:
@@ -60,7 +64,7 @@ public:
 
 private:
 	std::unordered_map<std::string, Matrix4> calculateCurrentAnimationPose();
-	void recursiveApplyPoseToBones(std::unordered_map<std::string, Matrix4>& currentPose, Bone* bone, const Matrix4& parentTransform);
+	void calculateCurrentPose();
 	void getPreviousAndNextFrames(KeyFrame*& previousFrame, KeyFrame*& nextFrame);
 	float calculateProgression(KeyFrame* previousFrame, KeyFrame* nextFrame);
 	Key interpolateKeys(Key* keyA, Key* keyB, float progression);

@@ -36,7 +36,7 @@ public:
 	void setBlendingEnabled(bool enabled);
 
 	MeshRenderer* getMeshRenderer() const { return meshRenderer; }
-	SkeletalMeshRenderer* getFBXMeshRenderer() const { return skeletalMeshRenderer; }
+	SkeletalMeshRenderer* getSkeletalMeshRenderer() const { return skeletalMeshRenderer; }
 	TextRenderer* getTextRenderer() const { return textRenderer; }
 	TerrainRenderer* getTerrainRenderer() const { return terrainRenderer; }
 	SkyBoxRenderer* getSkyBoxRenderer() const { return skyBoxRenderer; }

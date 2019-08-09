@@ -17,6 +17,8 @@
 #include "ResourceManagement/ShaderLoader.h"
 #include "ResourceManagement/ResourceManager.h"
 
+#include "Utils/Log.h"
+
 
 void SkeletalMeshRenderer::recursiveDrawBones(Bone* currentBone)
 {
@@ -30,10 +32,23 @@ void SkeletalMeshRenderer::recursiveDrawBones(Bone* currentBone)
 
 	boneShader->SetMatrix("boneTransform", currentBone->transformMatrix);
 	boneMeshData->vertexArray->draw(boneShader);
-	
-	for(Bone* childBone : currentBone->children)
+
+	for (Bone* childBone : currentBone->children)
 	{
 		recursiveDrawBones(childBone);
+	}
+}
+
+void SkeletalMeshRenderer::recursiveGetBoneTransforms(Bone* currentBone, const Matrix4& parentTransform, std::vector<Matrix4>& transforms)
+{
+
+	Matrix4 boneTransform = parentTransform * currentBone->transformMatrix;
+	//boneTransform = Matrix4();
+	transforms.push_back(boneTransform);
+
+	for (Bone* childBone : currentBone->children)
+	{
+		recursiveGetBoneTransforms(childBone, boneTransform, transforms);
 	}
 }
 
@@ -127,59 +142,65 @@ void SkeletalMeshRenderer::render(Camera* camera)
 
 			MeshData* meshData = mesh->getMeshData();
 
-			/*if (meshData->materials.size() > 0)
+#if 1 // Draw mesh
+			if (drawMeshes)
 			{
-				shader->SetBool("material.useDiffuseTexture", meshData->materials[0].useDiffuseTexture);
-				shader->SetBool("material.useSpecularTexture", meshData->materials[0].useSpecularTexture);
-
-				if (meshData->materials[0].diffuseTexture != nullptr && meshData->materials[0].useDiffuseTexture)
+				if (meshData->materials.size() > 0)
 				{
-					shader->SetInt("material.texture_diffuse", 0);
-					meshData->materials[0].diffuseTexture->bind(0);
+					shader->SetBool("material.useDiffuseTexture", meshData->materials[0].useDiffuseTexture);
+					shader->SetBool("material.useSpecularTexture", meshData->materials[0].useSpecularTexture);
+
+					if (meshData->materials[0].diffuseTexture != nullptr && meshData->materials[0].useDiffuseTexture)
+					{
+						shader->SetInt("material.texture_diffuse", 0);
+						meshData->materials[0].diffuseTexture->bind(0);
+					}
+					else
+					{
+						shader->SetFloat3("material.diffuse", meshData->materials[0].diffuse);
+					}
+
+					if (meshData->materials[0].specularTexture != nullptr && meshData->materials[0].useSpecularTexture)
+					{
+						shader->SetInt("material.texture_specular", 1);
+						meshData->materials[0].specularTexture->bind(1);
+					}
+					else
+					{
+						shader->SetFloat3("material.specular", meshData->materials[0].specular);
+					}
+
+
+					shader->SetFloat("material.specularIntensity", meshData->materials[0].specularIntensity);
+					shader->SetFloat("material.specularPower", meshData->materials[0].specularPower);
 				}
-				else
+				glActiveTexture(0);
+
+				/*meshData->vertexArray->bind();
+				meshData->vertexArray->draw(shader);
+				meshData->vertexArray->unbind();
+
+				if (mesh->getHasTransparency())
 				{
-					shader->SetFloat3("material.diffuse", meshData->materials[0].diffuse);
+					glEnable(GL_CULL_FACE);
+					glCullFace(GL_BACK);
+				}*/
+
+
+				if (mesh->getBoneData() != nullptr)
+				{
+					std::vector< Matrix4>& pose = mesh->currentPoseV;
+					for (int i = 0; i < pose.size(); ++i)
+					{
+						shader->SetMatrix(("boneTransforms[" + std::to_string(i) + "]"), pose[i]);
+					}
+					std::vector<Matrix4> boneTransforms;
 				}
 
-				if (meshData->materials[0].specularTexture != nullptr && meshData->materials[0].useSpecularTexture)
-				{
-					shader->SetInt("material.texture_specular", 1);
-					meshData->materials[0].specularTexture->bind(1);
-				}
-				else
-				{
-					shader->SetFloat3("material.specular", meshData->materials[0].specular);
-				}
-
-
-				shader->SetFloat("material.specularIntensity", meshData->materials[0].specularIntensity);
-				shader->SetFloat("material.specularPower", meshData->materials[0].specularPower);
+				meshData->vertexArray->bind();
+				meshData->vertexArray->draw(shader);
+				meshData->vertexArray->unbind();
 			}
-			glActiveTexture(0);*/
-
-			/*meshData->vertexArray->bind();
-			meshData->vertexArray->draw(shader);
-			meshData->vertexArray->unbind();
-
-			if (mesh->getHasTransparency())
-			{
-				glEnable(GL_CULL_FACE);
-				glCullFace(GL_BACK);
-			}*/
-
-#if 0 // Draw mesh
-			std::vector<Matrix4> boneTransforms;
-			RecursiveGetBoneTransforms(mesh->getBoneData()->rootBone, Matrix4(), boneTransforms);
-
-			for (int boneIndex = 0; boneIndex < boneTransforms.size(); ++boneIndex)
-			{
-				shader->SetMatrix(("boneTransforms[" + std::to_string(boneIndex) + "]"), boneTransforms[boneIndex]);
-			}
-
-			meshData->vertexArray->bind();
-			meshData->vertexArray->draw(shader);
-			meshData->vertexArray->unbind();
 #endif
 
 		}
@@ -188,67 +209,87 @@ void SkeletalMeshRenderer::render(Camera* camera)
 #if 1 // Draw bones
 		//glDisable(GL_DEPTH_TEST);
 
-		boneShader->bind();
-		boneShader->SetMatrix("view", camera->getViewMatrix());
-		boneShader->SetMatrix("projection", camera->getProjectionMatrix());
-		boneShader->SetFloat3("viewPos", camera->getTransform()->getPosition());
-		boneShader->SetFloat3("ambientLight", camera->getAmbientLight());
-		boneShader->SetFloat4("clipPlane", camera->getClipPlane());
-
-		for (unsigned int i = 0; i < directionalLights.size() && i < 4; ++i)
+		if (drawBones)
 		{
-			DirectionalLight* directionalLight = directionalLights[i];
+			boneShader->bind();
+			boneShader->SetMatrix("view", camera->getViewMatrix());
+			boneShader->SetMatrix("projection", camera->getProjectionMatrix());
+			boneShader->SetFloat3("viewPos", camera->getTransform()->getPosition());
+			boneShader->SetFloat3("ambientLight", camera->getAmbientLight());
+			boneShader->SetFloat4("clipPlane", camera->getClipPlane());
+
+			for (unsigned int i = 0; i < directionalLights.size() && i < 4; ++i)
+			{
+				DirectionalLight* directionalLight = directionalLights[i];
 
 
-			boneShader->SetFloat3("directionalLights[" + std::to_string(i) + "].base.color", directionalLight->getColor());
-			boneShader->SetFloat("directionalLights[" + std::to_string(i) + "].base.intensity", directionalLight->getIntensity());
-			boneShader->SetFloat3("directionalLights[" + std::to_string(i) + "].direction", directionalLight->getTransform()->getForwardVector());
+				boneShader->SetFloat3("directionalLights[" + std::to_string(i) + "].base.color", directionalLight->getColor());
+				boneShader->SetFloat("directionalLights[" + std::to_string(i) + "].base.intensity", directionalLight->getIntensity());
+				boneShader->SetFloat3("directionalLights[" + std::to_string(i) + "].direction", directionalLight->getTransform()->getForwardVector());
+			}
+
+			for (unsigned int i = 0; i < pointLights.size() && i < 4; ++i)
+			{
+				PointLight* pointLight = pointLights[i];
+
+				boneShader->SetFloat3("pointLights[" + std::to_string(i) + "].base.color", pointLight->getColor());
+				boneShader->SetFloat("pointLights[" + std::to_string(i) + "].base.intensity", pointLight->getIntensity());
+				boneShader->SetFloat3("pointLights[" + std::to_string(i) + "].position", pointLight->getTransform()->getPosition());
+				boneShader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.constant", pointLight->getAttenuation().constant);
+				boneShader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.linear", pointLight->getAttenuation().linear);
+				boneShader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.exponential", pointLight->getAttenuation().exponential);
+				boneShader->SetFloat("pointLights[" + std::to_string(i) + "].radius", pointLight->getRadius());
+			}
+
+			for (unsigned int i = 0; i < spotLights.size() && i < 4; ++i)
+			{
+				SpotLight* spotLight = spotLights[i];
+
+				boneShader->SetFloat3("spotLights[" + std::to_string(i) + "].pointLight.base.color", spotLight->getColor());
+				boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.base.intensity", spotLight->getIntensity());
+				boneShader->SetFloat3("spotLights[" + std::to_string(i) + "].pointLight.position", spotLight->getTransform()->getPosition());
+				boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.constant", spotLight->getAttenuation().constant);
+				boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.linear", spotLight->getAttenuation().linear);
+				boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.exponential", spotLight->getAttenuation().exponential);
+				boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.radius", spotLight->getRadius());
+				boneShader->SetFloat3("spotLights[" + std::to_string(i) + "].direction", spotLight->getTransform()->getForwardVector());
+				boneShader->SetFloat("spotLights[" + std::to_string(i) + "].cutoff", spotLight->getCutOff());
+			}
+
+			for (unsigned int i = 0; i < meshes.size(); ++i)
+			{
+				SkeletalMesh* mesh = meshes[i];
+
+				boneShader->SetMatrix("model", mesh->getTransform()->getMatrix());
+
+				boneMeshData->vertexArray->bind();
+
+				BoneData* boneData = mesh->getBoneData();
+				if (boneData != nullptr)
+				{
+					//recursiveDrawBones(boneData->rootBone);
+					std::vector< Matrix4>& pose = mesh->currentPoseV;
+
+					for (int i = 0; i < pose.size(); ++i)
+					{
+						if (i != 2)
+						{
+							if (i == 0)
+								boneShader->SetFloat3("color", 1, 0, 0);
+							else
+								boneShader->SetFloat3("color", 0, 1, 0);
+
+							Matrix4 boneMat = pose[i] * boneData->bones[i]->transformMatrix;
+							boneShader->SetMatrix("boneTransform", boneMat);
+							boneMeshData->vertexArray->draw(boneShader);
+						}
+					}
+				}
+
+				boneMeshData->vertexArray->unbind();
+			}
+			boneShader->unbind();
 		}
-
-		for (unsigned int i = 0; i < pointLights.size() && i < 4; ++i)
-		{
-			PointLight* pointLight = pointLights[i];
-
-			boneShader->SetFloat3("pointLights[" + std::to_string(i) + "].base.color", pointLight->getColor());
-			boneShader->SetFloat("pointLights[" + std::to_string(i) + "].base.intensity", pointLight->getIntensity());
-			boneShader->SetFloat3("pointLights[" + std::to_string(i) + "].position", pointLight->getTransform()->getPosition());
-			boneShader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.constant", pointLight->getAttenuation().constant);
-			boneShader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.linear", pointLight->getAttenuation().linear);
-			boneShader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.exponential", pointLight->getAttenuation().exponential);
-			boneShader->SetFloat("pointLights[" + std::to_string(i) + "].radius", pointLight->getRadius());
-		}
-
-		for (unsigned int i = 0; i < spotLights.size() && i < 4; ++i)
-		{
-			SpotLight* spotLight = spotLights[i];
-
-			boneShader->SetFloat3("spotLights[" + std::to_string(i) + "].pointLight.base.color", spotLight->getColor());
-			boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.base.intensity", spotLight->getIntensity());
-			boneShader->SetFloat3("spotLights[" + std::to_string(i) + "].pointLight.position", spotLight->getTransform()->getPosition());
-			boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.constant", spotLight->getAttenuation().constant);
-			boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.linear", spotLight->getAttenuation().linear);
-			boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.exponential", spotLight->getAttenuation().exponential);
-			boneShader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.radius", spotLight->getRadius());
-			boneShader->SetFloat3("spotLights[" + std::to_string(i) + "].direction", spotLight->getTransform()->getForwardVector());
-			boneShader->SetFloat("spotLights[" + std::to_string(i) + "].cutoff", spotLight->getCutOff());
-		}
-
-		for (unsigned int i = 0; i < meshes.size(); ++i)
-		{
-			SkeletalMesh* mesh = meshes[i];
-
-			boneShader->SetMatrix("model", mesh->getTransform()->getMatrix());
-
-			boneMeshData->vertexArray->bind();
-
-			BoneData* boneData = mesh->getBoneData();
-			Bone* rootBone = boneData->rootBone;
-
-			recursiveDrawBones(rootBone);
-
-			boneMeshData->vertexArray->unbind();
-		}
-		boneShader->unbind();
 		//glEnable(GL_DEPTH_TEST);
 #endif
 	}
