@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/GameComponent.h"
-#include "Core/Transform.h"
+#include "Orbeus/Core/GameComponent.h"
+#include "Orbeus/Core/Transform.h"
 
 class Rotate : public GameComponent
 {

@@ -2,12 +2,12 @@
 
 #include "GLFW/glfw3.h"
 
-#include "Core/World.h"
-#include "Core/Transform.h"
-#include "Math/Math.h"
+#include "Orbeus/Core/World.h"
+#include "Orbeus/Core/Transform.h"
+#include "Orbeus/Math/Math.h"
 
-#include "Core/Engine.h"
-#include "Window/Window.h"
+#include "Orbeus/Core/Engine.h"
+#include "Orbeus/Window/Window.h"
 
 void CameraController::update(float deltaTime)
 {

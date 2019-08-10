@@ -2,10 +2,10 @@
 
 #include "GLFW/glfw3.h"
 
-#include "Core/World.h"
-#include "Core/Transform.h"
+#include "Orbeus/Core/World.h"
+#include "Orbeus/Core/Transform.h"
 
-#include "Utils/Log.h"
+#include "Orbeus/Utils/Log.h"
 
 void MoveController::init()
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/GameComponent.h"
+#include "Orbeus/Core/GameComponent.h"
 
 class MoveController : public GameComponent
 {

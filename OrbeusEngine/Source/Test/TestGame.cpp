@@ -1,27 +1,27 @@
 #include "TestGame.h"
 
-#include "Window/Window.h"
-#include "Components/Light.h"
-#include "Components/Mesh.h"
-#include "Components/GUIText.h"
-#include "Components/Terrain.h"
-#include "Components/WaterPlane.h"
-#include "Components/CameraCapture.h"
-#include "Components/Mesh.h"
-#include "Components/SkeletalMesh.h"
-#include "Utils/Log.h"
+#include "Orbeus/Window/Window.h"
+#include "Orbeus/Components/Light.h"
+#include "Orbeus/Components/Mesh.h"
+#include "Orbeus/Components/GUIText.h"
+#include "Orbeus/Components/Terrain.h"
+#include "Orbeus/Components/WaterPlane.h"
+#include "Orbeus/Components/CameraCapture.h"
+#include "Orbeus/Components/Mesh.h"
+#include "Orbeus/Components/SkeletalMesh.h"
+#include "Orbeus/Utils/Log.h"
 #include "CameraController.h"
 #include "Rotate.h"
 #include "CopyTransform.h"
 
 #include "GLFW/glfw3.h"
 
-#include "Math/Math.h"
+#include "Orbeus/Math/Math.h"
 
-#include "Core/GameComponent.h"
+#include "Orbeus/Core/GameComponent.h"
 #include "Test/MoveController.h"
 
-#include "ResourceManagement/ResourceManager.h"
+#include "Orbeus/ResourceManagement/ResourceManager.h"
 
 GameObject* textGO = nullptr;
 

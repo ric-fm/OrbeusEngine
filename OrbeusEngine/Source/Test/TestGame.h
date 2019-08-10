@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Game.h"
+#include "Orbeus/Core/Game.h"
 
 class GameObject;
 
