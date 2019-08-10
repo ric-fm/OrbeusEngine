@@ -89,7 +89,7 @@ TextMeshData* Font::loadText(const std::string& text, float fontSize)
 	layout.Push<float>(2);
 
 	result->vertexArray = ORB::VertexArray::Create();
-	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
+	result->vertexArray->addVertexBuffer(result->vertexBuffer, layout);
 
 	return result;
 }

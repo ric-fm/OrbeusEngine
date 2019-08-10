@@ -1395,7 +1395,7 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 	layout.Push<float>(3); // ids
 	layout.Push<float>(3); // weights
 
-	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
+	result->vertexArray->addVertexBuffer(result->vertexBuffer, layout);
 	result->vertexArray->setIndexBuffer(result->indexBuffer);
 
 	return result;

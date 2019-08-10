@@ -90,7 +90,7 @@ namespace ORB
 		glDeleteBuffers(1, &ID);
 	}
 
-	void GLVertexArray::AddBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layout)
+	void GLVertexArray::addVertexBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layout)
 	{
 		GLVertexBuffer* buffer = static_cast<GLVertexBuffer*>(vertexBuffer);
 

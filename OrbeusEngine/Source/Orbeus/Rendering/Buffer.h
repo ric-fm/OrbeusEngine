@@ -130,7 +130,7 @@ namespace ORB
 	public:
 		virtual ~VertexArray() = default;
 
-		virtual void AddBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layout) = 0;
+		virtual void addVertexBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layout) = 0;
 		virtual void setIndexBuffer(IndexBuffer* indexBuffer) = 0;
 		virtual bool isIndexed() const = 0;
 

@@ -42,7 +42,7 @@ namespace ORB
 		GLVertexArray();
 		~GLVertexArray();
 
-		virtual void AddBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layout) override;
+		virtual void addVertexBuffer(VertexBuffer* vertexBuffer, VertexBufferLayout layout) override;
 		virtual void setIndexBuffer(IndexBuffer* indexBuffer) override;
 		virtual bool isIndexed() const override { return indexBuffer != nullptr; }
 

@@ -105,7 +105,7 @@ TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundT
 	layout.Push<float>(3);
 	layout.Push<float>(2);
 
-	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
+	result->vertexArray->addVertexBuffer(result->vertexBuffer, layout);
 
 	result->backgroundTexture = ResourceManager::getInstance().getTexture(backgroundTexture, "background_texture", -0.4f);
 	result->redTexture = ResourceManager::getInstance().getTexture(redTexture, "red_texture", -0.4f);

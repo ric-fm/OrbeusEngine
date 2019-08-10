@@ -30,7 +30,7 @@ Quad::Quad(Shader* shader)
 	layout.Push<float>(2);
 
 	vertexArray = ORB::VertexArray::Create();
-	vertexArray->AddBuffer(vertexBuffer, layout);
+	vertexArray->addVertexBuffer(vertexBuffer, layout);
 
 }
 

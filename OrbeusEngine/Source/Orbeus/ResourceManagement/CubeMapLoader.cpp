@@ -117,7 +117,7 @@ CubeMap* CubeMapLoader::generateCubeMap(const std::string& path, float size)
 	ORB::VertexBufferLayout layout;
 	layout.Push<float>(3);
 
-	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
+	result->vertexArray->addVertexBuffer(result->vertexBuffer, layout);
 
 	return result;
 }
