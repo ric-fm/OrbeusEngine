@@ -6,8 +6,7 @@
 #include "Orbeus/Rendering/Texture.h"
 #include "Orbeus/Rendering/Text/TextMeshData.h"
 
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/VertexBuffer.h"
+#include "Orbeus/Rendering/Buffer.h"
 
 
 const std::string Font::FONTS_PATH("Resources/Fonts/");
@@ -83,13 +82,13 @@ TextMeshData* Font::loadText(const std::string& text, float fontSize)
 		data.push_back(textureCoords[i + 1]);
 	}
 
-	result->vertexBuffer = new VertexBuffer(&data[0], data.size() * sizeof(float), data.size());
+	result->vertexBuffer = ORB::VertexBuffer::Create(&data[0], data.size() * sizeof(float), data.size());
 
-	VertexBufferLayout layout;
+	ORB::VertexBufferLayout layout;
 	layout.Push<float>(2);
 	layout.Push<float>(2);
 
-	result->vertexArray = new VertexArray();
+	result->vertexArray = ORB::VertexArray::Create();
 	result->vertexArray->AddBuffer(result->vertexBuffer, layout);
 
 	return result;

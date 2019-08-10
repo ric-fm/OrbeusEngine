@@ -5,15 +5,15 @@
 
 #include "Orbeus/Rendering/Texture.h"
 #include "Orbeus/Rendering/Shader.h"
-#include "Orbeus/Rendering/VertexArray.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/Text/TextMeshData.h"
 #include "Orbeus/Rendering/Text/Font.h"
 
 #include "Orbeus/Math/Vector2.h"
 
-#include "Orbeus/Components\GUIText.h"
-#include "Orbeus/Core\Transform.h"
-#include "Orbeus/Core\World.h"
+#include "Orbeus/Components/GUIText.h"
+#include "Orbeus/Core/Transform.h"
+#include "Orbeus/Core/World.h"
 #include "Orbeus/ResourceManagement/ShaderLoader.h"
 
 
@@ -57,7 +57,7 @@ void TextRenderer::render()
 			TextMeshData* meshData = text->getMeshData();
 			
 			meshData->vertexArray->bind();
-			meshData->vertexArray->draw(shader);
+			meshData->vertexArray->draw();
 
 			meshData->vertexArray->unbind();
 		}

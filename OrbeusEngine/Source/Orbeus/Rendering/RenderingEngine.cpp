@@ -19,7 +19,6 @@
 
 #include "Orbeus/Utils/Log.h"
 
-
 RenderingEngine::RenderingEngine(Engine* engine)
 	: engine(engine)
 {

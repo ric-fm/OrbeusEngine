@@ -5,8 +5,7 @@
 #include <GL/glew.h>
 #include "stb_image/stb_image.h"
 
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/VertexBuffer.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/CubeMap.h"
 #include "Orbeus/Utils/Log.h"
 
@@ -113,9 +112,9 @@ CubeMap* CubeMapLoader::generateCubeMap(const std::string& path, float size)
 		 size, -size,  size
 	};
 
-	result->vertexArray = new VertexArray();
-	result->vertexBuffer = new VertexBuffer(VERTICES, sizeof(VERTICES), 6 * 6);
-	VertexBufferLayout layout;
+	result->vertexArray = ORB::VertexArray::Create();
+	result->vertexBuffer = ORB::VertexBuffer::Create(VERTICES, sizeof(VERTICES), 6 * 6);
+	ORB::VertexBufferLayout layout;
 	layout.Push<float>(3);
 
 	result->vertexArray->AddBuffer(result->vertexBuffer, layout);

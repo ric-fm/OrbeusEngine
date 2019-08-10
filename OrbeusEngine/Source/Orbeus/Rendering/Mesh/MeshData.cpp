@@ -1,9 +1,6 @@
 #include "MeshData.h"
 
-#include "Orbeus/Rendering\VertexArray.h"
-#include "Orbeus/Rendering\VertexBuffer.h"
-#include "Orbeus/Rendering\IndexBuffer.h"
-
+#include "Orbeus/Rendering/Buffer.h"
 
 MeshData::MeshData()
 {

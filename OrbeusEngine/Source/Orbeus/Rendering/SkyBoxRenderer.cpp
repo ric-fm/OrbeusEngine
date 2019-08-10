@@ -1,13 +1,14 @@
 #include "SkyBoxRenderer.h"
 
+#include <GL/glew.h>
+
 #include "Orbeus/Rendering/CubeMap.h"
 #include "Orbeus/Rendering/Shader.h"
-#include "Orbeus/Rendering/VertexArray.h"
 
 #include "Orbeus/Core/World.h"
 #include "Orbeus/Core/Transform.h"
 #include "Orbeus/Components/Camera.h"
-#include "Orbeus/Rendering/VertexArray.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/ResourceManagement/CubeMapLoader.h"
 #include "Orbeus/ResourceManagement/ShaderLoader.h"
 
@@ -54,7 +55,7 @@ void SkyBoxRenderer::render(Camera* camera)
 	cubeMap->bind();
 
 	cubeMap->vertexArray->bind();
-	cubeMap->vertexArray->draw(shader);
+	cubeMap->vertexArray->draw();
 	cubeMap->vertexArray->unbind();
 	
 	cubeMap->unbind();

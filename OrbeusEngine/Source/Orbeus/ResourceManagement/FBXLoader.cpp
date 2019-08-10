@@ -6,18 +6,12 @@
 #include "Orbeus/Math/Vector3.h"
 #include "Orbeus/Math/Quaternion.h"
 
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/VertexBuffer.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/Material.h"
 #include "Orbeus/Rendering/Mesh/MeshData.h"
 #include "Orbeus/Rendering/SkeletalMesh/Bone.h"
 #include "Orbeus/Rendering/SkeletalMesh/Animation.h"
 #include "Orbeus/ResourceManagement/ResourceManager.h"
-
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/VertexBuffer.h"
-#include "Orbeus/Rendering/IndexBuffer.h"
-#include "Orbeus/Rendering/Material.h"
 
 #include "Orbeus/Utils/String.h"
 #include "Orbeus/Utils/Log.h"
@@ -1388,13 +1382,13 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 	}
 
 	// Load VAO
-	result->vertexArray = new VertexArray();
+	result->vertexArray = ORB::VertexArray::Create();
 	//result->vertexBuffer = new VertexBuffer(vertices.data(), vertices.size() * sizeof(Vertex), vertices.size());
 	//result->indexBuffer = new IndexBuffer(indices.data(), indices.size());
-	result->vertexBuffer = new VertexBuffer(vertices2.data(), vertices2.size() * sizeof(Vertex2), vertices2.size());
-	result->indexBuffer = new IndexBuffer(indices2.data(), indices2.size());
+	result->vertexBuffer = ORB::VertexBuffer::Create(vertices2.data(), vertices2.size() * sizeof(Vertex2), vertices2.size());
+	result->indexBuffer = ORB::IndexBuffer::Create(indices2.data(), indices2.size());
 
-	VertexBufferLayout layout;
+	ORB::VertexBufferLayout layout;
 	layout.Push<float>(3); // pos
 	layout.Push<float>(3); // normal
 	layout.Push<float>(2); // uv

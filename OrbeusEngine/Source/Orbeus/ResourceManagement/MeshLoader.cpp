@@ -3,11 +3,9 @@
 #include <fstream>
 #include <sstream>
 
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/VertexBuffer.h"
-#include "Orbeus/Rendering/IndexBuffer.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/Material.h"
-#include "Orbeus/Rendering/Mesh\MeshData.h"
+#include "Orbeus/Rendering/Mesh/MeshData.h"
 #include "Orbeus/ResourceManagement/ResourceManager.h"
 #include "Orbeus/Utils/Log.h"
 
@@ -284,13 +282,13 @@ MeshData* MeshLoader::loadMesh(const std::string& filePath, bool indexed)
 	}
 
 	// Load VAO
-	result->vertexArray = new VertexArray();
-	result->vertexBuffer = new VertexBuffer(vertices.data(), vertices.size() * sizeof(Vertex), vertices.size());
+	result->vertexArray = ORB::VertexArray::Create();
+	result->vertexBuffer = ORB::VertexBuffer::Create(vertices.data(), vertices.size() * sizeof(Vertex), vertices.size());
 	if (indexed)
 	{
-		result->indexBuffer = new IndexBuffer(indices.data(), indices.size());
+		result->indexBuffer = ORB::IndexBuffer::Create(indices.data(), indices.size());
 	}
-	VertexBufferLayout layout;
+	ORB::VertexBufferLayout layout;
 	layout.Push<float>(3);
 	layout.Push<float>(3);
 	layout.Push<float>(2);

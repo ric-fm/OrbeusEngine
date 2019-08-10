@@ -156,10 +156,10 @@
     <ClCompile Include="Source\Orbeus\Logging\VisualLogger.cpp" />
     <ClCompile Include="Source\Orbeus\Math\Quaternion.cpp" />
     <ClCompile Include="Source\Orbeus\Math\Vector4.cpp" />
+    <ClCompile Include="Source\Orbeus\Rendering\Buffer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\CubeMap.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\SkeletalMesh\SkeletalMeshRenderer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\FrameBuffer.cpp" />
-    <ClCompile Include="Source\Orbeus\Rendering\IndexBuffer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Mesh\MeshRenderer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Mesh\MeshData.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Quad.cpp" />
@@ -177,6 +177,7 @@
     <ClCompile Include="Source\Orbeus\ResourceManagement\ShaderLoader.cpp" />
     <ClCompile Include="Source\Orbeus\ResourceManagement\TerrainLoader.cpp" />
     <ClCompile Include="Source\Orbeus\ResourceManagement\TextureLoader.cpp" />
+    <ClCompile Include="Source\Platform\Rendering\GL\GLBuffer.cpp" />
     <ClCompile Include="Source\Test\CameraController.cpp" />
     <ClCompile Include="Source\Orbeus\Core\Engine.cpp" />
     <ClCompile Include="Source\Test\CopyTransform.h" />
@@ -198,8 +199,6 @@
     <ClCompile Include="Source\Orbeus\Core\Transform.cpp" />
     <ClCompile Include="Source\Orbeus\Math\Vector2.cpp" />
     <ClCompile Include="Source\Orbeus\Math\Vector3.cpp" />
-    <ClCompile Include="Source\Orbeus\Rendering\VertexArray.cpp" />
-    <ClCompile Include="Source\Orbeus\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="Source\Orbeus\Utils\TimeMeasure.cpp" />
     <ClCompile Include="Source\Orbeus\Window\Window.cpp" />
     <ClCompile Include="Source\Orbeus\Core\World.cpp" />
@@ -257,10 +256,10 @@
     <ClInclude Include="Source\Orbeus\Logging\VisualLogger.h" />
     <ClInclude Include="Source\Orbeus\Math\Quaternion.h" />
     <ClInclude Include="Source\Orbeus\Math\Vector4.h" />
+    <ClInclude Include="Source\Orbeus\Rendering\Buffer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\CubeMap.h" />
     <ClInclude Include="Source\Orbeus\Rendering\SkeletalMesh\SkeletalMeshRenderer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\FrameBuffer.h" />
-    <ClInclude Include="Source\Orbeus\Rendering\IndexBuffer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\SkeletalMesh\Animation.h" />
     <ClInclude Include="Source\Orbeus\Rendering\SkeletalMesh\Bone.h" />
     <ClInclude Include="Source\Orbeus\Rendering\Mesh\MeshRenderer.h" />
@@ -280,6 +279,7 @@
     <ClInclude Include="Source\Orbeus\ResourceManagement\ShaderLoader.h" />
     <ClInclude Include="Source\Orbeus\ResourceManagement\TerrainLoader.h" />
     <ClInclude Include="Source\Orbeus\ResourceManagement\TextureLoader.h" />
+    <ClInclude Include="Source\Platform\Rendering\GL\GLBuffer.h" />
     <ClInclude Include="Source\Test\CameraController.h" />
     <ClInclude Include="Source\Orbeus\Core\Engine.h" />
     <ClInclude Include="Source\Orbeus\Core\Game.h" />
@@ -303,8 +303,6 @@
     <ClInclude Include="Source\Orbeus\Core\Transform.h" />
     <ClInclude Include="Source\Orbeus\Math\Vector2.h" />
     <ClInclude Include="Source\Orbeus\Math\Vector3.h" />
-    <ClInclude Include="Source\Orbeus\Rendering\VertexArray.h" />
-    <ClInclude Include="Source\Orbeus\Rendering\VertexBuffer.h" />
     <ClInclude Include="Source\Orbeus\Utils\TimeMeasure.h" />
     <ClInclude Include="Source\Orbeus\Window\Window.h" />
     <ClInclude Include="Source\Orbeus\Core\World.h" />

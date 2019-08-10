@@ -1,8 +1,6 @@
 #include "TerrainMeshData.h"
 
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/VertexBuffer.h"
-#include "Orbeus/Rendering/IndexBuffer.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/Texture.h"
 
 

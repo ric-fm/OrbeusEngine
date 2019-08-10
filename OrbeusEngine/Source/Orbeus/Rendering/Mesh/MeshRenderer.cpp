@@ -1,5 +1,7 @@
 #include "MeshRenderer.h"
 
+#include <GL/glew.h>
+
 #include "Orbeus/Components/Mesh.h"
 #include "Orbeus/Components/Camera.h"
 #include "Orbeus/Core/World.h"
@@ -9,7 +11,7 @@
 
 #include "Orbeus/Rendering/Mesh/MeshData.h"
 #include "Orbeus/Rendering/Material.h"
-#include "Orbeus/Rendering/VertexArray.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/RenderingEngine.h"
 #include "Orbeus/Rendering/Shader.h"
 #include "Orbeus/Components/Light.h"
@@ -127,7 +129,7 @@ void MeshRenderer::render(Camera* camera)
 			glActiveTexture(0);
 
 			meshData->vertexArray->bind();
-			meshData->vertexArray->draw(shader);
+			meshData->vertexArray->draw();
 			meshData->vertexArray->unbind();
 
 			if (mesh->getHasTransparency())

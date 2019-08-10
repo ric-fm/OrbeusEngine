@@ -1,5 +1,8 @@
 #include "SkeletalMeshRenderer.h"
 
+#include <GL/glew.h>
+
+
 #include "Orbeus/Components/SkeletalMesh.h"
 #include "Orbeus/Components/Camera.h"
 #include "Orbeus/Core/World.h"
@@ -10,7 +13,7 @@
 #include "Orbeus/Rendering/SkeletalMesh/Bone.h"
 #include "Orbeus/Rendering/Mesh/MeshData.h"
 #include "Orbeus/Rendering/Material.h"
-#include "Orbeus/Rendering/VertexArray.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/RenderingEngine.h"
 #include "Orbeus/Rendering/Shader.h"
 #include "Orbeus/Components/Light.h"
@@ -31,7 +34,7 @@ void SkeletalMeshRenderer::recursiveDrawBones(Bone* currentBone)
 
 
 	boneShader->SetMatrix("boneTransform", currentBone->transformMatrix);
-	boneMeshData->vertexArray->draw(boneShader);
+	boneMeshData->vertexArray->draw();
 
 	for (Bone* childBone : currentBone->children)
 	{
@@ -198,7 +201,7 @@ void SkeletalMeshRenderer::render(Camera* camera)
 				}
 
 				meshData->vertexArray->bind();
-				meshData->vertexArray->draw(shader);
+				meshData->vertexArray->draw();
 				meshData->vertexArray->unbind();
 			}
 #endif
@@ -281,7 +284,7 @@ void SkeletalMeshRenderer::render(Camera* camera)
 
 							Matrix4 boneMat = pose[i] * boneData->bones[i]->transformMatrix;
 							boneShader->SetMatrix("boneTransform", boneMat);
-							boneMeshData->vertexArray->draw(boneShader);
+							boneMeshData->vertexArray->draw();
 						}
 					}
 				}

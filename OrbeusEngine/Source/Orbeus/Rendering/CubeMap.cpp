@@ -2,8 +2,7 @@
 
 #include <GL/glew.h>
 
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/VertexBuffer.h"
+#include "Orbeus/Rendering/Buffer.h"
 
 
 CubeMap::CubeMap()

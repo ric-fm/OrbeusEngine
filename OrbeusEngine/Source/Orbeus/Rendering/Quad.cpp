@@ -2,9 +2,9 @@
 
 #include "GL/glew.h"
 
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/VertexBuffer.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/Shader.h"
+
 
 
 Quad::Quad(Shader* shader)
@@ -23,13 +23,13 @@ Quad::Quad(Shader* shader)
 		 size, 0.0f,  size,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f
 	};
 
-	vertexBuffer = new VertexBuffer(vertices, sizeof(vertices), 6);
-	VertexBufferLayout layout;
+	vertexBuffer = ORB::VertexBuffer::Create(vertices, sizeof(vertices), 6);
+	ORB::VertexBufferLayout layout;
 	layout.Push<float>(3);
 	layout.Push<float>(3);
 	layout.Push<float>(2);
 
-	vertexArray = new VertexArray();
+	vertexArray = ORB::VertexArray::Create();
 	vertexArray->AddBuffer(vertexBuffer, layout);
 
 }
@@ -58,5 +58,5 @@ void Quad::unbind() const
 
 void Quad::draw()
 {
-	vertexArray->draw(shader);
+	vertexArray->draw();
 }

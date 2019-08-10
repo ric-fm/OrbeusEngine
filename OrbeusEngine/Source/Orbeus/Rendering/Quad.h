@@ -1,15 +1,18 @@
 #pragma once
 
-class VertexBuffer;
-class VertexArray;
+namespace ORB
+{
+	class VertexBuffer;
+	class VertexArray;
+}
 class Shader;
 
 class Quad
 {
 	friend class WaterRenderer;
 private:
-	VertexArray* vertexArray;
-	VertexBuffer* vertexBuffer;
+	ORB::VertexArray* vertexArray;
+	ORB::VertexBuffer* vertexBuffer;
 	Shader* shader;
 
 public:

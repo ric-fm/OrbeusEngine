@@ -45,14 +45,11 @@
     <ClCompile Include="Source\Orbeus\Rendering\Water\WaterRenderer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\CubeMap.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\FrameBuffer.cpp" />
-    <ClCompile Include="Source\Orbeus\Rendering\IndexBuffer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Quad.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\RenderingEngine.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Shader.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\SkyBoxRenderer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Texture.cpp" />
-    <ClCompile Include="Source\Orbeus\Rendering\VertexArray.cpp" />
-    <ClCompile Include="Source\Orbeus\Rendering\VertexBuffer.cpp" />
     <ClCompile Include="Source\Orbeus\ResourceManagement\CubeMapLoader.cpp" />
     <ClCompile Include="Source\Orbeus\ResourceManagement\FBXLoader.cpp" />
     <ClCompile Include="Source\Orbeus\ResourceManagement\FontLoader.cpp" />
@@ -65,6 +62,8 @@
     <ClCompile Include="Source\Orbeus\Utils\Log.cpp" />
     <ClCompile Include="Source\Orbeus\Utils\TimeMeasure.cpp" />
     <ClCompile Include="Source\Orbeus\Window\Window.cpp" />
+    <ClCompile Include="Source\Orbeus\Rendering\Buffer.cpp" />
+    <ClCompile Include="Source\Platform\Rendering\GL\GLBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -147,15 +146,12 @@
     <ClInclude Include="Source\Orbeus\Rendering\Water\WaterRenderer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\CubeMap.h" />
     <ClInclude Include="Source\Orbeus\Rendering\FrameBuffer.h" />
-    <ClInclude Include="Source\Orbeus\Rendering\IndexBuffer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\Material.h" />
     <ClInclude Include="Source\Orbeus\Rendering\Quad.h" />
     <ClInclude Include="Source\Orbeus\Rendering\RenderingEngine.h" />
     <ClInclude Include="Source\Orbeus\Rendering\Shader.h" />
     <ClInclude Include="Source\Orbeus\Rendering\SkyBoxRenderer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\Texture.h" />
-    <ClInclude Include="Source\Orbeus\Rendering\VertexArray.h" />
-    <ClInclude Include="Source\Orbeus\Rendering\VertexBuffer.h" />
     <ClInclude Include="Source\Orbeus\ResourceManagement\CubeMapLoader.h" />
     <ClInclude Include="Source\Orbeus\ResourceManagement\FBXLoader.h" />
     <ClInclude Include="Source\Orbeus\ResourceManagement\FontLoader.h" />
@@ -170,6 +166,8 @@
     <ClInclude Include="Source\Orbeus\Utils\String.h" />
     <ClInclude Include="Source\Orbeus\Utils\TimeMeasure.h" />
     <ClInclude Include="Source\Orbeus\Window\Window.h" />
+    <ClInclude Include="Source\Orbeus\Rendering\Buffer.h" />
+    <ClInclude Include="Source\Platform\Rendering\GL\GLBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\grass.png" />

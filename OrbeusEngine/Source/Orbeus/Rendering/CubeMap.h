@@ -1,7 +1,10 @@
 #pragma once
 
-class VertexArray;
-class VertexBuffer;
+namespace ORB
+{
+	class VertexArray;
+	class VertexBuffer;
+}
 
 class CubeMap
 {
@@ -10,8 +13,8 @@ class CubeMap
 private:
 	unsigned int ID;
 
-	VertexArray* vertexArray;
-	VertexBuffer* vertexBuffer;
+	ORB::VertexArray* vertexArray;
+	ORB::VertexBuffer* vertexBuffer;
 
 public:
 	CubeMap();

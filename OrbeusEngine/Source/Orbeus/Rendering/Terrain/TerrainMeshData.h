@@ -1,8 +1,11 @@
 #pragma once
 
-class VertexArray;
-class VertexBuffer;
-class IndexBuffer;
+namespace ORB
+{
+	class VertexArray;
+	class VertexBuffer;
+	class IndexBuffer;
+}
 class Texture;
 
 class TerrainMeshData
@@ -10,9 +13,9 @@ class TerrainMeshData
 	friend class TerrainRenderer;
 	friend class TerrainLoader;
 private:
-	VertexArray* vertexArray = nullptr;
-	VertexBuffer* vertexBuffer = nullptr;
-	IndexBuffer* indexBuffer = nullptr;
+	ORB::VertexArray* vertexArray = nullptr;
+	ORB::VertexBuffer* vertexBuffer = nullptr;
+	ORB::IndexBuffer* indexBuffer = nullptr;
 
 	Texture* backgroundTexture;
 	Texture* redTexture;

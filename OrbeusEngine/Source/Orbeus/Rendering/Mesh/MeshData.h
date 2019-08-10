@@ -4,9 +4,12 @@
 
 #include "Orbeus/Rendering/Material.h"
 
-class VertexArray;
-class VertexBuffer;
-class IndexBuffer;
+namespace ORB
+{
+	class VertexArray;
+	class VertexBuffer;
+	class IndexBuffer;
+}
 class Shader;
 
 class MeshData
@@ -16,9 +19,9 @@ class MeshData
 	friend class MeshRenderer;
 	friend class SkeletalMeshRenderer;
 private:
-	VertexArray* vertexArray = nullptr;
-	VertexBuffer* vertexBuffer = nullptr;
-	IndexBuffer* indexBuffer = nullptr;
+	ORB::VertexArray* vertexArray = nullptr;
+	ORB::VertexBuffer* vertexBuffer = nullptr;
+	ORB::IndexBuffer* indexBuffer = nullptr;
 
 	std::vector<Material> materials;
 public:

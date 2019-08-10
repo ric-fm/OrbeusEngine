@@ -2,16 +2,19 @@
 
 #include <vector>
 
-class VertexArray;
-class VertexBuffer;
+namespace ORB
+{
+	class VertexArray;
+	class VertexBuffer;
+}
 
 class TextMeshData
 {
 	friend class Font;
 	friend class TextRenderer;
 private:
-	VertexArray* vertexArray = nullptr;
-	VertexBuffer* vertexBuffer = nullptr;
+	ORB::VertexArray* vertexArray = nullptr;
+	ORB::VertexBuffer* vertexBuffer = nullptr;
 
 public:
 	TextMeshData();

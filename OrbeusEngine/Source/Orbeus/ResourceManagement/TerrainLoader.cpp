@@ -3,13 +3,11 @@
 #include <vector>
 
 #include "Orbeus/ResourceManagement/MeshLoader.h"
-#include "Orbeus/Rendering\VertexArray.h"
-#include "Orbeus/Rendering\VertexBuffer.h"
-#include "Orbeus/Rendering\IndexBuffer.h"
-#include "Orbeus/Rendering\Texture.h"
-#include "Orbeus/Rendering\Terrain\TerrainMeshData.h"
-#include "Orbeus/ResourceManagement\ResourceManager.h"
-#include "Orbeus/Utils\ImageBuffer.h"
+#include "Orbeus/Rendering\Buffer.h"
+#include "Orbeus/Rendering/Texture.h"
+#include "Orbeus/Rendering/Terrain/TerrainMeshData.h"
+#include "Orbeus/ResourceManagement/ResourceManager.h"
+#include "Orbeus/Utils/ImageBuffer.h"
 
 float getHeight(int x, int z, float maxHeight, ImageBuffer* image)
 {
@@ -99,10 +97,10 @@ TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundT
 
 	TerrainMeshData* result = new TerrainMeshData();
 
-	result->vertexArray = new VertexArray();
-	result->vertexBuffer = new VertexBuffer(&vertices[0], vertices.size() * sizeof(Vertex), vertices.size());
-	result->indexBuffer = new IndexBuffer(&indices[0], indices.size());
-	VertexBufferLayout layout;
+	result->vertexArray = ORB::VertexArray::Create();
+	result->vertexBuffer = ORB::VertexBuffer::Create(&vertices[0], vertices.size() * sizeof(Vertex), vertices.size());
+	result->indexBuffer = ORB::IndexBuffer::Create(&indices[0], indices.size());
+	ORB::VertexBufferLayout layout;
 	layout.Push<float>(3);
 	layout.Push<float>(3);
 	layout.Push<float>(2);

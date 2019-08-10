@@ -4,8 +4,7 @@
 #include <GL/glew.h>
 
 
-#include "Orbeus/Rendering/VertexArray.h"
-#include "Orbeus/Rendering/IndexBuffer.h"
+#include "Orbeus/Rendering/Buffer.h"
 #include "Orbeus/Rendering/Shader.h"
 #include "Orbeus/Rendering/Texture.h"
 #include "Orbeus/Rendering/RenderingEngine.h"
@@ -112,7 +111,8 @@ void TerrainRenderer::render(Camera* camera)
 			terrainMeshData->blueTexture->bind(3);
 			terrainMeshData->blendMap->bind(4);
 
-			glDrawElements(GL_TRIANGLES, terrainMeshData->indexBuffer->getCount(), GL_UNSIGNED_INT, 0);
+			//glDrawElements(GL_TRIANGLES, terrainMeshData->indexBuffer->getCount(), GL_UNSIGNED_INT, 0);
+			terrainMeshData->vertexArray->draw();
 
 			terrainMeshData->backgroundTexture->unbind();
 
