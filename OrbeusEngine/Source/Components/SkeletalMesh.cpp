@@ -155,7 +155,7 @@ std::unordered_map<std::string, Matrix4> SkeletalMesh::interpolatePoses(KeyFrame
 	std::vector<Key*>& previousKeys = previousFrame->keys;
 	std::vector<Key*>& nextKeys = nextFrame->keys;
 
-	for (int keyIndex = 0; keyIndex < previousKeys.size(); keyIndex++)
+	for (unsigned int keyIndex = 0; keyIndex < previousKeys.size(); keyIndex++)
 	{
 		Key* previousKey = previousKeys[keyIndex];
 		Key* nextKey = nextKeys[keyIndex];

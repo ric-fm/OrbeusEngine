@@ -190,7 +190,7 @@ void SkeletalMeshRenderer::render(Camera* camera)
 				if (mesh->getBoneData() != nullptr)
 				{
 					std::vector< Matrix4>& pose = mesh->currentPoseV;
-					for (int i = 0; i < pose.size(); ++i)
+					for (unsigned int i = 0; i < pose.size(); ++i)
 					{
 						shader->SetMatrix(("boneTransforms[" + std::to_string(i) + "]"), pose[i]);
 					}
@@ -270,7 +270,7 @@ void SkeletalMeshRenderer::render(Camera* camera)
 					//recursiveDrawBones(boneData->rootBone);
 					std::vector< Matrix4>& pose = mesh->currentPoseV;
 
-					for (int i = 0; i < pose.size(); ++i)
+					for (unsigned int i = 0; i < pose.size(); ++i)
 					{
 						if (i != 2)
 						{

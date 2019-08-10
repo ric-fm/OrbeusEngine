@@ -25,7 +25,7 @@ private:
 public:
 	void addEditor(Editor* editor);
 	//void removeEditor(Editor* editor);
-	Editor* getEditor(int idx);
+	Editor* getEditor(unsigned int idx);
 	std::vector<Editor*>& getEditors() { return editors; }
 
 	void init();

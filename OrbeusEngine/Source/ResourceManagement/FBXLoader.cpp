@@ -24,7 +24,7 @@
 
 #include <assert.h> 
 
-Matrix4 getFbxNodeTransformMatrix(FbxNode* node, bool global = true, FbxTime time = 0.0f)
+Matrix4 getFbxNodeTransformMatrix(FbxNode* node, bool global = true, FbxTime time = FbxTime(0))
 {
 	FbxMatrix meshMatrix;
 	if (global)
@@ -33,25 +33,25 @@ Matrix4 getFbxNodeTransformMatrix(FbxNode* node, bool global = true, FbxTime tim
 		meshMatrix = node->EvaluateLocalTransform(time);
 	float f = 100;
 	Matrix4 transform = Matrix4(
-		meshMatrix.Get(0, 0) / f,
-		meshMatrix.Get(1, 0),
-		meshMatrix.Get(2, 0),
-		meshMatrix.Get(3, 0),
+		(float)meshMatrix.Get(0, 0) / f,
+		(float)meshMatrix.Get(1, 0),
+		(float)meshMatrix.Get(2, 0),
+		(float)meshMatrix.Get(3, 0),
 
-		meshMatrix.Get(0, 1),
-		meshMatrix.Get(1, 1),
-		meshMatrix.Get(2, 1) / f,
-		meshMatrix.Get(3, 1),
+		(float)meshMatrix.Get(0, 1),
+		(float)meshMatrix.Get(1, 1),
+		(float)meshMatrix.Get(2, 1) / f,
+		(float)meshMatrix.Get(3, 1),
 
-		meshMatrix.Get(0, 2),
-		meshMatrix.Get(1, 2) / f,
-		meshMatrix.Get(2, 2),
-		meshMatrix.Get(3, 2),
+		(float)meshMatrix.Get(0, 2),
+		(float)meshMatrix.Get(1, 2) / f,
+		(float)meshMatrix.Get(2, 2),
+		(float)meshMatrix.Get(3, 2),
 
-		meshMatrix.Get(0, 3),
-		meshMatrix.Get(1, 3),
-		meshMatrix.Get(2, 3),
-		meshMatrix.Get(3, 3)
+		(float)meshMatrix.Get(0, 3),
+		(float)meshMatrix.Get(1, 3),
+		(float)meshMatrix.Get(2, 3),
+		(float)meshMatrix.Get(3, 3)
 	);
 	//transform.transpose();
 	//return transform;
@@ -64,9 +64,9 @@ Matrix4 getFbxNodeTransformMatrix(FbxNode* node, bool global = true, FbxTime tim
 	FbxVector4 translation;
 	meshMatrix.GetElements(translation, rotation, shearing, scale, sign);
 
-	Vector3 pos(translation.mData[0], translation.mData[1], translation.mData[2]);
-	Quaternion rot(rotation.mData[0], rotation.mData[1], rotation.mData[2], rotation.mData[3]);
-	Vector3 sc(scale.mData[0], scale.mData[1], scale.mData[2]);
+	Vector3 pos((float)translation.mData[0], (float)translation.mData[1], (float)translation.mData[2]);
+	Quaternion rot((float)rotation.mData[0], (float)rotation.mData[1], (float)rotation.mData[2], (float)rotation.mData[3]);
+	Vector3 sc((float)scale.mData[0], (float)scale.mData[1], (float)scale.mData[2]);
 
 	//Matrix4 mat = Matrix4::Translation(pos) * Matrix4::Rotation(rot) * Matrix4::Scaling(sc / 100.0f);
 
@@ -233,7 +233,7 @@ void getMinMaxTime(const std::vector<FbxTime>& times, FbxTime& minTime, FbxTime&
 	if (times.size() == 0)
 		return;
 	minTime = maxTime = times[0];
-	for (int i = 1; i < times.size(); ++i)
+	for (unsigned int i = 1; i < times.size(); ++i)
 	{
 		if (times[i] < minTime)
 			minTime = times[i];
@@ -311,7 +311,7 @@ void recursiveGetMinMaxTimes(NodeAnimData* animData, FbxTime& minTime, FbxTime& 
 		minTime = animData->keyCurve->minTime;
 	if (animData->keyCurve->maxTime > maxTime)
 		maxTime = animData->keyCurve->maxTime;
-	for (int childIndex = 0; childIndex < animData->children.size(); ++childIndex)
+	for (unsigned int childIndex = 0; childIndex < animData->children.size(); ++childIndex)
 	{
 		recursiveGetMinMaxTimes(animData->children[childIndex], minTime, maxTime);
 	}
@@ -392,7 +392,7 @@ void recursiveGetKeys(NodeAnimData* animData, FbxTime time, std::vector<Key*>& k
 		Log::info("");
 	}
 
-	for (int childIndex = 0; childIndex < animData->children.size(); ++childIndex)
+	for (unsigned int childIndex = 0; childIndex < animData->children.size(); ++childIndex)
 	{
 		recursiveGetKeys(animData->children[childIndex], time, keys, meshTransform, boneMap);
 	}
@@ -447,13 +447,13 @@ AnimationData* getAnimations(FbxScene* scene, FbxNode* skeletonRootNode, BoneDat
 			FbxTime length;
 			getAnimationTimes(rootWorkingNode, startTime, endTime, length);
 
-			float keyFrameStart = startTime.GetSecondDouble();
-			float keyFrameEnd = endTime.GetSecondDouble();
-			float keyFrameLength = length.GetSecondDouble();
+			float keyFrameStart = (float)startTime.GetSecondDouble();
+			float keyFrameEnd = (float)endTime.GetSecondDouble();
+			float keyFrameLength = (float)length.GetSecondDouble();
 			animation->length = keyFrameLength;// * 1000.0f; //TODO: Mejor en milisegundos o segundos?
 
 			int framesPerSeconds = 24;
-			int numFrames = ceil(keyFrameLength * framesPerSeconds);
+			int numFrames = (int)ceil(keyFrameLength * framesPerSeconds);
 			float samplingInterval = keyFrameLength / numFrames;
 
 			FbxMatrix meshMatrix = skeletonRootNode->EvaluateGlobalTransform();
@@ -930,7 +930,7 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 			assert(materialIndice->GetCount() == polygonCount);
 			if (materialIndice->GetCount() == polygonCount)
 			{
-				for (int polyIndex = 0; polyIndex < polygonCount; ++polyIndex)
+				for (unsigned int polyIndex = 0; polyIndex < polygonCount; ++polyIndex)
 				{
 					const int materialIndex = materialIndice->GetAt(polyIndex);
 					if (subMeshes.GetCount() < materialIndex + 1)
@@ -1093,7 +1093,7 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 	//std::unordered_map<unsigned int, unsigned int> indexMap2;
 
 	int vertexCount = 0;
-	for (int polygonIndex = 0; polygonIndex < polygonCount; ++polygonIndex)
+	for (unsigned int polygonIndex = 0; polygonIndex < polygonCount; ++polygonIndex)
 	{
 		// The material for current face.
 		int materialIndex = 0;
@@ -1261,9 +1261,9 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 				for (auto& idx : vIndices)
 				{
 					Vertex& v = vertices[idx];
-					for (int i = 0; i < boneWeights.size() && i < 3; ++i)
+					for (unsigned int i = 0; i < boneWeights.size() && i < 3; ++i)
 					{
-						v.ids[i] = boneWeights[i].boneIndex;
+						v.ids[i] = (float)boneWeights[i].boneIndex;
 						v.weights[i] = boneWeights[i].weight;
 					}
 					v.weights.normalize();
@@ -1272,9 +1272,9 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 				for (auto& idx : vIndices2)
 				{
 					Vertex2& v = vertices2[idx];
-					for (int i = 0; i < boneWeights.size() && i < 3; ++i)
+					for (unsigned int i = 0; i < boneWeights.size() && i < 3; ++i)
 					{
-						v.ids[i] = boneWeights[i].boneIndex;
+						v.ids[i] = (float)boneWeights[i].boneIndex;
 						v.weights[i] = boneWeights[i].weight;
 					}
 					v.weights.normalize();
@@ -1327,7 +1327,7 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 			if (p.IsValid())
 			{
 				FbxDouble3 diffuseColor = p.Get<FbxDouble3>();
-				material.diffuse.set(diffuseColor[0], diffuseColor[1], diffuseColor[2]);
+				material.diffuse.set((float)diffuseColor[0], (float)diffuseColor[1], (float)diffuseColor[2]);
 			}
 			p = surfaceMaterial->FindProperty(FbxSurfaceMaterial::sDiffuseFactor);
 			if (p.IsValid())
@@ -1337,7 +1337,7 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 			if (p.IsValid())
 			{
 				FbxDouble3 specularColor = p.Get<FbxDouble3>();
-				material.specular.set(specularColor[0], specularColor[1], specularColor[2]);
+				material.specular.set((float)specularColor[0], (float)specularColor[1], (float)specularColor[2]);
 			}
 			p = surfaceMaterial->FindProperty(FbxSurfaceMaterial::sSpecularFactor);
 			if (p.IsValid())

@@ -6,7 +6,7 @@ class Shader;
 class Camera;
 class MeshData;
 
-class Matrix4;
+struct Matrix4;
 struct Bone;
 
 class SkeletalMeshRenderer

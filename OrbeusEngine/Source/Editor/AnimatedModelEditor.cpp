@@ -73,7 +73,7 @@ void AnimatedModelEditor::render()
 		std::vector<Bone*> bones;
 		recursiveGetBones(boneData->rootBone, bones);
 		std::string boneItems;
-		for (int i = 0; i < bones.size(); ++i)
+		for (unsigned int i = 0; i < bones.size(); ++i)
 		{
 			Bone* bone = bones[i];
 			boneItems += bone->name;
@@ -133,7 +133,7 @@ void AnimatedModelEditor::render()
 		Animation* currentAnimation = selectedMesh->getCurrentAnimation();
 
 		std::string animationItems;
-		for (int i = 0; i < animData->animations.size(); ++i)
+		for (unsigned int i = 0; i < animData->animations.size(); ++i)
 		{
 			Animation* animation = animData->animations[i];
 			animationItems += animation->name;

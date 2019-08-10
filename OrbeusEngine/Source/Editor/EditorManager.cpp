@@ -16,7 +16,7 @@ void EditorManager::addEditor(Editor* editor)
 //	
 //}
 
-Editor * EditorManager::getEditor(int idx)
+Editor * EditorManager::getEditor(unsigned int idx)
 {
 	if (idx >= 0 && idx < editors.size())
 		return editors[idx];

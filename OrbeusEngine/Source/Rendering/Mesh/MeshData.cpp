@@ -2,6 +2,7 @@
 
 #include "Rendering\VertexArray.h"
 #include "Rendering\VertexBuffer.h"
+#include "Rendering\IndexBuffer.h"
 
 
 MeshData::MeshData()
