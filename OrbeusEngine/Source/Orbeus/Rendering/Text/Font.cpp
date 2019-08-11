@@ -84,9 +84,10 @@ TextMeshData* Font::loadText(const std::string& text, float fontSize)
 
 	result->vertexBuffer = ORB::VertexBuffer::Create(&data[0], data.size() * sizeof(float), data.size());
 
-	ORB::VertexBufferLayout layout;
-	layout.Push<float>(2);
-	layout.Push<float>(2);
+	ORB::VertexBufferLayout layout = {
+		{"aPos", ORB::AttributeType::FLOAT2},
+		{"aTexCoord", ORB::AttributeType::FLOAT2}
+	};
 
 	result->vertexArray = ORB::VertexArray::Create();
 	result->vertexArray->addVertexBuffer(result->vertexBuffer, layout);

@@ -289,9 +289,9 @@ MeshData* MeshLoader::loadMesh(const std::string& filePath, bool indexed)
 		result->indexBuffer = ORB::IndexBuffer::Create(indices.data(), indices.size());
 	}
 	ORB::VertexBufferLayout layout;
-	layout.Push<float>(3);
-	layout.Push<float>(3);
-	layout.Push<float>(2);
+	layout.push({ "aPos", ORB::AttributeType::FLOAT3 });
+	layout.push({ "aNormal", ORB::AttributeType::FLOAT3 });
+	layout.push({ "aTexCoord", ORB::AttributeType::FLOAT2 });
 
 	result->vertexArray->addVertexBuffer(result->vertexBuffer, layout);
 	result->vertexArray->setIndexBuffer(result->indexBuffer);

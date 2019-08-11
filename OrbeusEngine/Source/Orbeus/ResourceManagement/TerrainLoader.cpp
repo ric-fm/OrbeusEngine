@@ -100,10 +100,11 @@ TerrainMeshData * TerrainLoader::generateTerrain(const std::string & backgroundT
 	result->vertexArray = ORB::VertexArray::Create();
 	result->vertexBuffer = ORB::VertexBuffer::Create(&vertices[0], vertices.size() * sizeof(Vertex), vertices.size());
 	result->indexBuffer = ORB::IndexBuffer::Create(&indices[0], indices.size());
-	ORB::VertexBufferLayout layout;
-	layout.Push<float>(3);
-	layout.Push<float>(3);
-	layout.Push<float>(2);
+	ORB::VertexBufferLayout layout = {
+		{"aPos", ORB::AttributeType::FLOAT3},
+		{"aNormal", ORB::AttributeType::FLOAT3},
+		{"aTexCoord", ORB::AttributeType::FLOAT2}
+	};
 
 	result->vertexArray->addVertexBuffer(result->vertexBuffer, layout);
 

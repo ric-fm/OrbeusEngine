@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 #include <assert.h>
 
@@ -29,7 +30,7 @@ namespace ORB
 		static IndexBuffer* Create(const unsigned int* data, unsigned int count);
 	};
 
-	enum VertexBuferAttributeType
+	enum class AttributeType
 	{
 		NONE = 0,
 		BOOL,
@@ -38,57 +39,94 @@ namespace ORB
 		MATRIX3, MATRIX4
 	};
 
-	static int GetAttributeTypeSize(VertexBuferAttributeType type)
+	static int GetAttributeTypeSize(AttributeType type)
 	{
 		switch (type)
 		{
-		case ORB::BOOL:
+		case AttributeType::BOOL:
 			return 1;
 			break;
-		case ORB::INT:
+		case AttributeType::INT:
 			return 4;
 			break;
-		case ORB::INT2:
+		case AttributeType::INT2:
 			return 4*2;
 			break;
-		case ORB::INT3:
+		case AttributeType::INT3:
 			return 4*3;
 			break;
-		case ORB::INT4:
+		case AttributeType::INT4:
 			return 4*4;
 			break;
-		case ORB::FLOAT:
+		case AttributeType::FLOAT:
 			return 4;
 			break;
-		case ORB::FLOAT2:
+		case AttributeType::FLOAT2:
 			return 4*2;
 			break;
-		case ORB::FLOAT3:
+		case AttributeType::FLOAT3:
 			return 4*3;
 			break;
-		case ORB::FLOAT4:
+		case AttributeType::FLOAT4:
 			return 4*4;
 			break;
-		case ORB::MATRIX3:
+		case AttributeType::MATRIX3:
 			return 3*3*4;
 			break;
-		case ORB::MATRIX4:
+		case AttributeType::MATRIX4:
 			return 4*4*4;
 			break;
 		}
 		assert(false); // UNKNOW VERTEX BUFFER ATTRIBUTE TYPE
 		return 0;
 	}
+	static int GetAttributeTypeCount(AttributeType type)
+	{
+		switch (type)
+		{
+		case AttributeType::BOOL:
+		case AttributeType::INT:
+		case AttributeType::FLOAT:
+			return 1;
+			break;
+		case AttributeType::INT2:
+		case AttributeType::FLOAT2:
+			return 2;
+			break;
+		case AttributeType::FLOAT3:
+		case AttributeType::INT3:
+			return 3;
+			break;
+		case AttributeType::INT4:
+		case AttributeType::FLOAT4:
+			return 4;
+			break;
+		case AttributeType::MATRIX3:
+			return 3 * 3;
+			break;
+		case AttributeType::MATRIX4:
+			return 4 * 4;
+			break;
+		}
+		assert(false); // UNKNOW ATTRIBUTE TYPE
+		return 0;
+	}
 
 	struct VertexBufferAttribute
 	{
-		VertexBuferAttributeType type;
-		unsigned int count;
+		AttributeType type;
 		unsigned char normalized;
+
+		VertexBufferAttribute(AttributeType type, bool normalized = false)
+			: type(type), normalized(normalized)
+		{
+		}
+		VertexBufferAttribute(const std::string&, AttributeType type, bool normalized = false)
+			: type(type), normalized(normalized)
+		{
+		}
 	};
 
-
-	//@TODO: Use initializer lists
 	class VertexBufferLayout
 	{
 	public:
@@ -97,27 +135,23 @@ namespace ORB
 		{
 		}
 
-		std::vector<VertexBufferAttribute>& getAttributes() { return attributes; }
-		unsigned int getStride() { return stride; }
-
-		template<typename T>
-		void Push(unsigned int count)
+		VertexBufferLayout(const std::initializer_list<VertexBufferAttribute>& attributes)
+			: stride(0), attributes(attributes)
 		{
-			static_assert(false);
+			for (unsigned int i = 0; i < this->attributes.size(); ++i)
+			{
+				VertexBufferAttribute& attribute = this->attributes[i];
+				stride += GetAttributeTypeSize(attribute.type);
+			}
 		}
 
-		template<>
-		void Push<float>(unsigned int count)
-		{
-			attributes.push_back({ VertexBuferAttributeType::FLOAT, count, false });
-			stride += count * GetAttributeTypeSize(VertexBuferAttributeType::FLOAT);
-		}
+		const std::vector<VertexBufferAttribute>& getAttributes() const { return attributes; }
+		unsigned int getStride() const { return stride; }
 
-		template<>
-		void Push<unsigned int>(unsigned int count)
+		void push(VertexBufferAttribute attribute)
 		{
-			attributes.push_back({ VertexBuferAttributeType::INT, count, false });
-			stride += count * sizeof(VertexBuferAttributeType::INT);
+			attributes.push_back(attribute);
+			stride += GetAttributeTypeSize(attribute.type);
 		}
 
 	private:

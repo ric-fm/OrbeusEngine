@@ -24,10 +24,11 @@ Quad::Quad(Shader* shader)
 	};
 
 	vertexBuffer = ORB::VertexBuffer::Create(vertices, sizeof(vertices), 6);
-	ORB::VertexBufferLayout layout;
-	layout.Push<float>(3);
-	layout.Push<float>(3);
-	layout.Push<float>(2);
+	ORB::VertexBufferLayout layout = {
+		{"aPos", ORB::AttributeType::FLOAT3},
+		{"aNormal", ORB::AttributeType::FLOAT3},
+		{"aTexCoord", ORB::AttributeType::FLOAT2}
+	};
 
 	vertexArray = ORB::VertexArray::Create();
 	vertexArray->addVertexBuffer(vertexBuffer, layout);

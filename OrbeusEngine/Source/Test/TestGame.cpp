@@ -198,7 +198,7 @@ void TestGame::preInit()
 	GameObject* cubeOBJ = new GameObject("Cube OBJ");
 	cubeOBJ->getTransform()->setRelativePosition(Vector3(2, 0, 0));
 	//cubeOBJ->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(0, 180, 0)));
-	cubeOBJ->addComponent<Mesh>(new Mesh("Resources/Models/Animation/test.obj"));
+	cubeOBJ->addComponent<Mesh>(new Mesh("Resources/Models/Cube/Cube.obj"));
 	World::getInstance().addGameObject(cubeOBJ);
 }
 

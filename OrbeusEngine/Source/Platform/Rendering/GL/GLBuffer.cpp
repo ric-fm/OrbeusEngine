@@ -56,21 +56,21 @@ namespace ORB
 	{
 		switch (attribute.type)
 		{
-		case VertexBuferAttributeType::BOOL:
+		case AttributeType::BOOL:
 			return GL_BOOL;
 			break;
-		case VertexBuferAttributeType::INT:
-		case VertexBuferAttributeType::INT2:
-		case VertexBuferAttributeType::INT3:
-		case VertexBuferAttributeType::INT4:
+		case AttributeType::INT:
+		case AttributeType::INT2:
+		case AttributeType::INT3:
+		case AttributeType::INT4:
 			return GL_INT;
 			break;
-		case VertexBuferAttributeType::FLOAT:
-		case VertexBuferAttributeType::FLOAT2:
-		case VertexBuferAttributeType::FLOAT3:
-		case VertexBuferAttributeType::FLOAT4:
-		case VertexBuferAttributeType::MATRIX3:
-		case VertexBuferAttributeType::MATRIX4:
+		case AttributeType::FLOAT:
+		case AttributeType::FLOAT2:
+		case AttributeType::FLOAT3:
+		case AttributeType::FLOAT4:
+		case AttributeType::MATRIX3:
+		case AttributeType::MATRIX4:
 			return GL_FLOAT;
 			break;
 		}
@@ -79,7 +79,7 @@ namespace ORB
 	}
 
 	GLVertexArray::GLVertexArray()
-		: ID(0), vertexBuffers(), indexBuffer(nullptr)
+		: ID(0), vertexBuffersCount(0), indexBuffer(nullptr)
 	{
 		glGenVertexArrays(1, &ID);
 		glBindVertexArray(ID);
@@ -94,26 +94,25 @@ namespace ORB
 	{
 		GLVertexBuffer* buffer = static_cast<GLVertexBuffer*>(vertexBuffer);
 
-		bind();
+		glBindVertexArray(ID);
 		buffer->bind();
 
-		std::vector<VertexBufferAttribute>& attributes = layout.getAttributes();
+		const std::vector<VertexBufferAttribute>& attributes = layout.getAttributes();
 		unsigned int offset = 0;
 		for (unsigned int i = 0; i < attributes.size(); ++i)
 		{
-			VertexBufferAttribute& attribute = attributes[i];
-
+			const VertexBufferAttribute& attribute = attributes[i];
 			glEnableVertexAttribArray(i);
 			glVertexAttribPointer(
 				i,
-				attribute.count,
+				GetAttributeTypeCount(attribute.type),
 				GetGLType(attribute),
 				attribute.normalized ? GL_TRUE : GL_FALSE,
 				layout.getStride(),
 				(void*)offset
 			);
 
-			offset += attribute.count * GetAttributeTypeSize(attribute.type);
+			offset += GetAttributeTypeSize(attribute.type);
 		}
 		vertexBuffersCount += buffer->getCount();
 		vertexBuffers.push_back(buffer);
@@ -136,7 +135,7 @@ namespace ORB
 
 	void GLVertexArray::draw() const
 	{
-		bind();
+		glBindVertexArray(ID);
 		if (indexBuffer != nullptr)
 		{
 			glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, 0);

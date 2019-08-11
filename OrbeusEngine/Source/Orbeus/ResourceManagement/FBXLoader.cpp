@@ -1298,8 +1298,8 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 					vertex2.weights[i] = boneWeights[i].weight;*/
 
 
-				//}
-				//vertex2.weights.normalize();
+					//}
+					//vertex2.weights.normalize();
 			}
 			//Log::info("");
 		}
@@ -1388,12 +1388,13 @@ MeshData* FBXLoader::getMesh(FbxScene* scene, FbxMesh* mesh, FbxNode* skeletonRo
 	result->vertexBuffer = ORB::VertexBuffer::Create(vertices2.data(), vertices2.size() * sizeof(Vertex2), vertices2.size());
 	result->indexBuffer = ORB::IndexBuffer::Create(indices2.data(), indices2.size());
 
-	ORB::VertexBufferLayout layout;
-	layout.Push<float>(3); // pos
-	layout.Push<float>(3); // normal
-	layout.Push<float>(2); // uv
-	layout.Push<float>(3); // ids
-	layout.Push<float>(3); // weights
+	ORB::VertexBufferLayout layout = {
+		{"aPos", ORB::AttributeType::FLOAT3},
+		{"aNormal", ORB::AttributeType::FLOAT3},
+		{"aTexCoord", ORB::AttributeType::FLOAT2},
+		{"aIndices", ORB::AttributeType::FLOAT3},
+		{"aWeights", ORB::AttributeType::FLOAT3},
+	};
 
 	result->vertexArray->addVertexBuffer(result->vertexBuffer, layout);
 	result->vertexArray->setIndexBuffer(result->indexBuffer);
