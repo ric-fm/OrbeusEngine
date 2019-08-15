@@ -153,6 +153,7 @@
     <ClCompile Include="Source\Orbeus\Components\WaterPlane.cpp" />
     <ClCompile Include="Source\Orbeus\Editor\AnimatedModelEditor.cpp" />
     <ClCompile Include="Source\Orbeus\Editor\EditorManager.cpp" />
+    <ClCompile Include="Source\Orbeus\Editor\ShaderLogEditor.cpp" />
     <ClCompile Include="Source\Orbeus\Logging\VisualLogger.cpp" />
     <ClCompile Include="Source\Orbeus\Math\Quaternion.cpp" />
     <ClCompile Include="Source\Orbeus\Math\Vector4.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="Source\Orbeus\Editor\AnimatedModelEditor.h" />
     <ClInclude Include="Source\Orbeus\Editor\Editor.h" />
     <ClInclude Include="Source\Orbeus\Editor\EditorManager.h" />
+    <ClInclude Include="Source\Orbeus\Editor\ShaderLogEditor.h" />
     <ClInclude Include="Source\Orbeus\Logging\VisualLogger.h" />
     <ClInclude Include="Source\Orbeus\Math\Quaternion.h" />
     <ClInclude Include="Source\Orbeus\Math\Vector4.h" />

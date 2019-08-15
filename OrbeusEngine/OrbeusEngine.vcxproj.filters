@@ -64,6 +64,7 @@
     <ClCompile Include="Source\Orbeus\Window\Window.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Buffer.cpp" />
     <ClCompile Include="Source\Platform\Rendering\GL\GLBuffer.cpp" />
+    <ClCompile Include="Source\Orbeus\Editor\ShaderLogEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Source\Orbeus\Window\Window.h" />
     <ClInclude Include="Source\Orbeus\Rendering\Buffer.h" />
     <ClInclude Include="Source\Platform\Rendering\GL\GLBuffer.h" />
+    <ClInclude Include="Source\Orbeus\Editor\ShaderLogEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\grass.png" />

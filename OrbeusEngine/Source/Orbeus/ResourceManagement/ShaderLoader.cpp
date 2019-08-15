@@ -5,7 +5,6 @@
 
 #include <GL/glew.h>
 
-#include "Orbeus/Rendering/Shader.h"
 #include "Orbeus/Utils/Log.h"
 
 std::string readShaderFile(const std::string& filePath)
@@ -57,7 +56,7 @@ std::string readShaderFile(const std::string& filePath)
 
 Shader* ShaderLoader::loadShader(const std::string& vertexFilePath, const std::string& fragmentFilePath)
 {
-	Shader* result = new Shader();
+	Shader* result = new Shader(vertexFilePath, fragmentFilePath);
 
 	std::string vertexSource = readShaderFile(vertexFilePath);
 	std::string fragmentSource = readShaderFile(fragmentFilePath);
@@ -88,17 +87,17 @@ Shader* ShaderLoader::loadShader(const std::string& vertexFilePath, const std::s
 		Log::error("FRAGMENT COMPILATION FAILED: %s", infoLog);
 	}
 
-	result->id = glCreateProgram();
+	result->ID = glCreateProgram();
 
-	glAttachShader(result->id, vertexShader);
-	glAttachShader(result->id, fragmentShader);
-	glLinkProgram(result->id);
+	glAttachShader(result->ID, vertexShader);
+	glAttachShader(result->ID, fragmentShader);
+	glLinkProgram(result->ID);
 
 
-	glGetProgramiv(result->id, GL_LINK_STATUS, &success);
+	glGetProgramiv(result->ID, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		glGetProgramInfoLog(result->id, 512, NULL, infoLog);
+		glGetProgramInfoLog(result->ID, 512, NULL, infoLog);
 		Log::error("SHADER LINKING FAILED: %s", infoLog);
 
 	}
@@ -106,5 +105,48 @@ Shader* ShaderLoader::loadShader(const std::string& vertexFilePath, const std::s
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
-	return result;;
+	registerAttributesAndUniforms(result);
+
+	return result;
+}
+
+void ShaderLoader::registerAttributesAndUniforms(Shader* shader)
+{
+	//@NOTE glGetProgramResource is for OpenGL 4.3+
+	GLint numActiveAttribs = 0;
+	GLint numActiveUniforms = 0;
+	glGetProgramInterfaceiv(shader->ID, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &numActiveAttribs);
+	glGetProgramInterfaceiv(shader->ID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &numActiveUniforms);
+
+	std::vector<GLchar> nameData(256);
+	std::vector<GLenum> properties;
+	properties.push_back(GL_NAME_LENGTH);
+	properties.push_back(GL_TYPE);
+	properties.push_back(GL_LOCATION);
+	properties.push_back(GL_REFERENCED_BY_VERTEX_SHADER);
+	properties.push_back(GL_REFERENCED_BY_FRAGMENT_SHADER);
+	std::vector<GLint> values(properties.size());
+	for (int attrib = 0; attrib < numActiveAttribs; ++attrib)
+	{
+		glGetProgramResourceiv(shader->ID, GL_PROGRAM_INPUT, attrib, properties.size(),
+			&properties[0], values.size(), NULL, &values[0]);
+
+		nameData.resize(values[0]); //The length of the name.
+		glGetProgramResourceName(shader->ID, GL_PROGRAM_INPUT, attrib, nameData.size(), NULL, &nameData[0]);
+		std::string name((char*)& nameData[0], nameData.size() - 1);
+		shader->registerAttribute(name, GLIntToGLDataType(values[1]), values[2]);
+	}
+
+	for (int unif = 0; unif < numActiveUniforms; ++unif)
+	{
+		glGetProgramResourceiv(shader->ID, GL_UNIFORM, unif, properties.size(),
+			&properties[0], values.size(), NULL, &values[0]);
+
+		nameData.resize(values[0]); //The length of the name.
+		glGetProgramResourceName(shader->ID, GL_UNIFORM, unif, nameData.size(), NULL, &nameData[0]);
+
+		std::string name((char*)& nameData[0], nameData.size() - 1);
+		GLStageType stage(values[3] ? GLStageType::VERTEX : values[4] ? GLStageType::PIXEL : GLStageType::NONE);
+		shader->registerUniform(name, GLIntToGLDataType(values[1]), stage, values[2]);
+	}
 }

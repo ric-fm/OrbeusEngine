@@ -1,44 +1,42 @@
 #include "Shader.h"
 
-#include <GL/glew.h>
-
 #include "Orbeus/Math/Vector2.h"
 #include "Orbeus/Math/Vector3.h"
 #include "Orbeus/Math/Vector4.h"
 #include "Orbeus/Math/Matrix4.h"
-#include "Orbeus/Utils/Log.h"
 
-
-Shader::Shader()
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
+	: ID(0), vertexPath(vertexPath), fragmentPath(fragmentPath)
 {
 }
 
 Shader::~Shader()
 {
-	glDeleteProgram(id);
+	glDeleteProgram(ID);
 }
 
 unsigned int Shader::getUniformLocation(const std::string& name)
 {
-	if (uniformLocations.find(name) != uniformLocations.end())
+	if (uniforms.find(name) != uniforms.end())
 	{
-		return uniformLocations[name];
+		return uniforms[name].location;
 	}
+	return -1;
+}
 
-	int location = glGetUniformLocation(id, name.c_str());
-	if (location == -1)
-	{
-		Log::warning("SHADER. Uniform %s doesn't exists", name.c_str());
-	}
-	
-	uniformLocations[name] = location;
+void Shader::registerUniform(const std::string& name, GLDataType type, GLStageType stage, int location)
+{
+	uniforms[name] = { name, type, stage, location };
+}
 
-	return location;
+void Shader::registerAttribute(const std::string& name, GLDataType type, int location)
+{
+	attributes[name] = { name, type, location };
 }
 
 void Shader::bind()
 {
-	glUseProgram(id);
+	glUseProgram(ID);
 }
 
 void Shader::unbind()

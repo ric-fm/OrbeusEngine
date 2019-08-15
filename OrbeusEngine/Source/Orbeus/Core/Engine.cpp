@@ -6,6 +6,7 @@
 #include "Orbeus/Core/Game.h"
 #include "Orbeus/Editor/EditorManager.h"
 #include "Orbeus/Editor/AnimatedModelEditor.h"
+#include "Orbeus/Editor/ShaderLogEditor.h"
 
 #include "GLFW/glfw3.h"
 
@@ -70,6 +71,7 @@ void Engine::init()
 	game->postInit();
 
 	EditorManager::getInstance().addEditor(new AnimatedModelEditor());
+	EditorManager::getInstance().addEditor(new ShaderLogEditor());
 	EditorManager::getInstance().init();
 }
 
