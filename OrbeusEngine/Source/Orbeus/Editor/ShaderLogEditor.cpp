@@ -5,7 +5,7 @@
 
 void ShaderLogEditor::init()
 {
-	shader = ShaderLoader::loadShader("Resources/Shaders/Mesh-vs.shader", "Resources/Shaders/Mesh-fs.shader");
+	shader = ShaderLoader::loadShader("Resources/Shaders/Mesh.vs", "Resources/Shaders/Mesh.fs");
 }
 
 void ShaderLogEditor::destroy()

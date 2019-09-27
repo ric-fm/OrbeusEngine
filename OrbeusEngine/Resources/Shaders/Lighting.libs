@@ -3,51 +3,51 @@ const int MAX_DIRECTIONAL_LIGHTS = 4;
 const int MAX_POINT_LIGHTS = 4;
 const int MAX_SPOT_LIGHTS = 4;
 
-struct BaseLight
+struct orb_BaseLight
 {
 	vec3 color;
 	float intensity;
 };
 
-struct DirectionalLight
+struct orb_DirectionalLight
 {
-	BaseLight base;
+	orb_BaseLight base;
 	vec3 direction;
 };
 
-struct Attenuation
+struct orb_Attenuation
 {
 	float constant;
 	float linear;
 	float exponential;
 };
 
-struct PointLight
+struct orb_PointLight
 {
-	BaseLight base;
+	orb_BaseLight base;
 	vec3 position;
 
-	Attenuation attenuation;
+	orb_Attenuation attenuation;
 	float radius;
 };
 
-struct SpotLight
+struct orb_SpotLight
 {
-	PointLight pointLight;
+	orb_PointLight pointLight;
 	vec3 direction;
 	float cutoff;
 };
 
-struct LightResult
+struct orb_LightResult
 {
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
 };
 
-LightResult calcLight(BaseLight base, vec3 direction, vec3 normal, vec3 viewPos, vec3 worldPos, float specularIntensity, float specularPower)
+orb_LightResult calcLight(orb_BaseLight base, vec3 direction, vec3 normal, vec3 viewPos, vec3 worldPos, float specularIntensity, float specularPower)
 {
-	LightResult result;
+	orb_LightResult result;
 
 	vec3 lightDirection = normalize(-direction);
 
@@ -70,17 +70,18 @@ LightResult calcLight(BaseLight base, vec3 direction, vec3 normal, vec3 viewPos,
 	return result;
 }
 
-LightResult calcDirectionalLight(DirectionalLight directionalLight, vec3 normal, vec3 viewPos, vec3 worldPos, float specularIntensity, float specularPower)
+orb_LightResult calcDirectionalLight(orb_DirectionalLight directionalLight, vec3 normal, vec3 viewPos, vec3 worldPos, float specularIntensity, float specularPower)
 {
 	return calcLight(directionalLight.base, directionalLight.direction, normal, viewPos, worldPos, specularIntensity, specularPower);
 }
 
-LightResult calcPointLight(PointLight pointLight, vec3 normal, vec3 viewPos, vec3 worldPos, float specularIntensity, float specularPower)
+orb_LightResult calcPointLight(orb_PointLight pointLight, vec3 normal, vec3 viewPos, vec3 worldPos, float specularIntensity, float specularPower)
 {
+	orb_LightResult result;
+
 	vec3 lightDirection = normalize(worldPos - pointLight.position);
 	float distanceToPointLight = length(worldPos - pointLight.position);
 
-	LightResult result;
 	if (distanceToPointLight <= pointLight.radius)
 	{
 		float attenuation = 1.0 / (0.00001 +	// Prevent division by 0
@@ -96,12 +97,12 @@ LightResult calcPointLight(PointLight pointLight, vec3 normal, vec3 viewPos, vec
 	return result;
 }
 
-LightResult calcSpotLight(SpotLight spotLight, vec3 normal, vec3 viewPos, vec3 worldPos, float specularIntensity, float specularPower)
+orb_LightResult calcSpotLight(orb_SpotLight spotLight, vec3 normal, vec3 viewPos, vec3 worldPos, float specularIntensity, float specularPower)
 {
+	orb_LightResult result;
+
 	vec3 lightDirection = normalize(worldPos - spotLight.pointLight.position);
 	float spotFactor = dot(lightDirection, spotLight.direction);
-
-	LightResult result;
 
 	if (spotFactor > spotLight.cutoff)
 	{
@@ -116,22 +117,22 @@ LightResult calcSpotLight(SpotLight spotLight, vec3 normal, vec3 viewPos, vec3 w
 
 
 // General data and method for calculate all lights (forward rendering)
-uniform vec3 viewPos;
-uniform vec3 ambientLight;
-uniform DirectionalLight directionalLights[MAX_DIRECTIONAL_LIGHTS];
-uniform PointLight pointLights[MAX_POINT_LIGHTS];
-uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
+uniform vec3 orb_ViewPos;
+uniform vec3 orb_AmbientLight;
+uniform orb_DirectionalLight orb_DirectionalLights[MAX_DIRECTIONAL_LIGHTS];
+uniform orb_PointLight orb_PointLights[MAX_POINT_LIGHTS];
+uniform orb_SpotLight orb_SpotLights[MAX_SPOT_LIGHTS];
 
-LightResult calcLights(vec3 normal, vec3 worldPos)
+orb_LightResult calcLights(vec3 normal, vec3 worldPos)
 {
-	LightResult result;
-	result.ambient = ambientLight;
+	orb_LightResult result;
+	result.ambient = orb_AmbientLight;
 
 	for (int i = 0; i < MAX_DIRECTIONAL_LIGHTS; ++i)
 	{
-		if (directionalLights[i].base.intensity > 0.0)
+		if (orb_DirectionalLights[i].base.intensity > 0.0)
 		{
-			LightResult directionalLight = calcDirectionalLight(directionalLights[i], normal, viewPos, worldPos, 0, 0);
+			orb_LightResult directionalLight = calcDirectionalLight(orb_DirectionalLights[i], normal, orb_ViewPos, worldPos, 0, 0);
 			result.diffuse += directionalLight.diffuse;
 			result.specular += directionalLight.specular;
 		}
@@ -139,9 +140,9 @@ LightResult calcLights(vec3 normal, vec3 worldPos)
 
 	for (int i = 0; i < MAX_POINT_LIGHTS; ++i)
 	{
-		if (pointLights[i].base.intensity > 0.0)
+		if (orb_PointLights[i].base.intensity > 0.0)
 		{
-			LightResult pointLight = calcPointLight(pointLights[i], normal, viewPos, worldPos, 0, 0);
+			orb_LightResult pointLight = calcPointLight(orb_PointLights[i], normal, orb_ViewPos, worldPos, 0, 0);
 			result.diffuse += pointLight.diffuse;
 			result.specular += pointLight.specular;
 		}
@@ -149,9 +150,9 @@ LightResult calcLights(vec3 normal, vec3 worldPos)
 
 	for (int i = 0; i < MAX_SPOT_LIGHTS; ++i)
 	{
-		if (spotLights[i].pointLight.base.intensity > 0.0)
+		if (orb_SpotLights[i].pointLight.base.intensity > 0.0)
 		{
-			LightResult spotLight = calcSpotLight(spotLights[i], normal, viewPos, worldPos, 0, 0);
+			orb_LightResult spotLight = calcSpotLight(orb_SpotLights[i], normal, orb_ViewPos, worldPos, 0, 0);
 			result.diffuse += spotLight.diffuse;
 			result.specular += spotLight.specular;
 		}

@@ -19,7 +19,7 @@
 
 MeshRenderer::MeshRenderer()
 {
-	shader = ShaderLoader::loadShader("Resources/Shaders/Mesh-vs.shader", "Resources/Shaders/Mesh-fs.shader");
+	shader = ShaderLoader::loadShader("Resources/Shaders/Mesh.vs", "Resources/Shaders/Mesh.fs");
 }
 
 MeshRenderer::~MeshRenderer()
@@ -40,48 +40,48 @@ void MeshRenderer::render(Camera* camera)
 	if (meshes.size() > 0)
 	{
 		shader->bind();
-		shader->SetMatrix("view", camera->getViewMatrix());
-		shader->SetMatrix("projection", camera->getProjectionMatrix());
-		shader->SetFloat3("viewPos", camera->getTransform()->getPosition());
-		shader->SetFloat3("ambientLight", camera->getAmbientLight());
-		shader->SetFloat4("clipPlane", camera->getClipPlane());
+		shader->SetMatrix("orb_Proj", camera->getProjectionMatrix());
+		shader->SetMatrix("orb_View", camera->getViewMatrix());
+		//shader->SetFloat3("viewPos", camera->getTransform()->getPosition());
+		shader->SetFloat3("orb_AmbientLight", camera->getAmbientLight());
+		shader->SetFloat4("orb_ClipPlane", camera->getClipPlane());
 
 		for (unsigned int i = 0; i < directionalLights.size() && i < 4; ++i)
 		{
 			DirectionalLight* directionalLight = directionalLights[i];
 
 
-			shader->SetFloat3("directionalLights[" + std::to_string(i) + "].base.color", directionalLight->getColor());
-			shader->SetFloat("directionalLights[" + std::to_string(i) + "].base.intensity", directionalLight->getIntensity());
-			shader->SetFloat3("directionalLights[" + std::to_string(i) + "].direction", directionalLight->getTransform()->getForwardVector());
+			shader->SetFloat3("orb_DirectionalLights[" + std::to_string(i) + "].base.color", directionalLight->getColor());
+			shader->SetFloat("orb_DirectionalLights[" + std::to_string(i) + "].base.intensity", directionalLight->getIntensity());
+			shader->SetFloat3("orb_DirectionalLights[" + std::to_string(i) + "].direction", directionalLight->getTransform()->getForwardVector());
 		}
 
 		for (unsigned int i = 0; i < pointLights.size() && i < 4; ++i)
 		{
 			PointLight* pointLight = pointLights[i];
 
-			shader->SetFloat3("pointLights[" + std::to_string(i) + "].base.color", pointLight->getColor());
-			shader->SetFloat("pointLights[" + std::to_string(i) + "].base.intensity", pointLight->getIntensity());
-			shader->SetFloat3("pointLights[" + std::to_string(i) + "].position", pointLight->getTransform()->getPosition());
-			shader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.constant", pointLight->getAttenuation().constant);
-			shader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.linear", pointLight->getAttenuation().linear);
-			shader->SetFloat("pointLights[" + std::to_string(i) + "].attenuation.exponential", pointLight->getAttenuation().exponential);
-			shader->SetFloat("pointLights[" + std::to_string(i) + "].radius", pointLight->getRadius());
+			shader->SetFloat3("orb_PointLights[" + std::to_string(i) + "].base.color", pointLight->getColor());
+			shader->SetFloat("orb_PointLights[" + std::to_string(i) + "].base.intensity", pointLight->getIntensity());
+			shader->SetFloat3("orb_PointLights[" + std::to_string(i) + "].position", pointLight->getTransform()->getPosition());
+			shader->SetFloat("orb_PointLights[" + std::to_string(i) + "].attenuation.constant", pointLight->getAttenuation().constant);
+			shader->SetFloat("orb_PointLights[" + std::to_string(i) + "].attenuation.linear", pointLight->getAttenuation().linear);
+			shader->SetFloat("orb_PointLights[" + std::to_string(i) + "].attenuation.exponential", pointLight->getAttenuation().exponential);
+			shader->SetFloat("orb_PointLights[" + std::to_string(i) + "].radius", pointLight->getRadius());
 		}
 
 		for (unsigned int i = 0; i < spotLights.size() && i < 4; ++i)
 		{
 			SpotLight* spotLight = spotLights[i];
 
-			shader->SetFloat3("spotLights[" + std::to_string(i) + "].pointLight.base.color", spotLight->getColor());
-			shader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.base.intensity", spotLight->getIntensity());
-			shader->SetFloat3("spotLights[" + std::to_string(i) + "].pointLight.position", spotLight->getTransform()->getPosition());
-			shader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.constant", spotLight->getAttenuation().constant);
-			shader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.linear", spotLight->getAttenuation().linear);
-			shader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.attenuation.exponential", spotLight->getAttenuation().exponential);
-			shader->SetFloat("spotLights[" + std::to_string(i) + "].pointLight.radius", spotLight->getRadius());
-			shader->SetFloat3("spotLights[" + std::to_string(i) + "].direction", spotLight->getTransform()->getForwardVector());
-			shader->SetFloat("spotLights[" + std::to_string(i) + "].cutoff", spotLight->getCutOff());
+			shader->SetFloat3("orb_SpotLights[" + std::to_string(i) + "].pointLight.base.color", spotLight->getColor());
+			shader->SetFloat("orb_SpotLights[" + std::to_string(i) + "].pointLight.base.intensity", spotLight->getIntensity());
+			shader->SetFloat3("orb_SpotLights[" + std::to_string(i) + "].pointLight.position", spotLight->getTransform()->getPosition());
+			shader->SetFloat("orb_SpotLights[" + std::to_string(i) + "].pointLight.attenuation.constant", spotLight->getAttenuation().constant);
+			shader->SetFloat("orb_SpotLights[" + std::to_string(i) + "].pointLight.attenuation.linear", spotLight->getAttenuation().linear);
+			shader->SetFloat("orb_SpotLights[" + std::to_string(i) + "].pointLight.attenuation.exponential", spotLight->getAttenuation().exponential);
+			shader->SetFloat("orb_SpotLights[" + std::to_string(i) + "].pointLight.radius", spotLight->getRadius());
+			shader->SetFloat3("orb_SpotLights[" + std::to_string(i) + "].direction", spotLight->getTransform()->getForwardVector());
+			shader->SetFloat("orb_SpotLights[" + std::to_string(i) + "].cutoff", spotLight->getCutOff());
 		}
 
 		for (unsigned int i = 0; i < meshes.size(); ++i)
@@ -93,7 +93,7 @@ void MeshRenderer::render(Camera* camera)
 				glDisable(GL_CULL_FACE);
 			}
 
-			shader->SetMatrix("model", mesh->getTransform()->getMatrix());
+			shader->SetMatrix("orb_Model", mesh->getTransform()->getMatrix());
 
 			MeshData* meshData = mesh->getMeshData();
 

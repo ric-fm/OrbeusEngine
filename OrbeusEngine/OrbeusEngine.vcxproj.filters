@@ -64,13 +64,12 @@
     <ClCompile Include="Source\Orbeus\Window\Window.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Buffer.cpp" />
     <ClCompile Include="Source\Platform\Rendering\GL\GLBuffer.cpp" />
+    <ClCompile Include="Source\Orbeus\Rendering\MaterialShader.cpp" />
     <ClCompile Include="Source\Orbeus\Editor\ShaderLogEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
     <None Include="Resources\Shaders\Basic-vs.shader" />
-    <None Include="Resources\Shaders\Mesh-vs.shader" />
-    <None Include="Resources\Shaders\Mesh-fs.shader" />
     <None Include="Resources\Shaders\Phong-vs.shader" />
     <None Include="Resources\Shaders\Phong-fs.shader" />
     <None Include="Resources\Shaders\Forward\Ambient-vs.shader" />
@@ -87,7 +86,6 @@
     <None Include="Resources\Shaders\Test\test-vs.shader" />
     <None Include="Resources\Shaders\Terrain-fs.shader" />
     <None Include="Resources\Shaders\Terrain-vs.shader" />
-    <None Include="Resources\Shaders\Lighting-header.shader" />
     <None Include="Resources\Shaders\SkyBox-fs.shader" />
     <None Include="Resources\Shaders\SkyBox-vs.shader" />
     <None Include="Resources\Shaders\Water-vs.shader" />
@@ -96,6 +94,9 @@
     <None Include="Resources\Shaders\SkeletalMesh-vs.shader" />
     <None Include="Resources\Shaders\Bone-vs.shader" />
     <None Include="Resources\Shaders\Bone-fs.shader" />
+    <None Include="Resources\Shaders\Lighting.libs" />
+    <None Include="Resources\Shaders\Mesh.vs" />
+    <None Include="Resources\Shaders\Mesh.fs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Source\Orbeus\Window\Window.h" />
     <ClInclude Include="Source\Orbeus\Rendering\Buffer.h" />
     <ClInclude Include="Source\Platform\Rendering\GL\GLBuffer.h" />
+    <ClInclude Include="Source\Orbeus\Rendering\MaterialShader.h" />
     <ClInclude Include="Source\Orbeus\Editor\ShaderLogEditor.h" />
   </ItemGroup>
   <ItemGroup>

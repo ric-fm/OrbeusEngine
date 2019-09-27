@@ -22,6 +22,7 @@
 #include "Test/MoveController.h"
 
 #include "Orbeus/ResourceManagement/ResourceManager.h"
+#include "Orbeus/Rendering/MaterialShader.h"
 
 GameObject* textGO = nullptr;
 
@@ -38,6 +39,30 @@ void TestGame::preInit()
 	cameraGO->getTransform()->setRelativePosition(Vector3(0.0f, 3.0f, -8.0f));
 
 	CameraController* cameraController = cameraGO->addComponent<CameraController>(new CameraController());
+
+	ORB::Material m("test", nullptr);
+	m.addFloatProperty("float1");
+	float v = -1.0f;
+	v = m.getFloat("float1");
+	Log::info("2:%f", v);
+
+	m.set("float1", 1.2f);
+	v = m.getFloat("float1");
+	Log::info("3:%f", v);
+
+	Log::info("");
+
+	m.addVector2Property("v2");
+	Vector2 v2;
+	v2 = m.getVector2("v2");
+	Log::info("1:%s", v2.toString().c_str());
+
+	m.set("v2", Vector2(10, 20));
+	v2 = m.getVector2("v2");
+	Log::info("1:%s", v2.toString().c_str());
+
+
+	//m.addFloatProperty("float2");
 
 
 	//GameObject* cube = new GameObject("Cube");
@@ -181,19 +206,19 @@ void TestGame::preInit()
 
 
 
-	GameObject* animatedGO = new GameObject("Animation Test");
-	animatedGO->getTransform()->setRelativePosition(Vector3(-2, 0, 0));
-	//animatedGO->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90, 0, 0)));
-	std::string fbxPath;
-	fbxPath = "Resources/Models/Animation/test.fbx";
-	//fbxPath = "Resources/Models/Animation/test2.fbx";
-	//fbxPath = "Resources/Models/Plane/Plane.fbx";
-	//fbxPath = "Resources/Models/Cube/Cube.fbx";
-	//fbxPath = "Resources/Models/Animation/CubeAxis.fbx";
+	//GameObject* animatedGO = new GameObject("Animation Test");
+	//animatedGO->getTransform()->setRelativePosition(Vector3(-2, 0, 0));
+	////animatedGO->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90, 0, 0)));
+	//std::string fbxPath;
+	//fbxPath = "Resources/Models/Animation/test.fbx";
+	////fbxPath = "Resources/Models/Animation/test2.fbx";
+	////fbxPath = "Resources/Models/Plane/Plane.fbx";
+	////fbxPath = "Resources/Models/Cube/Cube.fbx";
+	////fbxPath = "Resources/Models/Animation/CubeAxis.fbx";
 
-	animatedGO->addComponent<SkeletalMesh>(new SkeletalMesh(fbxPath));
+	//animatedGO->addComponent<SkeletalMesh>(new SkeletalMesh(fbxPath));
 
-	World::getInstance().addGameObject(animatedGO);
+	//World::getInstance().addGameObject(animatedGO);
 
 	GameObject* cubeOBJ = new GameObject("Cube OBJ");
 	cubeOBJ->getTransform()->setRelativePosition(Vector3(2, 0, 0));

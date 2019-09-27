@@ -1,6 +1,6 @@
 #version 330
 
-#include Lighting-header.shader
+#include Lighting.libs
 
 struct Material
 {
@@ -47,7 +47,7 @@ void main()
 		specularColor = vec3(texture(material.texture_specular, TexCoord));
 	}
 
-	LightResult light = calcLights(Normal, WorldPos);
+	orb_LightResult light = calcLights(Normal, WorldPos);
 
 	vec3 ambient = light.ambient * diffuseColor;
 	vec3 diffuse = light.diffuse * diffuseColor;

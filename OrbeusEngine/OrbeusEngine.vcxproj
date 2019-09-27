@@ -159,6 +159,7 @@
     <ClCompile Include="Source\Orbeus\Math\Vector4.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Buffer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\CubeMap.cpp" />
+    <ClCompile Include="Source\Orbeus\Rendering\MaterialShader.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\SkeletalMesh\SkeletalMeshRenderer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\FrameBuffer.cpp" />
     <ClCompile Include="Source\Orbeus\Rendering\Mesh\MeshRenderer.cpp" />
@@ -218,9 +219,9 @@
     <None Include="Resources\Shaders\Forward\Point-vs.shader" />
     <None Include="Resources\Shaders\Forward\Spot-fs.shader" />
     <None Include="Resources\Shaders\Forward\Spot-vs.shader" />
-    <None Include="Resources\Shaders\Lighting-header.shader" />
-    <None Include="Resources\Shaders\Mesh-fs.shader" />
-    <None Include="Resources\Shaders\Mesh-vs.shader" />
+    <None Include="Resources\Shaders\Lighting.libs" />
+    <None Include="Resources\Shaders\Mesh.fs" />
+    <None Include="Resources\Shaders\Mesh.vs" />
     <None Include="Resources\Shaders\Phong-fs.shader" />
     <None Include="Resources\Shaders\Phong-vs.shader" />
     <None Include="Resources\Shaders\SkeletalMesh-fs.shader" />
@@ -260,6 +261,7 @@
     <ClInclude Include="Source\Orbeus\Math\Vector4.h" />
     <ClInclude Include="Source\Orbeus\Rendering\Buffer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\CubeMap.h" />
+    <ClInclude Include="Source\Orbeus\Rendering\MaterialShader.h" />
     <ClInclude Include="Source\Orbeus\Rendering\SkeletalMesh\SkeletalMeshRenderer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\FrameBuffer.h" />
     <ClInclude Include="Source\Orbeus\Rendering\SkeletalMesh\Animation.h" />

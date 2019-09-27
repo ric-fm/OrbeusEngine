@@ -68,11 +68,11 @@ void RenderingEngine::init()
 	}
 
 	meshRenderer = new MeshRenderer();
-	skeletalMeshRenderer = new SkeletalMeshRenderer();
-	textRenderer = new TextRenderer();
-	terrainRenderer = new TerrainRenderer();
-	skyBoxRenderer = new SkyBoxRenderer();
-	waterRenderer = new WaterRenderer();
+	//skeletalMeshRenderer = new SkeletalMeshRenderer();
+	//textRenderer = new TextRenderer();
+	//terrainRenderer = new TerrainRenderer();
+	//skyBoxRenderer = new SkyBoxRenderer();
+	//waterRenderer = new WaterRenderer();
 }
 
 void RenderingEngine::renderScene(Camera* camera)
@@ -87,9 +87,9 @@ void RenderingEngine::renderScene(Camera* camera)
 	}
 
 	meshRenderer->render(camera);
-	skeletalMeshRenderer->render(camera);
-	terrainRenderer->render(camera);
-	skyBoxRenderer->render(camera);
+	//skeletalMeshRenderer->render(camera);
+	//terrainRenderer->render(camera);
+	//skyBoxRenderer->render(camera);
 
 	if (camera->getIsClipPlaneEnabled())
 	{
@@ -100,8 +100,8 @@ void RenderingEngine::renderScene(Camera* camera)
 void RenderingEngine::render(float deltaTime)
 {
 	renderScene(World::getInstance().getActiveCamera());
-	waterRenderer->render(deltaTime);
-	textRenderer->render();
+	//waterRenderer->render(deltaTime);
+	//textRenderer->render();
 
 	// Log Rendering
 	VisualLogger::getInstance().render();
