@@ -94,7 +94,7 @@ void RenderingEngine::renderScene(Camera* camera)
 	//}
 
 	//meshRenderer->render(camera);
-	skeletalMeshRenderer->render(camera);
+	//skeletalMeshRenderer->render(camera);
 	//terrainRenderer->render(camera);
 	//skyBoxRenderer->render(camera);
 
@@ -108,11 +108,11 @@ void RenderingEngine::render(float deltaTime)
 {
 	renderScene(World::getInstance().getActiveCamera());
 	//waterRenderer->render(deltaTime);
-	//uiRenderer->render();
+	uiRenderer->render();
 	//textRenderer->render();
 
 	// Log Rendering
-	VisualLogger::getInstance().render();
+	//VisualLogger::getInstance().render();
  
 	glfwSwapBuffers(engine->getWindow()->getHandler());
 }
