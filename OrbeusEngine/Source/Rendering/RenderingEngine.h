@@ -8,6 +8,7 @@ class Engine;
 class MeshRenderer;
 class SkeletalMeshRenderer;
 class TextRenderer;
+class UIRenderer;
 class TerrainRenderer;
 class SkyBoxRenderer;
 class WaterRenderer;
@@ -21,6 +22,7 @@ private:
 	MeshRenderer* meshRenderer;
 	SkeletalMeshRenderer* skeletalMeshRenderer;
 	TextRenderer* textRenderer;
+	UIRenderer* uiRenderer;
 	TerrainRenderer* terrainRenderer;
 	SkyBoxRenderer* skyBoxRenderer;
 	WaterRenderer* waterRenderer;
@@ -38,6 +40,7 @@ public:
 	MeshRenderer* getMeshRenderer() const { return meshRenderer; }
 	SkeletalMeshRenderer* getSkeletalMeshRenderer() const { return skeletalMeshRenderer; }
 	TextRenderer* getTextRenderer() const { return textRenderer; }
+	UIRenderer* getUIRenderer() const { return uiRenderer; }
 	TerrainRenderer* getTerrainRenderer() const { return terrainRenderer; }
 	SkyBoxRenderer* getSkyBoxRenderer() const { return skyBoxRenderer; }
 };

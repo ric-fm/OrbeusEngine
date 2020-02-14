@@ -12,6 +12,7 @@
 #include "Rendering/Mesh/MeshRenderer.h"
 #include "Rendering/SkeletalMesh/SkeletalMeshRenderer.h"
 #include "Rendering/Text/TextRenderer.h"
+#include "Rendering/UI/UIRenderer.h"
 #include "Rendering/Terrain/TerrainRenderer.h"
 #include "Rendering/SkyBoxRenderer.h"
 #include "Rendering/Water/WaterRenderer.h"
@@ -38,6 +39,10 @@ RenderingEngine::~RenderingEngine()
 	if (textRenderer != nullptr)
 	{
 		delete textRenderer;
+	}
+	if (uiRenderer != nullptr)
+	{
+		delete uiRenderer;
 	}
 	if (terrainRenderer != nullptr)
 	{
@@ -71,6 +76,7 @@ void RenderingEngine::init()
 	meshRenderer = new MeshRenderer();
 	skeletalMeshRenderer = new SkeletalMeshRenderer();
 	textRenderer = new TextRenderer();
+	uiRenderer = new UIRenderer();
 	terrainRenderer = new TerrainRenderer();
 	skyBoxRenderer = new SkyBoxRenderer();
 	waterRenderer = new WaterRenderer();
@@ -82,27 +88,28 @@ void RenderingEngine::renderScene(Camera* camera)
 	glClearColor(clearColor.x, clearColor.y, clearColor.z, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (camera->getIsClipPlaneEnabled())
-	{
-		glEnable(GL_CLIP_DISTANCE0);
-	}
+	//if (camera->getIsClipPlaneEnabled())
+	//{
+	//	glEnable(GL_CLIP_DISTANCE0);
+	//}
 
-	meshRenderer->render(camera);
+	//meshRenderer->render(camera);
 	skeletalMeshRenderer->render(camera);
-	terrainRenderer->render(camera);
-	skyBoxRenderer->render(camera);
+	//terrainRenderer->render(camera);
+	//skyBoxRenderer->render(camera);
 
-	if (camera->getIsClipPlaneEnabled())
-	{
-		glDisable(GL_CLIP_DISTANCE0);
-	}
+	//if (camera->getIsClipPlaneEnabled())
+	//{
+	//	glDisable(GL_CLIP_DISTANCE0);
+	//}
 }
 
 void RenderingEngine::render(float deltaTime)
 {
 	renderScene(World::getInstance().getActiveCamera());
-	waterRenderer->render(deltaTime);
-	textRenderer->render();
+	//waterRenderer->render(deltaTime);
+	//uiRenderer->render();
+	//textRenderer->render();
 
 	// Log Rendering
 	VisualLogger::getInstance().render();

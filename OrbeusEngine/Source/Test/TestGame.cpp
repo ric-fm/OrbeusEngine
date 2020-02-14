@@ -23,6 +23,9 @@
 
 #include "ResourceManagement/ResourceManager.h"
 
+#include "Rendering/UI/UIComponent.h"
+#include "Rendering/UI/UIRenderer.h"
+
 GameObject* textGO = nullptr;
 
 
@@ -200,6 +203,17 @@ void TestGame::preInit()
 	//cubeOBJ->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(0, 180, 0)));
 	cubeOBJ->addComponent<Mesh>(new Mesh("Resources/Models/Animation/test.obj"));
 	World::getInstance().addGameObject(cubeOBJ);
+
+	UIComponent* c1 = new UIComponent();
+	c1->setTransform(RectTransform(Vector2(0, 0), Vector2(100, 100)));
+	c1->getTransform().setPosition(Vector2(0, 0));
+	c1->getTransform().setSize(Vector2(100, 100));
+	c1->setColor(Vector4(1, 0, 0, 1));
+	c1->getTransform().setPivot(Vector2(1.0f, 0.5f));
+	c1->getTransform().setAnchor(Vector2(0.5f, 0.1f), Vector2(1.0f, 1.0f));
+	c1->getTransform().getRect().set(0, 0, 0, 0);
+	//c1->getTransform().setAnchor(Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+	Engine::getInstance().getRenderingEngine()->getUIRenderer()->addComponent(c1);
 }
 
 void TestGame::postInit()

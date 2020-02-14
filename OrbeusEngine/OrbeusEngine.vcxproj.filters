@@ -65,6 +65,9 @@
     <ClCompile Include="Source\Editor\EditorManager.cpp" />
     <ClCompile Include="Source\Rendering\SkeletalMesh\SkeletalMeshRenderer.cpp" />
     <ClCompile Include="Source\Components\SkeletalMesh.cpp" />
+    <ClCompile Include="Source\Rendering\UI\UIRenderer.cpp" />
+    <ClCompile Include="Source\Rendering\UI\UIComponent.cpp" />
+    <ClCompile Include="Source\Math\Rect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic-fs.shader" />
@@ -96,6 +99,8 @@
     <None Include="Resources\Shaders\SkeletalMesh-vs.shader" />
     <None Include="Resources\Shaders\Bone-vs.shader" />
     <None Include="Resources\Shaders\Bone-fs.shader" />
+    <None Include="Resources\Shaders\UI\UIComponent-vs.shader" />
+    <None Include="Resources\Shaders\UI\UIComponent-fs.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\stb_image\Include\stb_image\stb_image.h" />
@@ -170,6 +175,11 @@
     <ClInclude Include="Source\Rendering\SkeletalMesh\SkeletalMeshRenderer.h" />
     <ClInclude Include="Source\Rendering\SkeletalMesh\Bone.h" />
     <ClInclude Include="Source\Components\SkeletalMesh.h" />
+    <ClInclude Include="Source\Rendering\UI\UIRenderer.h" />
+    <ClInclude Include="Source\Rendering\UI\UIComponent.h" />
+    <ClInclude Include="Source\Math\Rect.h" />
+    <ClInclude Include="Source\Rendering\UI\UIPanel.h" />
+    <ClInclude Include="Source\Rendering\UI\UIImage.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\grass.png" />

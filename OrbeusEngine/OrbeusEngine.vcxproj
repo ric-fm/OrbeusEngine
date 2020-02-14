@@ -155,6 +155,7 @@
     <ClCompile Include="Source\Editor\EditorManager.cpp" />
     <ClCompile Include="Source\Logging\VisualLogger.cpp" />
     <ClCompile Include="Source\Math\Quaternion.cpp" />
+    <ClCompile Include="Source\Math\Rect.cpp" />
     <ClCompile Include="Source\Math\Vector4.cpp" />
     <ClCompile Include="Source\Rendering\CubeMap.cpp" />
     <ClCompile Include="Source\Rendering\SkeletalMesh\SkeletalMeshRenderer.cpp" />
@@ -168,6 +169,8 @@
     <ClCompile Include="Source\Rendering\Terrain\TerrainRenderer.cpp" />
     <ClCompile Include="Source\Rendering\Text\Font.cpp" />
     <ClCompile Include="Source\Rendering\Text\TextMeshData.cpp" />
+    <ClCompile Include="Source\Rendering\UI\UIComponent.cpp" />
+    <ClCompile Include="Source\Rendering\UI\UIRenderer.cpp" />
     <ClCompile Include="Source\Rendering\Water\WaterRenderer.cpp" />
     <ClCompile Include="Source\ResourceManagement\CubeMapLoader.cpp" />
     <ClCompile Include="Source\ResourceManagement\FBXLoader.cpp" />
@@ -233,6 +236,8 @@
     <None Include="Resources\Shaders\Text\SDF-fs.shader" />
     <None Include="Resources\Shaders\Text\SDF-vs.shader" />
     <None Include="Resources\Shaders\SkeletalMesh-vs.shader" />
+    <None Include="Resources\Shaders\UI\UIComponent-fs.shader" />
+    <None Include="Resources\Shaders\UI\UIComponent-vs.shader" />
     <None Include="Resources\Shaders\Water-fs.shader" />
     <None Include="Resources\Shaders\Water-vs.shader" />
   </ItemGroup>
@@ -256,6 +261,7 @@
     <ClInclude Include="Source\Editor\EditorManager.h" />
     <ClInclude Include="Source\Logging\VisualLogger.h" />
     <ClInclude Include="Source\Math\Quaternion.h" />
+    <ClInclude Include="Source\Math\Rect.h" />
     <ClInclude Include="Source\Math\Vector4.h" />
     <ClInclude Include="Source\Rendering\CubeMap.h" />
     <ClInclude Include="Source\Rendering\SkeletalMesh\SkeletalMeshRenderer.h" />
@@ -271,6 +277,10 @@
     <ClInclude Include="Source\Rendering\Terrain\TerrainRenderer.h" />
     <ClInclude Include="Source\Rendering\Text\Font.h" />
     <ClInclude Include="Source\Rendering\Text\TextMeshData.h" />
+    <ClInclude Include="Source\Rendering\UI\UIComponent.h" />
+    <ClInclude Include="Source\Rendering\UI\UIImage.h" />
+    <ClInclude Include="Source\Rendering\UI\UIPanel.h" />
+    <ClInclude Include="Source\Rendering\UI\UIRenderer.h" />
     <ClInclude Include="Source\Rendering\Water\WaterRenderer.h" />
     <ClInclude Include="Source\ResourceManagement\CubeMapLoader.h" />
     <ClInclude Include="Source\ResourceManagement\FBXLoader.h" />

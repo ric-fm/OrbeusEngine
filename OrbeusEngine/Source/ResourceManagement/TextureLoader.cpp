@@ -11,7 +11,7 @@ Texture* TextureLoader::loadTexture(const std::string & filePath,const std::stri
 {
 	Texture* result = new Texture();
 	result->type = type;
-	// Enable vertical flip to load the data correctly
+
 	stbi_set_flip_vertically_on_load(flipVertical);
 
 	unsigned char* data = stbi_load(filePath.c_str(), &result->width, &result->height, &result->channels, NULL);
@@ -41,8 +41,8 @@ Texture* TextureLoader::loadTexture(const std::string & filePath,const std::stri
 			GL_TEXTURE_2D,
 			0,					// Mipmap level
 			format,				// Format the texture will be stored
-			result->width,				// Width of the source image
-			result->height,				// Height of the source image
+			result->width,		// Width of the source image
+			result->height,		// Height of the source image
 			0,					// border
 			format,				// Format of the source image
 			GL_UNSIGNED_BYTE,	// Data type of the source image data
