@@ -66,9 +66,9 @@ void TestGame::preInit()
 
 
 	////World::getInstance().addGameObject(floor);
-	////World::getInstance().addGameObject(cube);
-	////World::getInstance().addGameObject(monkey1);
-	////World::getInstance().addGameObject(monkeyMesh1);
+	//World::getInstance().addGameObject(cube);
+	//World::getInstance().addGameObject(monkey1);
+	//World::getInstance().addGameObject(monkeyMesh1);
 
 
 	GameObject* directionalGO0 = new GameObject("Directional0");
@@ -186,10 +186,6 @@ void TestGame::preInit()
 	//animatedGO->getTransform()->setRelativeRotation(Quaternion::EulerAngles(Vector3(-90, 0, 0)));
 	std::string fbxPath;
 	fbxPath = "Resources/Models/Animation/test.fbx";
-	//fbxPath = "Resources/Models/Animation/test2.fbx";
-	//fbxPath = "Resources/Models/Plane/Plane.fbx";
-	//fbxPath = "Resources/Models/Cube/Cube.fbx";
-	//fbxPath = "Resources/Models/Animation/CubeAxis.fbx";
 
 	animatedGO->addComponent<SkeletalMesh>(new SkeletalMesh(fbxPath));
 
